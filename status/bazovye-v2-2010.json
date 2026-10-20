@@ -1,8 +1,10 @@
 {
-  "state": "uploading",
+  "state": "failed",
   "container_id": "18647817451015498",
-  "updated": "2026-10-20T15:05:21+00:00",
+  "updated": "2026-10-20T15:05:59+00:00",
   "history": [
-    "20.10 22:05:21 видео отдано в Instagram"
-  ]
+    "20.10 22:05:21 видео отдано в Instagram",
+    "20.10 22:05:59 ошибка: контейнер ERROR: ERROR"
+  ],
+  "error": "контейнер ERROR: ERROR"
 }
