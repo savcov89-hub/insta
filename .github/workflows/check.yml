@@ -1,0 +1,26 @@
+# Проверка токена и аккаунта. Ничего не публикует.
+# С test_video_url ещё отдаёт видео в Instagram и ждёт обработки (контейнер невидим и сам истекает через сутки).
+name: check-instagram
+on:
+  workflow_dispatch:
+    inputs:
+      test_video_url:
+        description: 'ссылка на mp4 для пробной обработки (необязательно)'
+        required: false
+        default: ''
+      trial:
+        description: 'проверять как пробный Reels'
+        type: boolean
+        default: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: check
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          TEST_VIDEO_URL: ${{ inputs.test_video_url }}
+          TRIAL: ${{ inputs.trial && '1' || '0' }}
+        run: python3 publisher/check.py

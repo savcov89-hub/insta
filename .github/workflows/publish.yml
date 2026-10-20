@@ -1,0 +1,37 @@
+# Выкладка Reels из очереди queue/*.json. Каждые 10 минут смотрит, у кого подошло время.
+name: publish-reels
+on:
+  schedule:
+    - cron: '3-59/10 * * * *'
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'id поста из queue/ — выложить только его (пусто — все, у кого подошло время)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'только показать план, ничего не отправлять'
+        type: boolean
+        default: false
+concurrency:
+  group: publish-reels
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 20   # хватает для pull --rebase перед записью статуса
+      - name: publish
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          ONLY: ${{ inputs.only }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+        run: |
+          git config user.name "reels-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 publisher/run.py
