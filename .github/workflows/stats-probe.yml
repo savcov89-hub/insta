@@ -1,0 +1,21 @@
+# Временная проверка сборщика статистики на ветке (без записи). Удаляется перед слиянием.
+name: stats-probe
+on:
+  push:
+    branches: [claude/project-thread-ppyj7d]
+    paths: [publisher/stats.py, .github/workflows/stats-probe.yml]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: probe
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          DRY_RUN: '1'
+        run: |
+          git fetch -q origin main && git checkout -q FETCH_HEAD -- status queue
+          python3 publisher/stats.py
