@@ -51,6 +51,10 @@ class NoPermission(Exception):
     pass
 
 
+class NoInsights(Exception):
+    """Instagram не отдаёт по ролику ни одной метрики (так бывает со старыми роликами)."""
+
+
 def now():
     return dt.datetime.now(dt.timezone.utc)
 
@@ -175,7 +179,7 @@ def insights_one_by_one(token, media_id, metrics, skipped):
                 raise
             skipped[m] = skipped.get(m, 0) + 1
     if not out and metrics:
-        raise ig.IGError("Instagram не отдал ни одной метрики")
+        raise NoInsights()
     return out
 
 
@@ -225,13 +229,20 @@ def main():
         info = feed.get(media_id) or media_info(token, media_id) or {}
         mine = ours.get(media_id, {})
         prev = old.get("reels", {}).get(media_id) or {}
-        deleted = False
+        deleted = no_insights = False
         try:
-            nums = insights(token, media_id, METRICS, unsupported, skipped)
+            if prev.get("no_insights"):
+                raise NoInsights()
+            mine_skipped = {}
+            nums = insights(token, media_id, METRICS, unsupported, mine_skipped)
+            for k, v in mine_skipped.items():
+                skipped[k] = skipped.get(k, 0) + v
         except NoPermission as e:
             log(f"Instagram не даёт статистику: {e}")
             log("нужно разрешение instagram_business_manage_insights в приложении Meta и новый токен")
             return 2
+        except NoInsights:
+            no_insights, nums = True, {}
         except ig.IGError as e:
             if gone(e):
                 deleted = True
@@ -255,6 +266,8 @@ def main():
         }
         if deleted:
             reels[media_id]["deleted"] = True
+        if no_insights:
+            reels[media_id]["no_insights"] = True
         for k in ("permalink", "timestamp", "caption", "like_count", "comments_count"):
             if reels[media_id][k] in (None, "") and prev.get(k) not in (None, ""):
                 reels[media_id][k] = prev[k]
@@ -262,7 +275,9 @@ def main():
     for media_id, r in (old.get("reels") or {}).items():
         reels.setdefault(media_id, r)   # ушёл из ленты (старше 100 постов) — оставляем последние цифры
     got = sorted({k for r in reels.values() for k in r["insights"]})
-    log(f"роликов: {len(reels)} (наших {len(ours)}, из ленты {len(feed)}), ошибок: {errors}")
+    blind = sum(1 for r in reels.values() if r.get("no_insights"))
+    log(f"роликов: {len(reels)} (наших {len(ours)}, из ленты {len(feed)}), без статистики у Instagram: {blind}, "
+        f"ошибок: {errors}")
     log(f"Instagram отдал метрики: {', '.join(got) or 'никаких'}")
     if unsupported:
         log(f"таких метрик у Instagram нет: {', '.join(sorted(unsupported))}")

@@ -28,6 +28,7 @@ class FakeIG(http.server.BaseHTTPRequestHandler):
     feed = []          # ролики ленты для /me/media
     gone = set()       # удалённые ролики
     no_insights = False
+    blind = set()      # ролики, по которым Instagram не отдаёт ни одной метрики
 
     def log_message(self, *a):
         pass
@@ -58,6 +59,8 @@ class FakeIG(http.server.BaseHTTPRequestHandler):
             mid = path.split("/")[-2]
             if FakeIG.no_insights:
                 return self._send(403, {"error": {"message": "(#10) Application does not have permission for this action", "code": 10}})
+            if mid in FakeIG.blind:
+                return self._send(400, {"error": {"message": "(#10) Not enough viewers for the media to show insights", "code": 100}})
             if mid in FakeIG.gone:
                 return self._send(400, {"error": {"message": f"Unsupported get request. Object with ID '{mid}' does not exist", "code": 100, "error_subcode": 33}})
             want = q["metric"].split(",")
@@ -105,7 +108,7 @@ class PublisherTest(unittest.TestCase):
         FakeIG.calls.clear()
         FakeIG.polls.clear()
         FakeIG.cap = False
-        FakeIG.feed, FakeIG.gone, FakeIG.no_insights = [], set(), False
+        FakeIG.feed, FakeIG.gone, FakeIG.no_insights, FakeIG.blind = [], set(), False, set()
         self.dir = pathlib.Path(tempfile.mkdtemp())
         shutil.copytree(ROOT / "publisher", self.dir / "publisher")
         (self.dir / "queue").mkdir()
@@ -175,8 +178,10 @@ class PublisherTest(unittest.TestCase):
                         "timestamp": "2026-10-19T11:00:00+0000", "permalink": "https://www.instagram.com/reel/F1/",
                         "caption": "Из приложения\nвторая строка", "like_count": 5},
                        {"id": "mg1", "media_type": "IMAGE", "media_product_type": "FEED"},
-                       {"id": "mx1", "media_type": "VIDEO", "media_product_type": "REELS"}]
+                       {"id": "mx1", "media_type": "VIDEO", "media_product_type": "REELS"},
+                       {"id": "mo1", "media_type": "VIDEO", "media_product_type": "REELS"}]
         FakeIG.gone = {"mx1"}
+        FakeIG.blind = {"mo1"}
         r = self.run_stats()
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
         self.assertIn("не отдал для части роликов: comments (2), follows (2)", r.stdout)
@@ -190,11 +195,15 @@ class PublisherTest(unittest.TestCase):
         self.assertEqual(out["reels"]["mf1"]["caption"], "Из приложения")
         self.assertNotIn("mg1", out["reels"])
         self.assertNotIn("mx1", out["reels"], "удалённый незнакомый ролик не нужен")
+        self.assertTrue(out["reels"]["mo1"]["no_insights"])
+        self.assertIn("без статистики у Instagram: 1, ошибок: 0", r.stdout)
         hist = [json.loads(l) for l in (self.dir / "stats" / "history.jsonl").read_text().splitlines()]
         self.assertIn("mc1", {h.get("id") for h in hist})
-        # ролик удалили: остаются последние цифры с пометкой
+        # ролик удалили: остаются последние цифры с пометкой; ролик без статистики больше не спрашиваем
         FakeIG.gone = {"mc1"}
+        FakeIG.calls.clear()
         r = self.run_stats()
+        self.assertFalse([c for c in FakeIG.calls if c[1] == "/v25.0/mo1/insights"])
         self.assertEqual(r.returncode, 0, r.stdout)
         out = json.loads((self.dir / "stats" / "reels.json").read_text())
         self.assertTrue(out["reels"]["mc1"]["deleted"])
