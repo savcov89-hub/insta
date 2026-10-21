@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Reels">
+<title>Календарь Reels</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='10' width='52' height='48' rx='10' fill='%23c2552d'/%3E%3Crect x='6' y='10' width='52' height='14' rx='7' fill='%23912f12'/%3E%3Ccircle cx='22' cy='38' r='5' fill='%23fff'/%3E%3Ccircle cx='42' cy='38' r='5' fill='%23fff' opacity='.6'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #f6f5f2; --panel: #ffffff; --fg: #1d1c1a; --muted: #6d6a63; --line: #e4e1da;
+  --accent: #c2552d; --accent-bg: #f8e7df;
+  --ok: #2e7a4c; --ok-bg: #e3f1e8;
+  --warn: #9a6512; --warn-bg: #f9eed8;
+  --bad: #b8382b; --bad-bg: #f8e1dd;
+  --wait: #3a68ab; --wait-bg: #e2eaf6;
+  --idle: #85817a; --idle-bg: #ecebe6;
+  --shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151514; --panel: #1f1f1d; --fg: #eeece6; --muted: #a29e95; --line: #33322e;
+    --accent: #e7845e; --accent-bg: #3a2419;
+    --ok: #74c793; --ok-bg: #1d3326; --warn: #e3b25e; --warn-bg: #382c17;
+    --bad: #ef8a7d; --bad-bg: #3d211d; --wait: #8db3ea; --wait-bg: #1d2b40;
+    --idle: #9b978e; --idle-bg: #2a2a27; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151514; --panel: #1f1f1d; --fg: #eeece6; --muted: #a29e95; --line: #33322e;
+  --accent: #e7845e; --accent-bg: #3a2419;
+  --ok: #74c793; --ok-bg: #1d3326; --warn: #e3b25e; --warn-bg: #382c17;
+  --bad: #ef8a7d; --bad-bg: #3d211d; --wait: #8db3ea; --wait-bg: #1d2b40;
+  --idle: #9b978e; --idle-bg: #2a2a27; --shadow: none;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+button { font: inherit; color: inherit; }
+a { color: var(--accent); }
+.wrap { max-width: 720px; margin: 0 auto; padding: 12px 16px calc(32px + env(safe-area-inset-bottom)); }
+
+.top { display: flex; align-items: center; gap: 12px; padding: 6px 0 12px; }
+.top h1 { font-size: 20px; margin: 0; flex: 1; letter-spacing: -.01em; }
+.top .sub { display: block; font-size: 13px; color: var(--muted); font-weight: 400; letter-spacing: 0; }
+.iconbtn {
+  border: 1px solid var(--line); background: var(--panel); border-radius: 10px;
+  min-width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer;
+}
+.iconbtn svg { width: 20px; height: 20px; }
+.spin svg { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; box-shadow: var(--shadow); }
+.stat b { display: block; font-size: 22px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12px; color: var(--muted); }
+.stat.warn b { color: var(--warn); }
+
+.tabs { display: flex; gap: 4px; background: var(--idle-bg); padding: 4px; border-radius: 12px; margin-bottom: 12px; }
+.tabs button { flex: 1; border: 0; background: transparent; border-radius: 9px; height: 36px; cursor: pointer; color: var(--muted); }
+.tabs button[aria-selected="true"] { background: var(--panel); color: var(--fg); font-weight: 600; box-shadow: var(--shadow); }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
+.month { padding: 8px 8px 10px; margin-bottom: 14px; }
+.mhead { display: flex; align-items: center; justify-content: space-between; padding: 2px 0 6px; }
+.mhead h2 { margin: 0; font-size: 16px; text-transform: capitalize; }
+.mhead .iconbtn { border: 0; min-width: 40px; height: 40px; background: transparent; }
+.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; }
+.dow { text-align: center; font-size: 11px; color: var(--muted); padding: 2px 0 4px; text-transform: uppercase; }
+.day {
+  border: 0; background: transparent; border-radius: 10px; min-height: 54px; padding: 5px 2px 4px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer;
+}
+.day .n { font-size: 14px; width: 28px; height: 28px; line-height: 28px; border-radius: 50%; font-variant-numeric: tabular-nums; }
+.day.other .n { color: var(--muted); opacity: .5; }
+.day.today .n { background: var(--accent); color: #fff; font-weight: 600; }
+.day.sel { background: var(--accent-bg); }
+.day.past:not(.today) .n { color: var(--muted); }
+.dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px; max-width: 40px; min-height: 7px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--wait); }
+.dot.ok { background: var(--ok); } .dot.warn { background: var(--warn); } .dot.bad { background: var(--bad); } .dot.idle { background: var(--idle); opacity: .6; }
+.more { font-size: 10px; color: var(--muted); line-height: 7px; }
+
+.dayhead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 18px 2px 8px; }
+.dayhead h3 { margin: 0; font-size: 16px; }
+.dayhead h3::first-letter { text-transform: uppercase; }
+.dayhead span { font-size: 13px; color: var(--muted); white-space: nowrap; }
+.dayhead span.warn { color: var(--warn); font-weight: 600; }
+.list { display: flex; flex-direction: column; gap: 8px; }
+.empty { color: var(--muted); padding: 14px 4px; }
+
+.item { padding: 12px 14px; cursor: pointer; }
+.item .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.item time { font-size: 18px; font-weight: 650; font-variant-numeric: tabular-nums; margin-right: 2px; }
+.badge { font-size: 12px; border-radius: 999px; padding: 2px 9px; white-space: nowrap; background: var(--idle-bg); color: var(--idle); }
+.badge.ok { background: var(--ok-bg); color: var(--ok); } .badge.warn { background: var(--warn-bg); color: var(--warn); }
+.badge.bad { background: var(--bad-bg); color: var(--bad); } .badge.wait { background: var(--wait-bg); color: var(--wait); }
+.badge.plain { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+.cap { margin: 6px 0 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.item.open .cap { display: block; white-space: pre-wrap; -webkit-line-clamp: unset; }
+.id { font-size: 12px; color: var(--muted); margin-top: 4px; overflow-wrap: anywhere; }
+.note { font-size: 13px; margin-top: 6px; color: var(--muted); }
+.note.bad { color: var(--bad); } .note.warn { color: var(--warn); }
+.details { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 13px; }
+.item.open .details { display: block; }
+.details .links { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+.details .links a { font-weight: 600; text-decoration: none; padding: 6px 0; }
+.details ul { margin: 0; padding-left: 18px; color: var(--muted); }
+.cancelled .cap, .cancelled time { text-decoration: line-through; color: var(--muted); }
+
+.past-toggle { margin-top: 18px; width: 100%; border: 1px dashed var(--line); background: transparent; border-radius: 12px; height: 44px; color: var(--muted); cursor: pointer; }
+.banner { padding: 10px 12px; border-radius: 12px; margin-bottom: 12px; font-size: 14px; background: var(--warn-bg); color: var(--warn); }
+.banner.bad { background: var(--bad-bg); color: var(--bad); }
+.banner button { border: 0; background: transparent; text-decoration: underline; cursor: pointer; color: inherit; padding: 0; }
+.foot { margin-top: 24px; font-size: 12px; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 4px 4px 0; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
+.skeleton { height: 64px; border-radius: 14px; background: var(--idle-bg); animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .spin svg, .skeleton { animation: none; } }
+@media (min-width: 560px) { .day { min-height: 64px; } .summary { gap: 10px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Календарь Reels <span class="sub" id="updated">загружаю…</span></h1>
+    <button class="iconbtn" id="refresh" aria-label="Обновить">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+    </button>
+  </header>
+
+  <div id="banner"></div>
+
+  <section class="summary" aria-label="Коротко">
+    <div class="stat"><b id="s-today">—</b><span>сегодня</span></div>
+    <div class="stat"><b id="s-ahead">—</b><span>впереди всего</span></div>
+    <div class="stat" id="s-trial-box"><b id="s-trial">—</b><span>пробных за сутки</span></div>
+  </section>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-cal" aria-selected="true">Календарь</button>
+    <button role="tab" id="tab-list" aria-selected="false">Списком</button>
+  </nav>
+
+  <main id="view"><div class="skeleton"></div></main>
+
+  <p class="foot">Время — новосибирское. Это очередь нашей программы выкладки в Instagram (@fitness_savtsov):
+    что в ней стоит, то она и выложит. Страница обновляется сама раз в минуту.
+    Нажми на ролик, чтобы увидеть подпись целиком и ссылки.</p>
+</div>
+
+<script>
+(function () {
+  var OWNER = 'savcov89-hub', REPO = 'insta', BRANCH = 'main';
+  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
+  var RAW = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/';
+  var TZ_MS = 7 * 3600e3;            // Новосибирск, UTC+7 круглый год
+  var DAY_MS = 864e5;
+  var TRIAL_CAP = 10;                // как TRIAL_CAP в publisher/run.py
+  var CACHE_KEY = 'reels-calendar-v1';
+
+  var STATES = {
+    queued:    { label: 'В очереди',  cls: 'wait' },
+    uploading: { label: 'Готовится',  cls: 'warn', note: 'Видео уже в Instagram, выйдет ровно в своё время.' },
+    published: { label: 'Выложен',    cls: 'ok' },
+    cap_wait:  { label: 'Ждёт лимита', cls: 'warn', note: 'Упёрлись в лимит пробных Instagram. Программа выложит, когда освободится окно.' },
+    failed:    { label: 'Ошибка',     cls: 'bad' },
+    missed:    { label: 'Не вышел',   cls: 'bad', note: 'Запуск опоздал больше чем на 3 часа, программа его не выложила.' },
+    cancelled: { label: 'Отменён',    cls: 'idle' }
+  };
+  var INACTIVE = { cancelled: 1, failed: 1, missed: 1 };
+
+  var state = { items: [], sha: null, loadedAt: null, failed: false, mode: 'live', apiPausedUntil: 0,
+                tab: 'cal', selDay: null, month: null, showPast: false, open: {} };
+  try { var t = localStorage.getItem(CACHE_KEY + ':tab'); if (t === 'list' || t === 'cal') state.tab = t; } catch (e) {}
+
+  // ---------- время ----------
+  function parseTime(s) {
+    s = String(s || '');
+    if (!/(Z|[+-]\d\d:?\d\d)$/.test(s)) s += '+07:00';   // без пояса — Новосибирск, как в run.py
+    var d = new Date(s);
+    return isNaN(d) ? null : d;
+  }
+  function local(d) { return new Date(d.getTime() + TZ_MS); }           // поля getUTC* = новосибирские
+  function dayKey(d) { return local(d).toISOString().slice(0, 10); }
+  function keyDate(k) { return new Date(k + 'T00:00:00Z'); }            // полночь дня k в «новосибирских UTC-полях»
+  function addDays(k, n) { return new Date(keyDate(k).getTime() + n * DAY_MS).toISOString().slice(0, 10); }
+  function hhmm(d) { var l = local(d); return pad(l.getUTCHours()) + ':' + pad(l.getUTCMinutes()); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  var fmtDay = new Intl.DateTimeFormat('ru-RU', { timeZone: 'UTC', weekday: 'long', day: 'numeric', month: 'long' });
+  var fmtMonth = new Intl.DateTimeFormat('ru-RU', { timeZone: 'UTC', month: 'long', year: 'numeric' });
+  var fmtShort = new Intl.DateTimeFormat('ru-RU', { timeZone: 'UTC', day: 'numeric', month: 'short' });
+  function dayTitle(k) {
+    var today = dayKey(new Date());
+    var base = fmtDay.format(keyDate(k));
+    if (k === today) return 'Сегодня, ' + base;
+    if (k === addDays(today, 1)) return 'Завтра, ' + base;
+    if (k === addDays(today, -1)) return 'Вчера, ' + base;
+    return base;
+  }
+  function stamp(d) { return fmtShort.format(local(d)) + ' ' + hhmm(d); }
+
+  function plural(n, one, few, many) {
+    var m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  }
+
+  // ---------- загрузка ----------
+  function getJSON(url, opts) {
+    return fetch(url, opts).then(function (r) {
+      if (!r.ok) {
+        var err = new Error('HTTP ' + r.status);
+        err.status = r.status;
+        err.limited = r.status === 403 || r.status === 429;
+        throw err;
+      }
+      return r.json();
+    });
+  }
+
+  var blobs = {};   // sha файла → его JSON: при новом коммите качаем только изменившиеся файлы
+
+  function fetchFile(sha, entry) {
+    if (!entry) return Promise.resolve(null);
+    if (blobs[entry.sha] !== undefined) return Promise.resolve(blobs[entry.sha]);
+    return getJSON(RAW + sha + '/' + entry.path)
+      .then(function (j) { blobs[entry.sha] = j; return j; })
+      .catch(function () { return null; });
+  }
+
+  // Живой путь: API GitHub (последний коммит → список файлов → сами файлы).
+  function loadLive(manual) {
+    // no-cache: браузер переспрашивает с ETag, ответы 304 не тратят лимит GitHub
+    return getJSON(API + '/branches/' + BRANCH, { cache: 'no-cache' }).then(function (br) {
+      var sha = br.commit.sha;
+      if (sha === state.sha && !manual) return;
+      return getJSON(API + '/git/trees/' + sha + '?recursive=1').then(function (tree) {
+        var queue = [], status = {};
+        tree.tree.forEach(function (t) {
+          var m;
+          if ((m = /^queue\/([^/]+)\.json$/.exec(t.path))) queue.push({ id: m[1], entry: t });
+          else if ((m = /^status\/([^/]+)\.json$/.exec(t.path))) status[m[1]] = t;
+        });
+        return Promise.all(queue.map(function (q) {
+          return Promise.all([fetchFile(sha, q.entry), fetchFile(sha, status[q.id])])
+            .then(function (r) { return { id: q.id, q: r[0], st: r[1] || {} }; });
+        })).then(function (rows) { save(sha, rows); });
+      });
+    });
+  }
+
+  // Запасной путь без API: сводку status/_calendar.json пишет сама программа выкладки.
+  // GitHub отдаёт её с задержкой до 5 минут, а новые посты попадают в неё при ближайшем запуске.
+  function loadSummary() {
+    return getJSON(RAW + BRANCH + '/status/_calendar.json', { cache: 'no-cache' }).then(function (c) {
+      save(null, c.rows || []);
+    });
+  }
+
+  function save(sha, rows) {
+    state.sha = sha;
+    state.items = build(rows);
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ sha: sha, rows: rows, blobs: blobs })); } catch (e) {}
+  }
+
+  function load(manual) {
+    var btn = document.getElementById('refresh');
+    btn.classList.add('spin');
+    var useApi = Date.now() > state.apiPausedUntil;
+    var job = useApi ? loadLive(manual) : Promise.reject({ limited: true });
+    return job.then(function () {
+      state.mode = 'live';
+    }, function (e) {
+      // лимит API (60 запросов в час на IP, а за VPN этот IP делят многие): 10 минут живём на сводке
+      if (useApi && e && e.limited) state.apiPausedUntil = Date.now() + 10 * 60e3;
+      return loadSummary().then(function () { state.mode = 'summary'; });
+    }).then(function () {
+      state.loadedAt = new Date();
+      state.failed = false;
+      setBanner(state.mode === 'summary'
+        ? 'GitHub сейчас не даёт живые данные (часто это лимит запросов), поэтому показываю сводку: она может отставать минут на 10–15.' : '');
+      render();
+    }).catch(function (e) {
+      state.failed = true;
+      var msg = 'Не получилось загрузить очередь (' + (e && e.message || 'нет сети') + ').';
+      if (state.items.length) msg += ' Пока показываю то, что загрузил ' + (state.loadedAt ? 'в ' + hhmm(state.loadedAt) : 'в прошлый раз') + '.';
+      setBanner(msg, !state.items.length);
+      render();
+    }).then(function () { btn.classList.remove('spin'); });
+  }
+
+  function build(rows) {
+    var items = [];
+    rows.forEach(function (r) {
+      if (!r.q || !r.q.publish_at) return;
+      var when = parseTime(r.q.publish_at);
+      if (!when) return;
+      var st = r.st || {};
+      var s = st.state || (r.q.cancel ? 'cancelled' : 'queued');
+      if (r.q.cancel && s === 'queued') s = 'cancelled';
+      var caption = String(r.q.caption || '').trim();
+      items.push({
+        id: r.id, when: when, day: dayKey(when), state: s,
+        trial: r.q.trial !== false, graduation: r.q.graduation || 'MANUAL',
+        caption: caption, video: r.q.video_url || '',
+        permalink: st.permalink || '', publishedAt: st.published_at ? parseTime(st.published_at) : null,
+        retryAfter: st.retry_after ? parseTime(st.retry_after) : null,
+        error: st.error || '', history: Array.isArray(st.history) ? st.history : []
+      });
+    });
+    items.sort(function (a, b) { return a.when - b.when || (a.id < b.id ? -1 : 1); });
+    flagTrialCap(items);
+    return items;
+  }
+
+  // Пробные в скользящих сутках: больше TRIAL_CAP — программа отложит пост (cap_wait)
+  function flagTrialCap(items) {
+    var trials = items.filter(function (i) { return i.trial && !INACTIVE[i.state]; });
+    for (var k = 0; k < trials.length; k++) {
+      var cur = trials[k], n = 0, tk = (cur.publishedAt || cur.when).getTime();
+      for (var j = 0; j < trials.length; j++) {
+        var tj = (trials[j].publishedAt || trials[j].when).getTime();
+        if (tj <= tk && tk - tj < DAY_MS) n++;
+      }
+      cur.window = n;
+      if (n > TRIAL_CAP && cur.state !== 'published') cur.overCap = true;
+    }
+  }
+
+  // ---------- отрисовка ----------
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function setBanner(msg, bad) {
+    var b = document.getElementById('banner');
+    b.textContent = '';
+    if (!msg) return;
+    var d = el('div', 'banner' + (bad ? ' bad' : ''), msg + ' ');
+    var a = el('button', '', 'Повторить');
+    a.onclick = function () { load(true); };
+    d.appendChild(a);
+    b.appendChild(d);
+  }
+
+  function byDay() {
+    var m = {};
+    state.items.forEach(function (i) { (m[i.day] = m[i.day] || []).push(i); });
+    return m;
+  }
+
+  function renderSummary() {
+    var now = new Date(), today = dayKey(now);
+    var active = state.items.filter(function (i) { return !INACTIVE[i.state]; });
+    var todayN = active.filter(function (i) { return i.day === today; }).length;
+    var ahead = active.filter(function (i) { return i.state !== 'published' && i.when > now - 3 * 3600e3; }).length;
+    var trialDay = state.items.filter(function (i) {
+      return i.trial && i.state === 'published' && i.publishedAt && now - i.publishedAt < DAY_MS;
+    }).length;
+    document.getElementById('s-today').textContent = todayN;
+    document.getElementById('s-ahead').textContent = ahead;
+    document.getElementById('s-trial').textContent = trialDay + ' из ' + TRIAL_CAP;
+    document.getElementById('s-trial-box').className = 'stat' + (trialDay >= TRIAL_CAP - 1 ? ' warn' : '');
+    var up = document.getElementById('updated');
+    up.textContent = state.loadedAt ? 'обновлено в ' + hhmm(state.loadedAt) : state.failed ? 'нет связи с GitHub' : 'загружаю…';
+  }
+
+  function itemCard(i) {
+    var info = STATES[i.state] || { label: i.state, cls: 'idle' };
+    var card = el('article', 'panel item' + (i.state === 'cancelled' ? ' cancelled' : '') + (state.open[i.id] ? ' open' : ''));
+    card.tabIndex = 0;
+    var row = el('div', 'row');
+    row.appendChild(el('time', '', hhmm(i.when)));
+    row.appendChild(el('span', 'badge ' + info.cls, info.label));
+    row.appendChild(el('span', 'badge plain', i.trial ? 'пробный' : 'обычный'));
+    card.appendChild(row);
+
+    var first = i.caption ? i.caption : 'без подписи';
+    card.appendChild(el('p', 'cap', first));
+    card.appendChild(el('div', 'id', i.id));
+
+    if (i.state === 'failed' && i.error) card.appendChild(el('div', 'note bad', i.error));
+    else if (i.state === 'cap_wait') card.appendChild(el('div', 'note warn', 'Ждёт окна лимита пробных' + (i.retryAfter ? ', следующая попытка ' + stamp(i.retryAfter) : '') + '.'));
+    else if (i.overCap) card.appendChild(el('div', 'note warn', 'За сутки до этого уже ' + (i.window - 1) + ' пробных: Instagram может не пустить, тогда программа отложит его до свободного окна.'));
+    else if (info.note && i.state !== 'cap_wait') card.appendChild(el('div', 'note', info.note));
+
+    var det = el('div', 'details');
+    var links = el('div', 'links');
+    if (/^https:\/\/(www\.)?instagram\.com\//.test(i.permalink)) {
+      var a = el('a', '', 'Открыть в Instagram'); a.href = i.permalink; a.target = '_blank'; a.rel = 'noopener';
+      links.appendChild(a);
+    }
+    if (i.state !== 'published' && /^https:\/\//.test(i.video)) {
+      var v = el('a', '', 'Видео'); v.href = i.video; v.target = '_blank'; v.rel = 'noopener';
+      links.appendChild(v);
+    }
+    var f = el('a', '', 'Файл в очереди'); f.href = 'https://github.com/' + OWNER + '/' + REPO + '/blob/' + BRANCH + '/queue/' + encodeURIComponent(i.id) + '.json';
+    f.target = '_blank'; f.rel = 'noopener';
+    links.appendChild(f);
+    det.appendChild(links);
+    var facts = [];
+    if (i.trial) facts.push(i.graduation === 'SS_PERFORMANCE' ? 'Пробный: Instagram сам покажет подписчикам, если зайдёт.' : 'Пробный: к подписчикам переводится вручную.');
+    else facts.push('Обычный Reels, сразу для подписчиков.');
+    if (i.publishedAt) facts.push('Вышел ' + stamp(i.publishedAt) + '.');
+    var ul = el('ul');
+    facts.concat(i.history.slice(-6)).forEach(function (h) { ul.appendChild(el('li', '', h)); });
+    det.appendChild(ul);
+    card.appendChild(det);
+
+    function toggle() { state.open[i.id] = !state.open[i.id]; card.classList.toggle('open'); }
+    card.addEventListener('click', function (e) { if (e.target.closest('a')) return; toggle(); });
+    card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+    return card;
+  }
+
+  function dayBlock(k, items, parent) {
+    var head = el('div', 'dayhead');
+    head.appendChild(el('h3', '', dayTitle(k)));
+    var active = items.filter(function (i) { return !INACTIVE[i.state]; });
+    var trials = active.filter(function (i) { return i.trial; }).length;
+    var txt = active.length + ' ' + plural(active.length, 'ролик', 'ролика', 'роликов');
+    if (trials) txt += ', пробных ' + trials;
+    head.appendChild(el('span', trials >= TRIAL_CAP ? 'warn' : '', txt));
+    parent.appendChild(head);
+    var list = el('div', 'list');
+    if (!items.length) list.appendChild(el('div', 'empty', 'На этот день ничего не стоит.'));
+    items.forEach(function (i) { list.appendChild(itemCard(i)); });
+    parent.appendChild(list);
+  }
+
+  function renderCalendar(view) {
+    var today = dayKey(new Date());
+    if (!state.selDay) state.selDay = today;
+    if (!state.month) state.month = state.selDay.slice(0, 7);
+    var days = byDay();
+
+    var box = el('section', 'panel month');
+    var mh = el('div', 'mhead');
+    var prev = el('button', 'iconbtn'); prev.setAttribute('aria-label', 'Предыдущий месяц');
+    prev.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>';
+    var next = el('button', 'iconbtn'); next.setAttribute('aria-label', 'Следующий месяц');
+    next.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>';
+    prev.onclick = function () { state.month = shiftMonth(state.month, -1); render(); };
+    next.onclick = function () { state.month = shiftMonth(state.month, 1); render(); };
+    mh.appendChild(prev);
+    mh.appendChild(el('h2', '', fmtMonth.format(keyDate(state.month + '-01')).replace(/\s*г\.$/, '')));
+    mh.appendChild(next);
+    box.appendChild(mh);
+
+    var grid = el('div', 'grid');
+    ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'].forEach(function (d) { grid.appendChild(el('div', 'dow', d)); });
+    var first = state.month + '-01';
+    var wd = (keyDate(first).getUTCDay() + 6) % 7;   // пн = 0
+    var start = addDays(first, -wd);
+    for (var c = 0; c < 42; c++) {
+      var k = addDays(start, c);
+      if (c >= 35 && k.slice(0, 7) !== state.month) break;
+      var b = el('button', 'day');
+      if (k.slice(0, 7) !== state.month) b.classList.add('other');
+      if (k === today) b.classList.add('today');
+      if (k < today) b.classList.add('past');
+      if (k === state.selDay) b.classList.add('sel');
+      b.appendChild(el('span', 'n', String(+k.slice(8))));
+      var dots = el('span', 'dots');
+      var its = days[k] || [];
+      its.slice(0, 6).forEach(function (i) { dots.appendChild(el('i', 'dot ' + ((STATES[i.state] || {}).cls || 'idle'))); });
+      if (its.length > 6) dots.appendChild(el('span', 'more', '+' + (its.length - 6)));
+      b.appendChild(dots);
+      var label = fmtDay.format(keyDate(k)) + (its.length ? ': ' + its.length + ' ' + plural(its.length, 'ролик', 'ролика', 'роликов') : '');
+      b.setAttribute('aria-label', label);
+      (function (key) {
+        b.onclick = function () { state.selDay = key; state.month = key.slice(0, 7); render(); };
+      })(k);
+      grid.appendChild(b);
+    }
+    box.appendChild(grid);
+    var lg = el('div', 'legend');
+    [['wait', 'в очереди'], ['warn', 'готовится / ждёт лимита'], ['ok', 'выложен'], ['bad', 'ошибка']].forEach(function (p) {
+      var s = el('span'); var i = el('i', 'dot ' + p[0]); i.style.display = 'inline-block'; s.appendChild(i); s.appendChild(document.createTextNode(p[1])); lg.appendChild(s);
+    });
+    box.appendChild(lg);
+    view.appendChild(box);
+
+    dayBlock(state.selDay, days[state.selDay] || [], view);
+  }
+
+  function shiftMonth(m, n) {
+    var y = +m.slice(0, 4), mo = +m.slice(5, 7) - 1 + n;
+    y += Math.floor(mo / 12); mo = ((mo % 12) + 12) % 12;
+    return y + '-' + pad(mo + 1);
+  }
+
+  function renderList(view) {
+    var today = dayKey(new Date());
+    var days = byDay();
+    var keys = Object.keys(days).sort();
+    var ahead = keys.filter(function (k) { return k >= today; });
+    var past = keys.filter(function (k) { return k < today; }).reverse();
+    if (!ahead.length) view.appendChild(el('div', 'empty', 'Впереди в очереди ничего нет.'));
+    ahead.forEach(function (k) { dayBlock(k, days[k], view); });
+    if (past.length) {
+      var t = el('button', 'past-toggle', state.showPast ? 'Скрыть прошедшие' : 'Показать прошедшие (' + past.length + ' ' + plural(past.length, 'день', 'дня', 'дней') + ')');
+      t.onclick = function () { state.showPast = !state.showPast; render(); };
+      view.appendChild(t);
+      if (state.showPast) past.forEach(function (k) { dayBlock(k, days[k], view); });
+    }
+  }
+
+  function render() {
+    var view = document.getElementById('view');
+    view.textContent = '';
+    if (!state.items.length && !state.loadedAt) {
+      // ещё ничего не загрузили: не показываем нули, которые выглядят как «пусто»
+      ['s-today', 's-ahead', 's-trial'].forEach(function (id) { document.getElementById(id).textContent = '—'; });
+      document.getElementById('updated').textContent = state.failed ? 'нет связи с GitHub' : 'загружаю…';
+      if (!state.failed) view.appendChild(el('div', 'skeleton'));
+      return;
+    }
+    renderSummary();
+    document.getElementById('tab-cal').setAttribute('aria-selected', state.tab === 'cal');
+    document.getElementById('tab-list').setAttribute('aria-selected', state.tab === 'list');
+    if (state.tab === 'cal') renderCalendar(view); else renderList(view);
+  }
+
+  function setTab(t) {
+    state.tab = t;
+    try { localStorage.setItem(CACHE_KEY + ':tab', t); } catch (e) {}
+    render();
+  }
+  document.getElementById('tab-cal').onclick = function () { setTab('cal'); };
+  document.getElementById('tab-list').onclick = function () { setTab('list'); };
+  document.getElementById('refresh').onclick = function () { load(true); };
+
+  // сразу показать прошлую загрузку, пока идёт свежая
+  try {
+    var c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    if (c && c.rows) { state.items = build(c.rows); state.sha = c.sha; blobs = c.blobs || {}; }
+  } catch (e) {}
+  render();
+  load(false);
+  setInterval(function () { if (document.visibilityState === 'visible') load(false); }, 60e3);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') load(false); });
+})();
+</script>
+</body>
+</html>

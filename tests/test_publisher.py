@@ -129,6 +129,17 @@ class PublisherTest(unittest.TestCase):
         self.assertGreaterEqual(pub_t, when.timestamp() - 0.5, "опубликовал раньше времени")
         self.assertLess(pub_t, when.timestamp() + 5)
 
+    def test_calendar_summary(self):
+        self.add("a1", 1)
+        self.add("later", 3 * 3600, caption="Потом")
+        self.assertEqual(self.run_pub().returncode, 0)
+        cal = json.loads((self.dir / "status" / "_calendar.json").read_text())
+        rows = {r["id"]: r for r in cal["rows"]}
+        self.assertEqual(rows["a1"]["st"]["state"], "published")
+        self.assertEqual(rows["later"]["st"], {})
+        self.assertEqual(rows["later"]["q"]["caption"], "Потом")
+        self.assertNotIn(TOKEN, json.dumps(cal))
+
     def test_regular_reel(self):
         self.add("r1", 1, trial=False)
         self.assertEqual(self.run_pub().returncode, 0)
@@ -214,6 +225,7 @@ class PublisherTest(unittest.TestCase):
         self.assertEqual(r.returncode, 0)
         self.assertFalse(FakeIG.calls)
         self.assertIsNone(self.status("d"))
+        self.assertFalse((self.dir / "status" / "_calendar.json").exists())
 
 
 if __name__ == "__main__":

@@ -29,6 +29,7 @@ import ig  # noqa: E402
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 QUEUE = ROOT / "queue"
 STATUS = ROOT / "status"
+CALENDAR = STATUS / "_calendar.json"  # сводка для страницы-календаря docs/index.html
 NSK = dt.timezone(dt.timedelta(hours=7), "Новосибирск")
 
 LOOKAHEAD = dt.timedelta(minutes=int(os.environ.get("LOOKAHEAD_MIN", "40")))
@@ -93,7 +94,31 @@ def save_status(item, st, note=None):
         return
     STATUS.mkdir(exist_ok=True)
     (STATUS / f"{item['id']}.json").write_text(json.dumps(st, ensure_ascii=False, indent=2) + "\n")
+    write_calendar()
     commit_push(f"status: {item['id']} → {st['state']}")
+
+
+def write_calendar():
+    """Очередь и статусы одним файлом: страница-календарь читает его, когда API GitHub
+    недоступен (лимит 60 запросов в час на IP). True, если файл изменился."""
+    if DRY:
+        return False
+    try:
+        rows = []
+        for f in sorted(QUEUE.glob("*.json")):
+            try:
+                rows.append({"id": f.stem, "q": json.loads(f.read_text()), "st": load_status(f.stem)})
+            except ValueError:
+                continue
+        text = json.dumps({"rows": rows}, ensure_ascii=False, indent=1) + "\n"
+        if CALENDAR.exists() and CALENDAR.read_text() == text:
+            return False
+        STATUS.mkdir(exist_ok=True)
+        CALENDAR.write_text(text)
+        return True
+    except Exception as e:  # noqa: BLE001 — календарь не должен мешать выкладке
+        log(f"не обновил {CALENDAR.name}: {type(e).__name__}: {e}")
+        return False
 
 
 def load_queue():
@@ -162,6 +187,8 @@ def cap_wait(it, st, retry_after, why):
 
 
 def main():
+    if write_calendar():
+        commit_push("calendar: очередь изменилась")
     items = load_queue()
     due = pick_due(items)
     if not due:
