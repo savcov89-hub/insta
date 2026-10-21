@@ -41,7 +41,7 @@ PUSH = os.environ.get("GIT_PUSH", "1") != "0"
 METRICS = [
     "views", "reach", "likes", "comments", "shares", "saved", "total_interactions",
     "ig_reels_avg_watch_time", "ig_reels_video_view_total_time", "reels_skip_rate",
-    "follows", "profile_visits", "crossposted_views", "facebook_views",
+    "follows", "profile_visits",
 ]
 MEDIA_FIELDS = "id,caption,media_type,media_product_type,timestamp,permalink,like_count,comments_count"
 PERMISSION_CODES = {10, 200, 3}   # «нет разрешения» у Instagram: нужен instagram_business_manage_insights
@@ -133,33 +133,35 @@ def gone(e):
     return e.subcode == 33 or "does not exist" in t or "Unsupported get request" in t
 
 
-def insights(token, media_id, metrics, unsupported):
-    """Цифры ролика. Метрики, от которых Instagram отказался, кладёт в unsupported и больше не просит."""
-    want = [m for m in metrics if m not in unsupported]
-    while want:
+def insights(token, media_id, metrics, unsupported, skipped):
+    """Цифры ролика. Метрику, от которой Instagram отказался для этого ролика, пропускает
+    (и считает в skipped); метрику, которой нет вообще, кладёт в unsupported на весь запуск."""
+    ask = [m for m in metrics if m not in unsupported]
+    while ask:
         try:
-            data = ig.call("GET", f"{media_id}/insights", token, {"metric": ",".join(want)}).get("data", [])
+            data = ig.call("GET", f"{media_id}/insights", token, {"metric": ",".join(ask)}).get("data", [])
             return {d["name"]: _value(d) for d in data}
         except ig.IGError as e:
             if e.code in PERMISSION_CODES:
                 raise NoPermission(str(e)) from None
-            if e.code != 100 or gone(e):
+            if gone(e):
                 raise
             msg = f"{e} {e.raw or ''}"
             m = re.search(r"must be one of the following values:?(.*)", msg, re.S)
-            if m:
-                allowed = _names(m.group(1))
-                bad = [x for x in want if x not in allowed]
-            else:
-                bad = [x for x in want if x in _names(msg)]
+            if m:   # Instagram перечислил, какие метрики вообще бывают
+                bad = [x for x in ask if x not in _names(m.group(1))]
+                unsupported.update(bad)
+            else:   # отказ назвал метрики («…does not support the follows metric…»)
+                bad = [x for x in ask if x in _names(msg)]
             if not bad:
-                return insights_one_by_one(token, media_id, want, unsupported)
-            unsupported.update(bad)
-            want = [x for x in want if x not in bad]
+                return insights_one_by_one(token, media_id, ask, skipped)
+            for x in bad:
+                skipped[x] = skipped.get(x, 0) + 1
+            ask = [x for x in ask if x not in bad]
     return {}
 
 
-def insights_one_by_one(token, media_id, metrics, unsupported):
+def insights_one_by_one(token, media_id, metrics, skipped):
     out = {}
     for m in metrics:
         try:
@@ -169,9 +171,11 @@ def insights_one_by_one(token, media_id, metrics, unsupported):
         except ig.IGError as e:
             if e.code in PERMISSION_CODES:
                 raise NoPermission(str(e)) from None
-            if e.code != 100 or gone(e):
+            if gone(e):
                 raise
-            unsupported.add(m)
+            skipped[m] = skipped.get(m, 0) + 1
+    if not out and metrics:
+        raise ig.IGError("Instagram не отдал ни одной метрики")
     return out
 
 
@@ -215,7 +219,7 @@ def main():
     ids = list(dict.fromkeys(list(ours) + list(feed)))
     old_path = STATS / "reels.json"
     old = json.loads(old_path.read_text()) if old_path.exists() else {}
-    unsupported = set()
+    unsupported, skipped = set(), {}
     reels, errors = {}, 0
     for media_id in ids:
         info = feed.get(media_id) or media_info(token, media_id) or {}
@@ -223,7 +227,7 @@ def main():
         prev = old.get("reels", {}).get(media_id) or {}
         deleted = False
         try:
-            nums = insights(token, media_id, METRICS, unsupported)
+            nums = insights(token, media_id, METRICS, unsupported, skipped)
         except NoPermission as e:
             log(f"Instagram не даёт статистику: {e}")
             log("нужно разрешение instagram_business_manage_insights в приложении Meta и новый токен")
@@ -261,7 +265,9 @@ def main():
     log(f"роликов: {len(reels)} (наших {len(ours)}, из ленты {len(feed)}), ошибок: {errors}")
     log(f"Instagram отдал метрики: {', '.join(got) or 'никаких'}")
     if unsupported:
-        log(f"недоступны: {', '.join(sorted(unsupported))}")
+        log(f"таких метрик у Instagram нет: {', '.join(sorted(unsupported))}")
+    if skipped:
+        log("не отдал для части роликов: " + ", ".join(f"{k} ({v})" for k, v in sorted(skipped.items())))
     if DRY:
         log("пробный запуск: ничего не записываю")
         return 0

@@ -61,6 +61,8 @@ class FakeIG(http.server.BaseHTTPRequestHandler):
             if mid in FakeIG.gone:
                 return self._send(400, {"error": {"message": f"Unsupported get request. Object with ID '{mid}' does not exist", "code": 100, "error_subcode": 33}})
             want = q["metric"].split(",")
+            if "crossposted_views" in want:
+                return self._send(400, {"error": {"message": "Thrown if crossposted_views or facebook_views is used on reels which are not crossposted to facebook.", "code": -1, "error_subcode": 2207086}})
             bad = [m for m in want if m not in FakeIG.insights_ok]
             if bad:
                 return self._send(400, {"error": {"message": f"(#100) The Media Insights API does not support the {bad[0]} metric for this media product type.", "code": 100}})
@@ -177,7 +179,7 @@ class PublisherTest(unittest.TestCase):
         FakeIG.gone = {"mx1"}
         r = self.run_stats()
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
-        self.assertIn("недоступны: comments, crossposted_views", r.stdout)
+        self.assertIn("не отдал для части роликов: comments (2), follows (2)", r.stdout)
         self.assertNotIn(str(len("views") * 10), r.stdout.replace("[", " "), "цифры попали в лог")
         out = json.loads((self.dir / "stats" / "reels.json").read_text())
         ours = out["reels"]["mc1"]

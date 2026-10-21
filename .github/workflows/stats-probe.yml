@@ -1,11 +1,12 @@
-# Временная проверка сборщика статистики на ветке (без записи). Удаляется перед слиянием.
+# Временная проверка сборщика статистики на ветке: цифры коммитятся в эту же ветку, не в main.
+# Удаляется перед слиянием.
 name: stats-probe
 on:
   push:
     branches: [claude/project-thread-ppyj7d]
     paths: [publisher/stats.py, .github/workflows/stats-probe.yml]
 permissions:
-  contents: read
+  contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
@@ -15,7 +16,13 @@ jobs:
       - name: probe
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
-          DRY_RUN: '1'
+          GIT_PUSH: '0'
         run: |
+          git config user.name "reels-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch -q origin main && git checkout -q FETCH_HEAD -- status queue
           python3 publisher/stats.py
+          git reset -q
+          git add stats
+          git commit -q -m "stats: пробный сбор на ветке"
+          git push -q origin HEAD:claude/project-thread-ppyj7d
