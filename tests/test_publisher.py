@@ -55,6 +55,8 @@ class FakeIG(http.server.BaseHTTPRequestHandler):
             return self._send(400, {"error": {"message": "Invalid OAuth access token", "code": 190}})
         if path == "/v25.0/me/media":
             return self._send(200, {"data": FakeIG.feed, "paging": {"cursors": {"after": "x"}}})
+        if path == "/v25.0/me/insights":
+            return self._audience(q)
         if path.endswith("/insights"):
             mid = path.split("/")[-2]
             if FakeIG.no_insights:
@@ -89,6 +91,18 @@ class FakeIG(http.server.BaseHTTPRequestHandler):
         if path.startswith("/v25.0/m"):
             return self._send(200, {"permalink": f"https://www.instagram.com/reel/{path.rsplit('/', 1)[1]}/"})
         return self._send(404, {"error": {"message": "unknown path " + path}})
+
+    def _audience(self, q):
+        bd = q.get("breakdown")
+        if "," in bd:
+            return self._send(400, {"error": {"message": "(#100) Only one breakdown is supported", "code": 100}})
+        if q["metric"] == "engaged_audience_demographics" and q.get("timeframe") != "last_30_days":
+            return self._send(400, {"error": {"message": "(#100) timeframe must be one of last_30_days", "code": 100}})
+        res = {"city": [(["Novosibirsk, Novosibirsk Oblast"], 403), (["Moscow, Moscow"], 80)],
+               "gender": [(["F"], 547), (["M"], 364), (["U"], 285)],
+               "age": [(["35-44"], 549)]}[bd]
+        return self._send(200, {"data": [{"name": q["metric"], "period": "lifetime", "total_value": {"breakdowns": [
+            {"dimension_keys": [bd], "results": [{"dimension_values": v, "value": n} for v, n in res]}]}}]})
 
     do_GET = handle_any
     do_POST = handle_any
@@ -209,6 +223,24 @@ class PublisherTest(unittest.TestCase):
         self.assertTrue(out["reels"]["mc1"]["deleted"])
         self.assertEqual(out["reels"]["mc1"]["insights"]["views"], 50)
         self.assertIn("reach", out["reels"]["mf1"]["insights"], "удалённый ролик испортил список метрик")
+
+    def test_audience_snapshot_once_a_day(self):
+        r = self.run_stats()
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("не отдал followers/city,gender", r.stdout)
+        self.assertNotIn("403", r.stdout.replace("[", " "), "цифры попали в лог")
+        aud = json.loads((self.dir / "stats" / "audience.json").read_text())
+        self.assertEqual(aud["followers"]["city"]["Novosibirsk, Novosibirsk Oblast"], 403)
+        self.assertEqual(aud["followers"]["gender"], {"F": 547, "M": 364, "U": 285})
+        self.assertEqual(aud["engaged"]["gender"]["M"], 364, "период для engaged не подобрался")
+        self.assertNotIn("city,gender", aud["followers"])
+        # через 3 часа снимок не повторяется, а через сутки добавляется новая строка
+        r = self.run_stats()
+        lines = (self.dir / "stats" / "audience.jsonl").read_text().splitlines()
+        self.assertEqual(len(lines), 1)
+        self.run_stats(AUDIENCE_HOURS="0")
+        lines = (self.dir / "stats" / "audience.jsonl").read_text().splitlines()
+        self.assertEqual(len(lines), 2)
 
     def test_stats_without_permission(self):
         self.add("a1", 1)
