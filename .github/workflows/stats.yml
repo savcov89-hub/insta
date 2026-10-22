@@ -1,0 +1,32 @@
+# Статистика по вышедшим Reels раз в 3 часа → stats/reels.json и stats/history.jsonl.
+name: reels-stats
+on:
+  schedule:
+    - cron: '37 */3 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'только проверить, какие метрики отдаёт Instagram, ничего не записывать'
+        type: boolean
+        default: false
+concurrency:
+  group: reels-stats
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 20   # хватает для pull --rebase перед записью
+      - name: stats
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+        run: |
+          git config user.name "reels-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 publisher/stats.py

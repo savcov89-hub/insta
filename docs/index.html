@@ -121,6 +121,28 @@ a { color: var(--accent); }
 .foot { margin-top: 24px; font-size: 12px; color: var(--muted); }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 4px 4px 0; font-size: 12px; color: var(--muted); }
 .legend i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
+.metrics { margin-top: 6px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.metrics b { font-weight: 650; }
+.shead { display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap; margin: 2px 2px 12px; }
+.shead .acc { font-size: 13px; color: var(--muted); }
+.shead .acc b { font-size: 18px; color: var(--fg); font-variant-numeric: tabular-nums; margin-right: 4px; }
+.seg { display: flex; gap: 4px; background: var(--idle-bg); padding: 3px; border-radius: 10px; }
+.seg button { border: 0; background: transparent; border-radius: 8px; height: 34px; padding: 0 12px; font-size: 13px; color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--panel); color: var(--fg); font-weight: 600; box-shadow: var(--shadow); }
+.srow { padding: 12px 14px; }
+.srow .top { display: flex; align-items: center; gap: 6px 8px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.srow .top a { margin-left: auto; font-weight: 600; text-decoration: none; padding: 4px 0; }
+.srow .cap { -webkit-line-clamp: 1; margin-top: 4px; }
+.srow .views { display: flex; align-items: baseline; gap: 6px; margin-top: 6px; }
+.srow .views b { font-size: 24px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.srow .views span { font-size: 13px; color: var(--muted); }
+.bar { height: 4px; border-radius: 2px; background: var(--idle-bg); margin: 6px 0 10px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+.mgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 6px; }
+.mgrid div { min-width: 0; }
+.mgrid b { display: block; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.mgrid span { display: block; font-size: 11px; color: var(--muted); line-height: 1.2; }
+.srow.deleted { opacity: .6; }
 .skeleton { height: 64px; border-radius: 14px; background: var(--idle-bg); animation: pulse 1.2s ease-in-out infinite; }
 @keyframes pulse { 50% { opacity: .5; } }
 @media (prefers-reduced-motion: reduce) { .spin svg, .skeleton { animation: none; } }
@@ -147,13 +169,15 @@ a { color: var(--accent); }
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-cal" aria-selected="true">Календарь</button>
     <button role="tab" id="tab-list" aria-selected="false">Списком</button>
+    <button role="tab" id="tab-stats" aria-selected="false">Цифры</button>
   </nav>
 
   <main id="view"><div class="skeleton"></div></main>
 
   <p class="foot">Время — новосибирское. Это очередь нашей программы выкладки в Instagram (@fitness_savtsov):
     что в ней стоит, то она и выложит. Страница обновляется сама раз в минуту.
-    Нажми на ролик, чтобы увидеть подпись целиком и ссылки.</p>
+    Нажми на ролик, чтобы увидеть подпись целиком и ссылки. Цифры по роликам программа
+    берёт из Instagram раз в 3 часа.</p>
 </div>
 
 <script>
@@ -178,8 +202,12 @@ a { color: var(--accent); }
   var INACTIVE = { cancelled: 1, failed: 1, missed: 1 };
 
   var state = { items: [], sha: null, loadedAt: null, failed: false, mode: 'live', apiPausedUntil: 0,
+                stats: null, statsSort: 'date',
                 tab: 'cal', selDay: null, month: null, showPast: false, open: {} };
-  try { var t = localStorage.getItem(CACHE_KEY + ':tab'); if (t === 'list' || t === 'cal') state.tab = t; } catch (e) {}
+  try {
+    var t = localStorage.getItem(CACHE_KEY + ':tab'); if (t === 'list' || t === 'cal' || t === 'stats') state.tab = t;
+    if (localStorage.getItem(CACHE_KEY + ':sort') === 'views') state.statsSort = 'views';
+  } catch (e) {}
 
   // ---------- время ----------
   function parseTime(s) {
@@ -244,16 +272,17 @@ a { color: var(--accent); }
       var sha = br.commit.sha;
       if (sha === state.sha && !manual) return;
       return getJSON(API + '/git/trees/' + sha + '?recursive=1').then(function (tree) {
-        var queue = [], status = {};
+        var queue = [], status = {}, statsEntry = null;
         tree.tree.forEach(function (t) {
           var m;
           if ((m = /^queue\/([^/]+)\.json$/.exec(t.path))) queue.push({ id: m[1], entry: t });
           else if ((m = /^status\/([^/]+)\.json$/.exec(t.path))) status[m[1]] = t;
+          else if (t.path === 'stats/reels.json') statsEntry = t;
         });
-        return Promise.all(queue.map(function (q) {
+        return Promise.all([Promise.all(queue.map(function (q) {
           return Promise.all([fetchFile(sha, q.entry), fetchFile(sha, status[q.id])])
             .then(function (r) { return { id: q.id, q: r[0], st: r[1] || {} }; });
-        })).then(function (rows) { save(sha, rows); });
+        })), fetchFile(sha, statsEntry)]).then(function (r) { save(sha, r[0], r[1]); });
       });
     });
   }
@@ -261,15 +290,17 @@ a { color: var(--accent); }
   // Запасной путь без API: сводку status/_calendar.json пишет сама программа выкладки.
   // GitHub отдаёт её с задержкой до 5 минут, а новые посты попадают в неё при ближайшем запуске.
   function loadSummary() {
-    return getJSON(RAW + BRANCH + '/status/_calendar.json', { cache: 'no-cache' }).then(function (c) {
-      save(null, c.rows || []);
-    });
+    return Promise.all([
+      getJSON(RAW + BRANCH + '/status/_calendar.json', { cache: 'no-cache' }),
+      getJSON(RAW + BRANCH + '/stats/reels.json', { cache: 'no-cache' }).catch(function () { return state.stats; })
+    ]).then(function (r) { save(null, r[0].rows || [], r[1]); });
   }
 
-  function save(sha, rows) {
+  function save(sha, rows, stats) {
     state.sha = sha;
     state.items = build(rows);
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ sha: sha, rows: rows, blobs: blobs })); } catch (e) {}
+    state.stats = stats && stats.reels ? stats : null;
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ sha: sha, rows: rows, stats: state.stats, blobs: blobs })); } catch (e) {}
   }
 
   function load(manual) {
@@ -312,7 +343,8 @@ a { color: var(--accent); }
         id: r.id, when: when, day: dayKey(when), state: s,
         trial: r.q.trial !== false, graduation: r.q.graduation || 'MANUAL',
         caption: caption, video: r.q.video_url || '',
-        permalink: st.permalink || '', publishedAt: st.published_at ? parseTime(st.published_at) : null,
+        permalink: st.permalink || '', mediaId: st.media_id ? String(st.media_id) : '',
+        publishedAt: st.published_at ? parseTime(st.published_at) : null,
         retryAfter: st.retry_after ? parseTime(st.retry_after) : null,
         error: st.error || '', history: Array.isArray(st.history) ? st.history : []
       });
@@ -360,6 +392,33 @@ a { color: var(--accent); }
     return m;
   }
 
+  // ---------- цифры по роликам (stats/reels.json пишет publisher/stats.py) ----------
+  var nf = new Intl.NumberFormat('ru-RU');
+  function num(n) { return n == null ? '—' : nf.format(n); }
+  function secs(ms) {
+    if (ms == null) return '—';
+    var x = ms / 1000;
+    return (x < 10 ? x.toFixed(1).replace('.', ',') : String(Math.round(x))) + ' с';
+  }
+  function holdPct(skip) { return skip == null ? null : Math.round(100 - skip); }   // reels_skip_rate — доля пролиставших за 3 с
+  function statsFor(i) {
+    var r = state.stats && state.stats.reels;
+    return r && i.mediaId && r[i.mediaId] ? r[i.mediaId] : null;
+  }
+  function statLine(ins) {
+    var parts = [];
+    if (ins.views != null) parts.push(num(ins.views) + ' ' + plural(ins.views, 'просмотр', 'просмотра', 'просмотров'));
+    if (ins.reach != null) parts.push('охват ' + num(ins.reach));
+    var h = holdPct(ins.reels_skip_rate);
+    if (h != null) parts.push('3 с досмотрели ' + h + ' %');
+    if (ins.ig_reels_avg_watch_time != null) parts.push('в среднем ' + secs(ins.ig_reels_avg_watch_time));
+    return parts.join(' · ');
+  }
+  function statsStamp() {
+    var u = state.stats && state.stats.updated ? parseTime(state.stats.updated) : null;
+    return u ? stamp(u) : '';
+  }
+
   function renderSummary() {
     var now = new Date(), today = dayKey(now);
     var active = state.items.filter(function (i) { return !INACTIVE[i.state]; });
@@ -388,6 +447,8 @@ a { color: var(--accent); }
 
     var first = i.caption ? i.caption : 'без подписи';
     card.appendChild(el('p', 'cap', first));
+    var sr = i.state === 'published' ? statsFor(i) : null;
+    if (sr && sr.insights && statLine(sr.insights)) card.appendChild(el('div', 'metrics', statLine(sr.insights)));
     card.appendChild(el('div', 'id', i.id));
 
     if (i.state === 'failed' && i.error) card.appendChild(el('div', 'note bad', i.error));
@@ -413,6 +474,11 @@ a { color: var(--accent); }
     if (i.trial) facts.push(i.graduation === 'SS_PERFORMANCE' ? 'Пробный: Instagram сам покажет подписчикам, если зайдёт.' : 'Пробный: к подписчикам переводится вручную.');
     else facts.push('Обычный Reels, сразу для подписчиков.');
     if (i.publishedAt) facts.push('Вышел ' + stamp(i.publishedAt) + '.');
+    if (sr && sr.insights) {
+      var ins = sr.insights;
+      facts.push('Лайки ' + num(ins.likes) + ', комментарии ' + num(ins.comments) + ', сохранения ' + num(ins.saved) +
+        ', репосты ' + num(ins.shares) + ' (цифры на ' + statsStamp() + ').');
+    }
     var ul = el('ul');
     facts.concat(i.history.slice(-6)).forEach(function (h) { ul.appendChild(el('li', '', h)); });
     det.appendChild(ul);
@@ -517,6 +583,84 @@ a { color: var(--accent); }
     }
   }
 
+  function renderStats(view) {
+    var st = state.stats;
+    if (!st) {
+      view.appendChild(el('div', 'empty', 'Цифр пока нет: программа соберёт их из Instagram при ближайшем запуске, она ходит туда раз в 3 часа.'));
+      return;
+    }
+    var head = el('div', 'shead');
+    var acc = el('div', 'acc');
+    if (st.account && st.account.followers_count != null) {
+      acc.appendChild(el('b', '', num(st.account.followers_count)));
+      acc.appendChild(document.createTextNode(plural(st.account.followers_count, 'подписчик', 'подписчика', 'подписчиков') + ' · '));
+    }
+    acc.appendChild(document.createTextNode('цифры на ' + statsStamp()));
+    head.appendChild(acc);
+    var seg = el('div', 'seg');
+    [['date', 'по дате'], ['views', 'по просмотрам']].forEach(function (o) {
+      var b = el('button', '', o[1]);
+      b.setAttribute('aria-pressed', state.statsSort === o[0]);
+      b.onclick = function () {
+        state.statsSort = o[0];
+        try { localStorage.setItem(CACHE_KEY + ':sort', o[0]); } catch (e) {}
+        render();
+      };
+      seg.appendChild(b);
+    });
+    head.appendChild(seg);
+    view.appendChild(head);
+
+    var byMedia = {};
+    state.items.forEach(function (i) { if (i.mediaId) byMedia[i.mediaId] = i; });
+    var rows = Object.keys(st.reels).map(function (k) { return st.reels[k]; });
+    var blind = rows.filter(function (r) { return r.no_insights; }).length;
+    rows = rows.filter(function (r) { return !r.no_insights && r.insights && r.insights.views != null; });
+    rows.forEach(function (r) { r._t = r.timestamp ? parseTime(String(r.timestamp).replace(/([+-]\d\d)(\d\d)$/, '$1:$2')) : null; });
+    rows.sort(state.statsSort === 'views'
+      ? function (a, b) { return (b.insights.views || 0) - (a.insights.views || 0); }
+      : function (a, b) { return (b._t || 0) - (a._t || 0); });
+    var max = rows.reduce(function (m, r) { return Math.max(m, r.insights.views || 0); }, 0) || 1;
+
+    var list = el('div', 'list');
+    rows.forEach(function (r) {
+      var ins = r.insights, q = byMedia[r.id];
+      var card = el('article', 'panel srow' + (r.deleted ? ' deleted' : ''));
+      var top = el('div', 'top');
+      top.appendChild(el('span', '', r._t ? stamp(r._t) : ''));
+      var trial = q ? q.trial : r.trial;
+      if (trial === true) top.appendChild(el('span', 'badge plain', 'пробный'));
+      if (r.deleted) top.appendChild(el('span', 'badge idle', 'удалён'));
+      if (!r.deleted && /^https:\/\/(www\.)?instagram\.com\//.test(r.permalink || '')) {
+        var a = el('a', '', 'Открыть'); a.href = r.permalink; a.target = '_blank'; a.rel = 'noopener';
+        top.appendChild(a);
+      }
+      card.appendChild(top);
+      card.appendChild(el('p', 'cap', (q && q.caption ? q.caption.split('\n')[0] : r.caption) || 'без подписи'));
+      var v = el('div', 'views');
+      v.appendChild(el('b', '', num(ins.views)));
+      v.appendChild(el('span', '', plural(ins.views, 'просмотр', 'просмотра', 'просмотров')));
+      card.appendChild(v);
+      var bar = el('div', 'bar'); var fill = el('i'); fill.style.width = Math.max(2, Math.round(100 * (ins.views || 0) / max)) + '%';
+      bar.appendChild(fill); card.appendChild(bar);
+      var g = el('div', 'mgrid');
+      var h = holdPct(ins.reels_skip_rate);
+      var cells = [[num(ins.reach), 'охват'], [h == null ? '—' : h + ' %', 'досмотрели 3 с'],
+        [secs(ins.ig_reels_avg_watch_time), 'смотрят в среднем'], [num(ins.likes), 'лайки'],
+        [num(ins.saved), 'сохранения'], [num(ins.shares), 'репосты'], [num(ins.comments), 'комментарии']];
+      if (ins.follows != null) cells.push([num(ins.follows), 'подписки']);
+      cells.forEach(function (m) {
+        var d = el('div'); d.appendChild(el('b', '', m[0])); d.appendChild(el('span', '', m[1])); g.appendChild(d);
+      });
+      card.appendChild(g);
+      list.appendChild(card);
+    });
+    if (!rows.length) list.appendChild(el('div', 'empty', 'Instagram пока не отдал цифр ни по одному ролику.'));
+    view.appendChild(list);
+    if (blind) view.appendChild(el('p', 'foot', 'Ещё ' + blind + ' ' + plural(blind, 'старый ролик', 'старых ролика', 'старых роликов') +
+      ' без цифр: по ним Instagram статистику не отдаёт.'));
+  }
+
   function render() {
     var view = document.getElementById('view');
     view.textContent = '';
@@ -530,7 +674,10 @@ a { color: var(--accent); }
     renderSummary();
     document.getElementById('tab-cal').setAttribute('aria-selected', state.tab === 'cal');
     document.getElementById('tab-list').setAttribute('aria-selected', state.tab === 'list');
-    if (state.tab === 'cal') renderCalendar(view); else renderList(view);
+    document.getElementById('tab-stats').setAttribute('aria-selected', state.tab === 'stats');
+    if (state.tab === 'cal') renderCalendar(view);
+    else if (state.tab === 'list') renderList(view);
+    else renderStats(view);
   }
 
   function setTab(t) {
@@ -540,12 +687,13 @@ a { color: var(--accent); }
   }
   document.getElementById('tab-cal').onclick = function () { setTab('cal'); };
   document.getElementById('tab-list').onclick = function () { setTab('list'); };
+  document.getElementById('tab-stats').onclick = function () { setTab('stats'); };
   document.getElementById('refresh').onclick = function () { load(true); };
 
   // сразу показать прошлую загрузку, пока идёт свежая
   try {
     var c = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-    if (c && c.rows) { state.items = build(c.rows); state.sha = c.sha; blobs = c.blobs || {}; }
+    if (c && c.rows) { state.items = build(c.rows); state.sha = c.sha; state.stats = c.stats || null; blobs = c.blobs || {}; }
   } catch (e) {}
   render();
   load(false);
