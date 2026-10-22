@@ -1,10 +1,10 @@
 {
- "updated": "2026-10-22T02:59:45+00:00",
+ "updated": "2026-10-22T08:53:22+00:00",
  "account": {
   "username": "fitness_savtsov",
   "followers_count": 1932,
-  "follows_count": 666,
-  "media_count": 153
+  "follows_count": 669,
+  "media_count": 154
  },
  "reels": {
   "17911326075303446": {
@@ -14,19 +14,19 @@
    "timestamp": "2026-10-21T07:33:50+0000",
    "trial": null,
    "caption": "@hammerfit_club #hammerfitkontinent",
-   "like_count": 119,
-   "comments_count": 11,
+   "like_count": 126,
+   "comments_count": 12,
    "insights": {
-    "views": 3565,
-    "reach": 2573,
-    "likes": 119,
-    "comments": 11,
+    "views": 3808,
+    "reach": 2700,
+    "likes": 126,
+    "comments": 12,
     "shares": 10,
     "saved": 2,
-    "total_interactions": 146,
-    "ig_reels_avg_watch_time": 9996,
-    "ig_reels_video_view_total_time": 26680086,
-    "reels_skip_rate": 28.9
+    "total_interactions": 154,
+    "ig_reels_avg_watch_time": 10054,
+    "ig_reels_video_view_total_time": 28374520,
+    "reels_skip_rate": 29.3
    }
   },
   "18125897548912113": {
@@ -36,19 +36,19 @@
    "timestamp": "2026-10-20T15:30:24+0000",
    "trial": true,
    "caption": "10 недель глубоких приседаний, а прямая мышца бедра не выросла совсем.",
-   "like_count": 10,
-   "comments_count": 5,
+   "like_count": 33,
+   "comments_count": 12,
    "insights": {
-    "views": 1650,
-    "reach": 1510,
-    "likes": 10,
-    "comments": 5,
+    "views": 1854,
+    "reach": 1619,
+    "likes": 33,
+    "comments": 12,
     "shares": 2,
     "saved": 6,
-    "total_interactions": 23,
-    "ig_reels_avg_watch_time": 42825,
-    "ig_reels_video_view_total_time": 63767485,
-    "reels_skip_rate": 24.7
+    "total_interactions": 53,
+    "ig_reels_avg_watch_time": 42194,
+    "ig_reels_video_view_total_time": 67849526,
+    "reels_skip_rate": 25.9
    }
   },
   "18105594158300318": {
@@ -61,16 +61,16 @@
    "like_count": 5,
    "comments_count": 0,
    "insights": {
-    "views": 1113,
-    "reach": 1055,
+    "views": 1114,
+    "reach": 1056,
     "likes": 5,
     "comments": 0,
     "shares": 3,
     "saved": 4,
     "total_interactions": 12,
-    "ig_reels_avg_watch_time": 22295,
-    "ig_reels_video_view_total_time": 23276510,
-    "reels_skip_rate": 23.9
+    "ig_reels_avg_watch_time": 22275,
+    "ig_reels_video_view_total_time": 23277376,
+    "reels_skip_rate": 24
    }
   },
   "17940213276370293": {
@@ -83,15 +83,15 @@
    "like_count": 17,
    "comments_count": 2,
    "insights": {
-    "views": 866,
-    "reach": 767,
+    "views": 875,
+    "reach": 776,
     "likes": 17,
     "comments": 2,
     "shares": 0,
     "saved": 5,
     "total_interactions": 25,
-    "ig_reels_avg_watch_time": 72862,
-    "ig_reels_video_view_total_time": 55666913,
+    "ig_reels_avg_watch_time": 72829,
+    "ig_reels_video_view_total_time": 56297319,
     "reels_skip_rate": 23.2
    }
   },
@@ -102,19 +102,19 @@
    "timestamp": "2026-10-20T14:00:01+0000",
    "trial": true,
    "caption": "Тестостерон к 40 упал? Возраст тут почти ни при чём.",
-   "like_count": 64,
+   "like_count": 67,
    "comments_count": 10,
    "insights": {
-    "views": 3321,
-    "reach": 2559,
-    "likes": 64,
+    "views": 3463,
+    "reach": 2674,
+    "likes": 67,
     "comments": 10,
     "shares": 21,
     "saved": 29,
-    "total_interactions": 125,
-    "ig_reels_avg_watch_time": 37139,
-    "ig_reels_video_view_total_time": 95002109,
-    "reels_skip_rate": 26
+    "total_interactions": 128,
+    "ig_reels_avg_watch_time": 37145,
+    "ig_reels_video_view_total_time": 99326441,
+    "reels_skip_rate": 26.2
    }
   },
   "18119368709088387": {
@@ -127,16 +127,16 @@
    "like_count": 25,
    "comments_count": 0,
    "insights": {
-    "views": 1299,
-    "reach": 1138,
+    "views": 1301,
+    "reach": 1141,
     "likes": 25,
     "comments": 0,
     "shares": 18,
     "saved": 13,
     "total_interactions": 58,
-    "ig_reels_avg_watch_time": 34776,
-    "ig_reels_video_view_total_time": 40201259,
-    "reels_skip_rate": 24.6
+    "ig_reels_avg_watch_time": 34806,
+    "ig_reels_video_view_total_time": 40305768,
+    "reels_skip_rate": 24.5
    }
   },
   "18108181322161041": {
@@ -146,18 +146,18 @@
    "timestamp": "2026-10-18T10:56:32+0000",
    "trial": null,
    "caption": "Сколько мышц даёт тестостерон и при чём тут тренировки.",
-   "like_count": 114,
+   "like_count": 116,
    "comments_count": 13,
    "insights": {
-    "views": 4881,
-    "reach": 3795,
-    "likes": 114,
+    "views": 4915,
+    "reach": 3827,
+    "likes": 116,
     "comments": 13,
-    "shares": 139,
+    "shares": 141,
     "saved": 37,
-    "total_interactions": 305,
-    "ig_reels_avg_watch_time": 29804,
-    "ig_reels_video_view_total_time": 114507832,
+    "total_interactions": 309,
+    "ig_reels_avg_watch_time": 29833,
+    "ig_reels_video_view_total_time": 115454352,
     "reels_skip_rate": 24.9
    }
   },
@@ -212,18 +212,18 @@
    "timestamp": "2026-10-16T14:16:28+0000",
    "trial": null,
    "caption": "Он ломает зал ",
-   "like_count": 143,
+   "like_count": 144,
    "comments_count": 13,
    "insights": {
-    "views": 3466,
-    "reach": 2282,
-    "likes": 143,
+    "views": 3494,
+    "reach": 2307,
+    "likes": 144,
     "comments": 13,
     "shares": 11,
     "saved": 1,
-    "total_interactions": 168,
-    "ig_reels_avg_watch_time": 20486,
-    "ig_reels_video_view_total_time": 51297089,
+    "total_interactions": 169,
+    "ig_reels_avg_watch_time": 20534,
+    "ig_reels_video_view_total_time": 51767324,
     "reels_skip_rate": 21.9
    }
   },
@@ -237,15 +237,15 @@
    "like_count": 86,
    "comments_count": 5,
    "insights": {
-    "views": 4918,
-    "reach": 3255,
+    "views": 4934,
+    "reach": 3274,
     "likes": 86,
     "comments": 5,
     "shares": 5,
     "saved": 1,
     "total_interactions": 99,
-    "ig_reels_avg_watch_time": 10040,
-    "ig_reels_video_view_total_time": 33564041,
+    "ig_reels_avg_watch_time": 10050,
+    "ig_reels_video_view_total_time": 33669491,
     "reels_skip_rate": 29.1
    }
   },
@@ -259,15 +259,15 @@
    "like_count": 20,
    "comments_count": 0,
    "insights": {
-    "views": 2422,
+    "views": 2423,
     "reach": 2009,
     "likes": 20,
     "comments": 0,
     "shares": 7,
     "saved": 3,
     "total_interactions": 30,
-    "ig_reels_avg_watch_time": 31899,
-    "ig_reels_video_view_total_time": 64055094,
+    "ig_reels_avg_watch_time": 31897,
+    "ig_reels_video_view_total_time": 64081163,
     "reels_skip_rate": 21.7
    }
   },
@@ -300,19 +300,19 @@
    "timestamp": "2026-10-15T13:11:39+0000",
    "trial": null,
    "caption": "Шаги на дорожке «ненастоящие»? Проверил по исследованиям.",
-   "like_count": 72,
+   "like_count": 73,
    "comments_count": 12,
    "insights": {
-    "views": 8182,
-    "reach": 6940,
-    "likes": 72,
+    "views": 8191,
+    "reach": 6954,
+    "likes": 73,
     "comments": 12,
     "shares": 28,
     "saved": 8,
-    "total_interactions": 120,
-    "ig_reels_avg_watch_time": 35191,
-    "ig_reels_video_view_total_time": 245002966,
-    "reels_skip_rate": 20.2
+    "total_interactions": 121,
+    "ig_reels_avg_watch_time": 35175,
+    "ig_reels_video_view_total_time": 245139484,
+    "reels_skip_rate": 20.1
    }
   },
   "18630480565007245": {
@@ -325,15 +325,15 @@
    "like_count": 31,
    "comments_count": 1,
    "insights": {
-    "views": 2170,
+    "views": 2171,
     "reach": 1688,
     "likes": 31,
     "comments": 1,
     "shares": 19,
     "saved": 10,
     "total_interactions": 62,
-    "ig_reels_avg_watch_time": 26970,
-    "ig_reels_video_view_total_time": 45202871,
+    "ig_reels_avg_watch_time": 26994,
+    "ig_reels_video_view_total_time": 45270015,
     "reels_skip_rate": 23
    }
   },
@@ -347,15 +347,15 @@
    "like_count": 348,
    "comments_count": 96,
    "insights": {
-    "views": 36317,
-    "reach": 24910,
+    "views": 36425,
+    "reach": 24975,
     "likes": 348,
     "comments": 96,
     "shares": 693,
     "saved": 257,
     "total_interactions": 1402,
-    "ig_reels_avg_watch_time": 35503,
-    "ig_reels_video_view_total_time": 915982208,
+    "ig_reels_avg_watch_time": 35477,
+    "ig_reels_video_view_total_time": 918224462,
     "reels_skip_rate": 18.2
    }
   },
@@ -369,15 +369,15 @@
    "like_count": 71,
    "comments_count": 4,
    "insights": {
-    "views": 3257,
-    "reach": 2570,
+    "views": 3261,
+    "reach": 2577,
     "likes": 71,
     "comments": 4,
     "shares": 15,
     "saved": 2,
     "total_interactions": 92,
-    "ig_reels_avg_watch_time": 14763,
-    "ig_reels_video_view_total_time": 39743107,
+    "ig_reels_avg_watch_time": 14760,
+    "ig_reels_video_view_total_time": 39794771,
     "reels_skip_rate": 34.4
    }
   },
@@ -391,15 +391,15 @@
    "like_count": 43,
    "comments_count": 2,
    "insights": {
-    "views": 2826,
-    "reach": 2249,
+    "views": 2829,
+    "reach": 2252,
     "likes": 43,
     "comments": 2,
     "shares": 1,
     "saved": 1,
     "total_interactions": 47,
-    "ig_reels_avg_watch_time": 7320,
-    "ig_reels_video_view_total_time": 18059531,
+    "ig_reels_avg_watch_time": 7315,
+    "ig_reels_video_view_total_time": 18061241,
     "reels_skip_rate": 73.3
    }
   },
@@ -413,15 +413,15 @@
    "like_count": 46,
    "comments_count": 6,
    "insights": {
-    "views": 2572,
+    "views": 2575,
     "reach": 1749,
     "likes": 46,
     "comments": 6,
     "shares": 4,
     "saved": 0,
     "total_interactions": 57,
-    "ig_reels_avg_watch_time": 9099,
-    "ig_reels_video_view_total_time": 16652250,
+    "ig_reels_avg_watch_time": 9101,
+    "ig_reels_video_view_total_time": 16673127,
     "reels_skip_rate": 31.4
    }
   },
@@ -435,15 +435,15 @@
    "like_count": 14,
    "comments_count": 0,
    "insights": {
-    "views": 1887,
-    "reach": 1326,
+    "views": 1888,
+    "reach": 1328,
     "likes": 14,
     "comments": 0,
     "shares": 2,
     "saved": 0,
     "total_interactions": 16,
-    "ig_reels_avg_watch_time": 11700,
-    "ig_reels_video_view_total_time": 15175743,
+    "ig_reels_avg_watch_time": 11692,
+    "ig_reels_video_view_total_time": 15176853,
     "reels_skip_rate": 23.1
    }
   },
@@ -454,18 +454,18 @@
    "timestamp": "2026-10-10T08:34:05+0000",
    "trial": null,
    "caption": "#hammerfitkontinent @hammerfit_club",
-   "like_count": 133,
+   "like_count": 134,
    "comments_count": 11,
    "insights": {
-    "views": 7497,
-    "reach": 4227,
-    "likes": 133,
+    "views": 7510,
+    "reach": 4235,
+    "likes": 134,
     "comments": 11,
     "shares": 17,
     "saved": 0,
-    "total_interactions": 162,
-    "ig_reels_avg_watch_time": 8779,
-    "ig_reels_video_view_total_time": 39481162,
+    "total_interactions": 163,
+    "ig_reels_avg_watch_time": 8783,
+    "ig_reels_video_view_total_time": 39553616,
     "reels_skip_rate": 35
    }
   },
@@ -479,7 +479,7 @@
    "like_count": 32,
    "comments_count": 0,
    "insights": {
-    "views": 536,
+    "views": 537,
     "reach": 379,
     "likes": 32,
     "comments": 0,
@@ -488,7 +488,7 @@
     "total_interactions": 34,
     "ig_reels_avg_watch_time": 14803,
     "ig_reels_video_view_total_time": 5921353,
-    "reels_skip_rate": 48.6
+    "reels_skip_rate": 48.5
    }
   },
   "17909609658488658": {
@@ -501,7 +501,7 @@
    "like_count": 71,
    "comments_count": 22,
    "insights": {
-    "views": 2595,
+    "views": 2596,
     "reach": 1815,
     "likes": 71,
     "comments": 22,
@@ -523,7 +523,7 @@
    "like_count": 68,
    "comments_count": 0,
    "insights": {
-    "views": 1585,
+    "views": 1586,
     "reach": 1127,
     "likes": 68,
     "comments": 0,
@@ -532,7 +532,7 @@
     "total_interactions": 77,
     "ig_reels_avg_watch_time": 15912,
     "ig_reels_video_view_total_time": 20081105,
-    "reels_skip_rate": 38.7
+    "reels_skip_rate": 38.6
    }
   },
   "18129913915689903": {
@@ -545,7 +545,7 @@
    "like_count": 23,
    "comments_count": 6,
    "insights": {
-    "views": 639,
+    "views": 640,
     "reach": 444,
     "likes": 23,
     "comments": 6,
@@ -554,7 +554,7 @@
     "total_interactions": 31,
     "ig_reels_avg_watch_time": 20310,
     "ig_reels_video_view_total_time": 9688218,
-    "reels_skip_rate": 44.5
+    "reels_skip_rate": 44.4
    }
   },
   "17958840882219236": {
@@ -567,7 +567,7 @@
    "like_count": 107,
    "comments_count": 15,
    "insights": {
-    "views": 5636,
+    "views": 5637,
     "reach": 3834,
     "likes": 107,
     "comments": 15,
@@ -575,7 +575,7 @@
     "saved": 0,
     "total_interactions": 132,
     "ig_reels_avg_watch_time": 11117,
-    "ig_reels_video_view_total_time": 46261495,
+    "ig_reels_video_view_total_time": 46270181,
     "reels_skip_rate": 57.1
    }
   },
@@ -589,7 +589,7 @@
    "like_count": 74,
    "comments_count": 12,
    "insights": {
-    "views": 1806,
+    "views": 1807,
     "reach": 269,
     "likes": 74,
     "comments": 12,
@@ -611,7 +611,7 @@
    "like_count": 21,
    "comments_count": 10,
    "insights": {
-    "views": 1240,
+    "views": 1242,
     "reach": 202,
     "likes": 21,
     "comments": 10,
@@ -633,7 +633,7 @@
    "like_count": 19,
    "comments_count": 36,
    "insights": {
-    "views": 419,
+    "views": 420,
     "reach": 144,
     "likes": 19,
     "comments": 36,
@@ -642,7 +642,7 @@
     "total_interactions": 55,
     "ig_reels_avg_watch_time": 6935,
     "ig_reels_video_view_total_time": 2933640,
-    "reels_skip_rate": 20.8
+    "reels_skip_rate": 20.7
    }
   },
   "17879893223748521": {
@@ -655,15 +655,15 @@
    "like_count": 35,
    "comments_count": 29,
    "insights": {
-    "views": 840,
-    "reach": 165,
+    "views": 841,
+    "reach": 166,
     "likes": 35,
     "comments": 29,
     "shares": 0,
     "saved": 1,
     "total_interactions": 65,
-    "ig_reels_avg_watch_time": 7691,
-    "ig_reels_video_view_total_time": 6514563,
+    "ig_reels_avg_watch_time": 7704,
+    "ig_reels_video_view_total_time": 6533421,
     "reels_skip_rate": 8.7
    }
   },
@@ -677,7 +677,7 @@
    "like_count": 84,
    "comments_count": 43,
    "insights": {
-    "views": 6280,
+    "views": 6281,
     "reach": 188,
     "likes": 84,
     "comments": 43,
