@@ -1,8 +1,8 @@
 {
- "updated": "2026-10-24T21:07:20+00:00",
+ "updated": "2026-10-24T23:36:09+00:00",
  "account": {
   "username": "fitness_savtsov",
-  "followers_count": 1945,
+  "followers_count": 1946,
   "follows_count": 674,
   "media_count": 155
  },
@@ -15,17 +15,17 @@
    "trial": true,
    "caption": "Как впечатлить подруг и ничего не накачать. Если серьёзно, во всех четырёх «советах» вес растёт, а мышцам становится легче.",
    "like_count": 7,
-   "comments_count": 4,
+   "comments_count": 5,
    "insights": {
-    "views": 1722,
-    "reach": 1400,
+    "views": 1728,
+    "reach": 1406,
     "likes": 7,
-    "comments": 4,
+    "comments": 5,
     "shares": 1,
     "saved": 1,
-    "total_interactions": 13,
-    "ig_reels_avg_watch_time": 25134,
-    "ig_reels_video_view_total_time": 34735550,
+    "total_interactions": 14,
+    "ig_reels_avg_watch_time": 25173,
+    "ig_reels_video_view_total_time": 34915929,
     "reels_skip_rate": 21.1
    }
   },
@@ -39,16 +39,16 @@
    "like_count": 56,
    "comments_count": 2,
    "insights": {
-    "views": 1894,
+    "views": 1895,
     "reach": 1565,
     "likes": 56,
     "comments": 2,
     "shares": 11,
     "saved": 19,
     "total_interactions": 88,
-    "ig_reels_avg_watch_time": 33564,
-    "ig_reels_video_view_total_time": 52931728,
-    "reels_skip_rate": 25.8
+    "ig_reels_avg_watch_time": 33544,
+    "ig_reels_video_view_total_time": 52932485,
+    "reels_skip_rate": 25.9
    }
   },
   "18642117376051519": {
@@ -243,15 +243,15 @@
    "like_count": 80,
    "comments_count": 10,
    "insights": {
-    "views": 3871,
-    "reach": 3019,
+    "views": 3884,
+    "reach": 3032,
     "likes": 80,
     "comments": 10,
     "shares": 22,
     "saved": 31,
     "total_interactions": 145,
-    "ig_reels_avg_watch_time": 36916,
-    "ig_reels_video_view_total_time": 111191791,
+    "ig_reels_avg_watch_time": 36931,
+    "ig_reels_video_view_total_time": 111717350,
     "reels_skip_rate": 26.3
    }
   },
@@ -287,15 +287,15 @@
    "like_count": 124,
    "comments_count": 13,
    "insights": {
-    "views": 5221,
-    "reach": 4097,
+    "views": 5229,
+    "reach": 4105,
     "likes": 124,
     "comments": 13,
     "shares": 152,
     "saved": 42,
     "total_interactions": 333,
-    "ig_reels_avg_watch_time": 30085,
-    "ig_reels_video_view_total_time": 123349567,
+    "ig_reels_avg_watch_time": 30080,
+    "ig_reels_video_view_total_time": 123538737,
     "reels_skip_rate": 25.3
    }
   },
@@ -360,9 +360,9 @@
     "shares": 11,
     "saved": 1,
     "total_interactions": 174,
-    "ig_reels_avg_watch_time": 20562,
-    "ig_reels_video_view_total_time": 53586658,
-    "reels_skip_rate": 22.1
+    "ig_reels_avg_watch_time": 20555,
+    "ig_reels_video_view_total_time": 53588046,
+    "reels_skip_rate": 22.2
    }
   },
   "18122109346843928": {
@@ -441,16 +441,16 @@
    "like_count": 73,
    "comments_count": 12,
    "insights": {
-    "views": 8248,
+    "views": 8252,
     "reach": 7001,
     "likes": 73,
     "comments": 12,
     "shares": 28,
     "saved": 8,
     "total_interactions": 121,
-    "ig_reels_avg_watch_time": 35120,
-    "ig_reels_video_view_total_time": 246441523,
-    "reels_skip_rate": 20.3
+    "ig_reels_avg_watch_time": 35140,
+    "ig_reels_video_view_total_time": 246650984,
+    "reels_skip_rate": 20.2
    }
   },
   "18630480565007245": {
@@ -485,16 +485,16 @@
    "like_count": 353,
    "comments_count": 99,
    "insights": {
-    "views": 37782,
-    "reach": 25898,
+    "views": 37814,
+    "reach": 25933,
     "likes": 353,
     "comments": 99,
     "shares": 704,
     "saved": 264,
     "total_interactions": 1428,
-    "ig_reels_avg_watch_time": 35071,
-    "ig_reels_video_view_total_time": 942962796,
-    "reels_skip_rate": 18.6
+    "ig_reels_avg_watch_time": 35049,
+    "ig_reels_video_view_total_time": 943262742,
+    "reels_skip_rate": 18.7
    }
   },
   "17961123378080111": {
@@ -595,15 +595,15 @@
    "like_count": 137,
    "comments_count": 11,
    "insights": {
-    "views": 7579,
+    "views": 7580,
     "reach": 4259,
     "likes": 137,
     "comments": 11,
     "shares": 17,
     "saved": 0,
     "total_interactions": 166,
-    "ig_reels_avg_watch_time": 8784,
-    "ig_reels_video_view_total_time": 39915475,
+    "ig_reels_avg_watch_time": 8783,
+    "ig_reels_video_view_total_time": 39921569,
     "reels_skip_rate": 35
    }
   },
