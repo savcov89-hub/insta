@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T21:09:57+00:00",
+ "updated": "2026-10-25T23:30:11+00:00",
  "account": {
   "username": "fitness_savtsov",
   "followers_count": 1949,
@@ -17,16 +17,16 @@
    "like_count": 30,
    "comments_count": 5,
    "insights": {
-    "views": 3244,
-    "reach": 2316,
+    "views": 3383,
+    "reach": 2411,
     "likes": 30,
     "comments": 5,
     "shares": 38,
-    "saved": 8,
-    "total_interactions": 81,
-    "ig_reels_avg_watch_time": 35162,
-    "ig_reels_video_view_total_time": 82667469,
-    "reels_skip_rate": 18.7
+    "saved": 9,
+    "total_interactions": 82,
+    "ig_reels_avg_watch_time": 35776,
+    "ig_reels_video_view_total_time": 88045500,
+    "reels_skip_rate": 18.4
    }
   },
   "17894287506435822": {
@@ -39,15 +39,15 @@
    "like_count": 41,
    "comments_count": 5,
    "insights": {
-    "views": 2318,
-    "reach": 1815,
+    "views": 2320,
+    "reach": 1818,
     "likes": 41,
     "comments": 5,
     "shares": 1,
     "saved": 2,
     "total_interactions": 51,
-    "ig_reels_avg_watch_time": 24942,
-    "ig_reels_video_view_total_time": 44498090,
+    "ig_reels_avg_watch_time": 24943,
+    "ig_reels_video_view_total_time": 44548234,
     "reels_skip_rate": 25.1
    }
   },
@@ -61,15 +61,15 @@
    "like_count": 60,
    "comments_count": 2,
    "insights": {
-    "views": 1946,
+    "views": 1947,
     "reach": 1599,
     "likes": 60,
     "comments": 2,
     "shares": 11,
     "saved": 19,
     "total_interactions": 92,
-    "ig_reels_avg_watch_time": 33592,
-    "ig_reels_video_view_total_time": 54553428,
+    "ig_reels_avg_watch_time": 33574,
+    "ig_reels_video_view_total_time": 54559289,
     "reels_skip_rate": 25.8
    }
   },
@@ -265,15 +265,15 @@
    "like_count": 83,
    "comments_count": 10,
    "insights": {
-    "views": 4043,
-    "reach": 3168,
+    "views": 4049,
+    "reach": 3178,
     "likes": 83,
     "comments": 10,
     "shares": 22,
     "saved": 31,
     "total_interactions": 148,
-    "ig_reels_avg_watch_time": 37070,
-    "ig_reels_video_view_total_time": 116845225,
+    "ig_reels_avg_watch_time": 37140,
+    "ig_reels_video_view_total_time": 117253412,
     "reels_skip_rate": 26.2
    }
   },
@@ -309,15 +309,15 @@
    "like_count": 125,
    "comments_count": 13,
    "insights": {
-    "views": 5289,
+    "views": 5292,
     "reach": 4135,
     "likes": 125,
     "comments": 13,
     "shares": 153,
-    "saved": 42,
-    "total_interactions": 335,
-    "ig_reels_avg_watch_time": 30035,
-    "ig_reels_video_view_total_time": 124798591,
+    "saved": 43,
+    "total_interactions": 336,
+    "ig_reels_avg_watch_time": 30046,
+    "ig_reels_video_view_total_time": 124904562,
     "reels_skip_rate": 25.5
    }
   },
@@ -463,15 +463,15 @@
    "like_count": 73,
    "comments_count": 12,
    "insights": {
-    "views": 8277,
+    "views": 8278,
     "reach": 7032,
     "likes": 73,
     "comments": 12,
     "shares": 28,
     "saved": 8,
     "total_interactions": 121,
-    "ig_reels_avg_watch_time": 35085,
-    "ig_reels_video_view_total_time": 247144466,
+    "ig_reels_avg_watch_time": 35077,
+    "ig_reels_video_view_total_time": 247155375,
     "reels_skip_rate": 20.2
    }
   },
@@ -507,15 +507,15 @@
    "like_count": 357,
    "comments_count": 99,
    "insights": {
-    "views": 38132,
-    "reach": 26102,
+    "views": 38158,
+    "reach": 26167,
     "likes": 357,
     "comments": 99,
     "shares": 708,
     "saved": 265,
     "total_interactions": 1437,
-    "ig_reels_avg_watch_time": 34958,
-    "ig_reels_video_view_total_time": 949087407,
+    "ig_reels_avg_watch_time": 34946,
+    "ig_reels_video_view_total_time": 949812981,
     "reels_skip_rate": 18.7
    }
   },
@@ -617,7 +617,7 @@
    "like_count": 137,
    "comments_count": 11,
    "insights": {
-    "views": 7589,
+    "views": 7592,
     "reach": 4259,
     "likes": 137,
     "comments": 11,
@@ -625,7 +625,7 @@
     "saved": 0,
     "total_interactions": 166,
     "ig_reels_avg_watch_time": 8780,
-    "ig_reels_video_view_total_time": 39959739,
+    "ig_reels_video_view_total_time": 39969002,
     "reels_skip_rate": 35
    }
   },
@@ -727,7 +727,7 @@
    "like_count": 107,
    "comments_count": 15,
    "insights": {
-    "views": 5664,
+    "views": 5665,
     "reach": 3854,
     "likes": 107,
     "comments": 15,
