@@ -1,0 +1,28 @@
+# Скачивает чужой ролик YouTube (Shorts) по ссылке из razbor/yt.txt (yt-dlp) и коммитит видео в ту же ветку — для разбора.
+name: razbor-yt
+on:
+  push:
+    paths: ['razbor/yt.txt']
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: download
+        run: |
+          pip install -q -U yt-dlp
+          url=$(head -1 razbor/yt.txt)
+          for c in default tv web_safari android ios mweb; do
+            yt-dlp -o "razbor/%(id)s.%(ext)s" -f "bv*[height<=1920][ext=mp4]+ba[ext=m4a]/b[ext=mp4]/b" --merge-output-format mp4 \
+              --write-info-json --no-playlist --extractor-args "youtube:player_client=$c" "$url" 2>&1 | tail -5 && ls razbor/*.mp4 2>/dev/null && break
+          done
+          ls razbor/*.mp4 || echo "fail" > razbor/yt.error
+          ls -la razbor
+      - name: commit
+        run: |
+          git config user.name "razbor-bot"; git config user.email "actions@github.com"
+          git add razbor
+          git commit -q -m "razbor: видео YouTube скачано" || exit 0
+          git push -q
