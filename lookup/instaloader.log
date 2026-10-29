@@ -1,0 +1,7 @@
+usage: 
+instaloader [--comments] [--geotags]
+            [--stories] [--highlights] [--tagged] [--reels] [--igtv]
+            [--login YOUR-USERNAME] [--fast-update]
+            profile | "#hashtag" | %location_id | :stories | :feed | :saved
+instaloader --help
+instaloader: error: argument -C/--comments: ignored explicit argument 'false'
