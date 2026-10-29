@@ -18,8 +18,9 @@ jobs:
           (yt-dlp --flat-playlist -J "https://www.instagram.com/$p/" > lookup/ytdlp-profile.json 2> lookup/ytdlp-profile.err || true)
           (timeout 600 instaloader --no-pictures --no-videos --no-video-thumbnails --no-profile-pic --comments=false --max-connection-attempts 1 --post-metadata-txt='{caption}' --count 400 -- "$p" > lookup/instaloader.log 2>&1 || true)
           (grep -ril -e opensim -e "open sim" -e sumo "$p" > lookup/hits.txt 2>/dev/null || true)
-          ls -la lookup; tail -5 lookup/*.err lookup/instaloader.log
+          ls -la lookup; for f in lookup/*.err lookup/instaloader.log; do echo "== $f"; cat "$f"; done; true
       - name: commit
+        if: always()
         run: |
           git config user.name "lookup-bot"; git config user.email "actions@github.com"
           git add -A lookup "bretcontreras1" 2>/dev/null || git add -A lookup
