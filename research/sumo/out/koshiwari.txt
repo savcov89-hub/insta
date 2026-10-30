@@ -1,0 +1,418 @@
+Journal of Sports Science 6 (2018) 149-158
+doi: 10.17265/2332-7839/2018.03.003
+                                                                                                          D   DAVID     PUBLISHING
+
+
+
+
+A Three-Dimensional Biomechanical Analysis of
+KOSHIWARI Exercise
+
+Hirokazu Suhara1, Kazumichi Ae2, Miki Nariai1, Hitoshi Shiraki1,3 and Shumpei Miyakawa1,3
+1. Department of Sports Medicine, Graduate School of Comprehensive Human Sciences, University of Tsukuba, Ibaraki Prefecture
+305-8577, Tsukuba City, Japan
+2. Sports Research and Development Core, University of Tsukuba, Ibaraki Prefecture 305-8577, Tsukuba City, Japan
+3. Faculty of Health and Sport Sciences, University of Tsukuba, Ibaraki Prefecture 305-8577, Tsukuba City, Japan
+
+
+Abstract: The koshiwari (Sumo Squat) is a traditional exercise used for basic training for sumo wrestling, the national sport of Japan.
+This study compares and analyzes the kinetics and kinematics of the koshiwari and squat with wide-stance (WSQ) to provide insight
+related to the mechanical features of the koshiwari. Optical three-dimensional automatic analysis instruments were used to measure
+movements of 11 men during exercises. A force platform was used to measure floor reactions. Two movements were analyzed:
+koshiwari and WSQ. The koshiwari and WSQ were compared as analytical objectives, using paired t-tests corresponding to correction
+joint angles, angular impulse, and joint torques with the level of significance set under 5%. Koshiwari was found to involve markedly
+greater excursions of abduction (maximum and minimum angle, correction angle to 20%-60%) and external rotation (maximum and
+minimum angle) at the hip compared with the WSQ, as well as markedly less hip flexion (maximum angle, correction angle 10%-90%)
+and torso forward tilt (maximum angle, correction angle 30%-100%). Koshiwari also involved greater extension-flexion axis,
+abduction-adduction axis, external rotation-internal rotation axis angular impulse and flexion (10%-100%), adduction (40%-60%), and
+external rotation (20%) torques at the hip than WSQ exercises. Results suggest that hip external rotation torque is attributable to hip
+external rotator muscle activity. The activity can apparently reduce the risk of ACL (Anterior cruciate ligament) injuries and
+patellofemoral pain syndrome and improve athletic performance.
+
+Key words: Koshiwari exercise, sumo squat, hip joint, joint angle, joint torque.
+
+
+1. Introduction                                                      tremendous force against the ground [1].
+                                                                         A wrestler must maintain abduction and external
+   The koshiwari (Sumo Squat) is an exercise used in
+                                                                      rotation of hips at the lowest position of koshiwari.
+basic training for sumo wrestling, the national sport of
+                                                                      Accordingly, koshiwari is regarded as an effective
+Japan. Koshiwari requires that a person stand with feet
+                                                                      exercise to activate the muscles around the hip joints.
+shoulder-width apart, with externally rotated hip and
+                                                                      Suhara et al. [2] reported from earlier studies that
+feet pointed outwards and repeated extension and
+                                                                      examined the muscle activities of healthy male adults
+flexion movements of the knees and hips.
+                                                                      that the gluteus maximus was highly activated at the
+   In Sumo competition, two sumo wrestlers face one
+                                                                      lowest position of koshiwari. They concluded that the
+another. The match finishes when either wrestler falls
+                                                                      hip joint position contributes to activation.
+to the ground or is pushed out of bounds. The playing
+                                                                         Exercises to strengthen the gluteal muscles are
+surface consists of sand, which makes wrestlers able to
+                                                                      important to prevent injury. Many studies have
+glide, but wrestlers must simultaneously lower the
+                                                                      revealed weakness of the gluteal muscles as a risk
+center of gravity to apply a driving force against an
+                                                                      factor of injuries of the lower extremities. Leetun et al.
+opponent. Therefore, it is important to apply
+                                                                      [3] examined 139 collegiate basketball players and
+                                                                      other athletes, reporting that people who have hip
+   Corresponding author: Hirokazu Suhara, MS.c. student,
+research fields: sports medicine, physical training.                  abduction weakness and hip external rotation strength
+150                   A Three-Dimensional Biomechanical Analysis of KOSHIWARI Exercise
+
+
+tend to have higher rates of injury of the lower            rotation torque is exerted on the knee joint in
+extremities. Ireland et al. [4] compared a group of         body-weight squats in the comparison of kinetics of
+young females with history of patellofemoral pain           body-weight koshiwari to body-weight squat with a
+syndrome and a group of healthy young females. The          wide stance. Suhara reported that koshiwari might
+results showed that the former produced 26% less hip        place less stress on knee joints because the knee joint is
+abduction strength and 36% less hip external rotation       used mainly in the sagittal plane. Excessive torque
+compared to healthy females. Zazulak et al. [5]             applied in internal and external rotations damages
+examined the activation of gluteal muscles on the           ligaments and menisci of the knees. That earlier study,
+single-leg landing of male and female athletes at a         however, only examined the kinetics of the knee joint,
+National Collegiate Athletic Association (NCAA)             ignoring state characteristics of kinetics and effects of
+division 1 college using electromyography, later            koshiwari on gluteal muscles. Results of the present
+reporting that females produced weaker activations of       study might therefore provide important insights
+lower fibers of gluteal muscles. According to the           related to the kinetics of the knee and hip and effects of
+findings, Zazulak et al. state that ACL injuries are        koshiwari on strengthening gluteal muscles.
+preventable by improving the activation of lower fibers     Consequently, the purpose of this study is to compare
+of gluteal muscles. Those studies demonstrate that          koshiwari and squat with a wide stance, which is
+gluteal muscle weakness causes malalignment of the          known to provide greater activation of gluteal muscles
+lower extremities, which can constitute a risk factor for   and to provide insights into hip joint kinetics and
+injuries on lower extremities.                              kinematics.
+   Squat exercises are generally used for strengthening
+                                                            2. Materials and Methods
+gluteal muscles when standing. Such exercises require
+a person to coordinate the flexion and extension            2.1 Subjects
+movements on the hip, knee, and ankle joints. Many            The study participants, for whom there is no history
+studies have examined squats of various types to            of severe trauma to the lower extremities, were 11
+improve the effects on activation of gluteal muscles,       healthy men (age, 20.18 ± 0.57 years; height, 172.09 ±
+such as using heavier weights [6], plyometric               2.47 cm; weight, 64.27 ± 4.00 kg) who reported no pain
+movements [7], lower bottom position [8], and a wider       or difficulty of movement. We explained the purpose
+stance [9]. Most such studies applied weights to            and procedures of the study to all participants and
+subjects irrespective of heaviness. Few studies have        obtained their consent to participate in this study. This
+tested subjects using body-weight exercises. In terms       project was approved by the Research Ethics
+of difficulty of the movement, it is difficult to acquire   Committee of the University of Tsukuba.
+correct movements of squat especially the beginners.
+Therefore, it can also be difficult to achieve proper       2.2 Procedures
+activation of gluteal muscles. Squats are also known to        2.2.1 Experimental Tasks
+provide adverse stress on knee joint with inappropriate        The experimental tasks were the koshiwari and wide
+movements [10]. Therefore, it is necessary to gain          squat (WSQ). The koshiwari, as described by Suhara et
+knowledge of how body-weight exercises exert effects        al. [2], is a movement with hip and knee flexion and
+on gluteal muscles in addition to those weighted            subsequent extension, with the descent stopping at 90°
+exercises to provide other methods of training for those    of knee flexion, so that the thighs are parallel to the
+who have not acquired proper squat movements.               floor. Also, the hips are in maximal external rotation.
+Suhara et al. [2] reported that there greater external      The trunk and lower legs are maintained as vertical.
+                      A Three-Dimensional Biomechanical Analysis of KOSHIWARI Exercise                              151
+
+
+The directions of the feet (angles of hip external           observed from the side, and the direction of each
+rotation) are set at the greatest possible angles at which   patella is aligned with the direction of the ipsilateral
+the subject can perform the task appropriately. In           foot. In addition, the hand is set on the pelvis (Fig. 1b).
+addition, a hand is set on the pelvis (Fig. 1a). The WSQ,       These tasks were performed with only the subject’s
+as described by McCaw and Melrose [9], is a                  own body weight as the load, and with each foot placed
+movement of flexion with subsequent extension with           on a force platform. The excursion was maintained
+feet set apart at 140% of the shoulder width and pointed     between 0° and 90° of knee flexion for both exercises.
+outward at 15° (15° of hip external rotation). Lower         Each exercise was performed in synchrony to a
+extremity flexion and extension are performed with the       metronome set at 60 beats/min, with one exercise
+trunk inclined anteriorly 45° relative to the floor. The     repetition comprising descent for 2 s (early descending
+knees are not displaced further forward than the toes, as    1 s, late descending 2 s), remaining at the bottom for 1 s,
+
+
+
+
+Fig. 1 Temporal sequence in a KOSHIWARI (SUMO Squat) exercise and Squat exercise with WSQ.
+152                   A Three-Dimensional Biomechanical Analysis of KOSHIWARI Exercise
+
+
+
+and ascent for 2 s (early ascending 1 s, late ascending    right hip joint center (hipR); yhip was the
+2 s). The total duration was 5 s. Two repetitions of the   vector-product of the zhip and a vector from the left hip
+exercise were performed in succession with a 1-s           joint center (hipL) to the hipR; xhip was the
+interval between the repetitions. Experimental             cross-product the yhip and the zhip (Fig. 2a).
+measurements were conducted after each subject had         Functionally, the following were set: xhip was the
+practiced the tasks for 2 weeks, being careful to          extension (+) and flexion (-) axis; yhip axis was the
+perform them at uniform speed. Of the repetitions, the     abduction (+) and adduction (-) axis; and zhip was the
+repetition with more uniform speed and reaching the        external rotation (+) and internal rotation (-) axis.
+proper angles was selected for analyses.                      The hip joint angle was established using Euler
+   2.2.2 Collection and Analysis of Data                   angles, based on Roy et al. [13]. The order of rotation at
+   Three-dimensional coordinate data of the body (35       hip joint was x-y-z: three degrees of freedom at the hip
+markers) were captured using a system with 12              in the order of extension, abduction, and external
+cameras (250 Hz, Vicon-MX; Vicon Motion Systems,           rotation.
+Ltd., Oxford, UK). Ground reaction forces of each leg         The torso angle, positive for torso forward tilt, was
+were measured using force platforms (1,000 Hz,             defined as the angle between the vertical z-axis and a
+Kistler 9287B; Kistler Instruments AG, Winterthur,         position vector from the midpoint between the two hip
+Switzerland). The coordinate data were smoothed            joints to the midpoint (clavC) between the superior
+using a Butterworth digital filter with zero phase shift   border of the sternum (clav) and the seventh cervical
+set at optimal cutoff frequencies (2.5-12.5 Hz), as        vertebra (c7) (positive values: torso forward tilt)
+specified by Wells and Winter [11]. The exercises were     (Fig. 2b).
+performed slowly. Therefore, the ground reaction force        In addition, to correct the difference by the joint
+data were downsampled to 250 Hz using a cubic spline       angle in the initial position by the calculated joint angle,
+function in MATLAB (The MathWorks Inc., Natick,            we subtracted a joint angle of 1% as the correction joint
+MA).                                                       angle.
+                                                              2.3.2 Lower-Extremity Joint Torques
+2.3 Data Processing
+                                                              With the coordinate systems for three segments (foot,
+   2.3.1 Hip Joint Coordinate System and Trunk Angle       shank, and thigh) of both legs established, the angular
+   To determine the joint coordinate systems, the hip      velocities of the segments were calculated by
+joint center was estimated using a method advocated by     differentiating the temporal histories of the unit vectors
+the Clinical Gait Analysis Forum of Japan [12].            of the axes in the coordinate systems. Mass, center of
+Centers of the knee and ankle joints were set at the       gravity, and moments of inertia were calculated for
+midpoints between medial and lateral markers               each segment using body-segment parameters
+straddling the respective joints. The following            provided by Ae [14]. The forces and moments around
+describes how the joint (right-handed) coordinate          the three joints were calculated by application of the
+systems were determined for the three joints of the        inverse dynamics approach to the coordinate data of the
+lower right extremity.                                     body and the ground reaction force data of both legs.
+   In this study, the hip joint coordinate system was      Then the hip joint torque was converted by projecting
+explained so that we emphasized descriptions of the hip    the joint moment onto the hip joint coordinate system
+joint kinematic and kinetic parameters. For the hip        explained above. In addition, the torque was divided by
+coordinate system, the following were set: zhip was a      the subject’s body weight to eliminate the influence of
+vector from the right knee joint center (knR) to the       different absolute body dimensions. The angular impulse
+                       A Three-Dimensional Biomechanical Analysis of KOSHIWARI Exercise                                  153
+
+
+
+                                                                                     clavC
+                                       zhip      hipR        ship               c7
+                                                                                       clav
+                                      xhip       yhip   hipL
+
+
+
+
+                                                                             hipR             hipL
+                               knRl
+                                                                                              hipC
+                                      knR      knRm
+
+                                             (a) Hip joint           (b) Vector of the trunk segment
+Fig. 2 Definition of hip joint coordinate system and vector of the longitudinal axis for the trunk segment.
+                                  Figure 2. Definition of hip joint coordinate system and vector of the
+Table 1                                   longitudinal
+          Comparison of the Hip joint angle            axis for the trunk
+                                            between KOSHIWARI             segment.
+                                                                        and WSQ (deg: correction before angle).
+                                                                     KOSHIWARI                          SQUAT
+Ext + / Flex -                        Maximum                        51.89 ± 6.04                       85.88 ± 7.68**
+                                      Minimum                        2.32 ± 10.32                       0.14 ± 12.84
+Abd + / Add -                         Maximum                        50.17 ± 7.96*                      30.14 ± 6.51
+                                      Minimum                        20.39 ± 3.92*                      12.42 ± 2.69
+Ext ro + / Int ro -                   Maximum                        43.2 ± 12.31*                      15.52 ± 8.92
+                                      Minimum                        27.72 ± 10.69*                     1.2 ± 8.77
+Forw tilt + / Back tilt -             Maximum                        17.89 ± 2.41                       22.11 ± 3.24**
+                                      Minimum                        12.81 ± 2.18                       11.3 ± 1.3
+Values are mean ± SD; * Indicates that KOSHIWARI is greater than WSQ (p < 0.05); ** Indicates that WSQ is greater than
+KOSHIWARI (p < 0.05); Ext + / Flex -: Extension + / Flexion -; Abd + / Add -: Abduction + / Adduction -; Ext ro + / Int ro -:
+External rotation + / Internal rotation -; Forw tilt + / Back tilt -: Torso forward tilt + / Torso backward tilt -.
+
+was calculated by integrating the torque of all frames,              impulse, for all 11 phases, from 0%-100% of task
+as described below.                                                  completion for each correction joint angle and joint
+   2.3.3 Time Normalization and Sectioning                           torque parameter. Moreover, results were corrected
+   The tasks performed for this study were analyzed                  p-values using Bonferroni method. No statistical
+beginning from the moment that descent was initiated                 analysis was implemented to compare one phase to the
+and ending at the moment that ascent was completed.                  other in the same experimental task.
+The time series of data from the beginning to end of
+each task was normalized such that the end occurred at               3. Results
+100%, with data to be analyzed at 10% intervals.                     3.1 Kinematics
+2.4 Statistical Analyses
+                                                                        Table 1 presents a comparison of the maximum and
+  All values are expressed as mean ± standard                        minimum joint angle of hip joint between koshiwari
+deviation. Statistical procedures were performed using               and WSQ (correction before joint angle). Regarding
+SPSS Statistics 22 for Windows (IBM, Tokyo, Japan)                   hip extension and the flexion angle, the angle in WSQ
+with the level of significance set below 5%.                         is significantly greater than the angle in koshiwari at
+Measurements taken during the koshiwari and WSQ                      the maximum hip flexion. No significant difference
+were compared using paired t-tests at the angular                    was found between the two exercises for minimum hip
+154                  A Three-Dimensional Biomechanical Analysis of KOSHIWARI Exercise
+
+
+flexion. Regarding the hip abduction and adduction       than WSQ did at the maximum hip external rotation.
+angle, koshiwari produced a significantly larger angle   Koshiwari produced a significantly greater angle than
+than WSQ did at the maximum hip abduction.               WSQ did with minimum hip external rotation.
+Koshiwari produced a significantly greater angle than       Fig. 3a presents a comparison of the correction joint
+WSQ did at the minimum hip abduction. Regarding to       angle of hip joint between koshiwari and WSQ
+the hip external rotation and internal rotation,         (correction joint angle). Regarding hip extension and
+koshiwari produced a significantly greater joint angle   flexion, WSQ has significantly greater hip flexion than
+
+
+
+
+Fig. 3 Comparing of hip joint torque (a) and correction hip joint angle (b) between KOSHIWARI and WSQ.
+Solid lines—KOSHIWARI, Broken lines—WSQ; Ext—Extension, Flex—Flexion; Abd—Abduction, Add—Adduction; Ext
+ro—External Rotation, Int ro—Internal Rotation; Forw tilt—Forward Tilt, Back tilt—Backward Tilt;
+*
+  p < 0.05. Values are means ± SQ.
+                      A Three-Dimensional Biomechanical Analysis of KOSHIWARI Exercise                         155
+
+
+
+
+Fig. 4 Comparison of the angular impulse of hip joint between KOSHIWARI and WSQ (Nm•s/kg).
+*p < 0.05. Values are means ± SD.
+
+koshiwari from the 10%-90% phase. Regarding hip             abduction and adduction. Koshiwari produced
+abduction and adduction, koshiwari produced                 significantly greater angular impulse than WSQ did
+significantly greater hip abduction than WSQ from the       about for the axis on external and internal rotation.
+20%-60% phase. For hip external rotation and internal         Fig. 3b shows hip joint torques for koshiwari and
+rotation, no significant difference was found.              WSQ. Regarding extension and flexion torque,
+Regarding the torso forward and backward tilt, WSQ          koshiwari produced significantly greater flexion torque
+produced significantly greater torso forward tilt than      than WSQ did from the 10%-100% phase. For
+koshiwari did from the 30%-100% phase. In addition,         abduction and adduction torque, koshiwari produced
+initial angle hip flexion is (5.47 ± 7.44), hip abduction   significantly greater hip adduction torque than WSQ
+(23.35 ± 5.04), hip external rotation (39.33 ± 10.04),      did from the 40%-60% phase. For external and internal
+torso forward tilt (13.32 ± 2) of koshiwari and hip         rotation torque, koshiwari produced significantly
+flexion (0.14 ± 7.68), hip abduction (13.1 ± 2.68), hip     greater hip external torque than WSQ did at the 20%
+external rotation (24.76 ± 7.41), torso forward tilt        phase.
+(11.14 ± 1.48) of WSQ.
+                                                            4. Discussion
+3.2 Kinetics
+                                                            4.1 Hip Joint Kinematics and Kinetics
+   Fig. 4 presents a comparison of the angular impulse
+of the hip joint associated with koshiwari and WSQ.            In this study, koshiwari was found to produce higher
+Koshiwari produced significantly greater angular            angular impulse at the axis of external and internal
+impulse than WSQ did about the axis on extension and        rotation of the hip than WSQ. Time-series data show
+flexion. Koshiwari produced a significantly greater         that koshiwari and WSQ produced hip external rotation
+angular impulse than WSQ did about the axis on              torque. Especially at the 20% phase, it was
+156                   A Three-Dimensional Biomechanical Analysis of KOSHIWARI Exercise
+
+
+significantly higher for koshiwari than WSQ.                  study compared muscle activations among some
+Consequently, the angular impulse in koshiwari                exercises generally used for the hip joint. Sumo squat
+consists of hip external rotation torque; it is greater for   has only 13% Maximum voluntary isometric
+koshiwari, especially during the descending phase.            contraction (MVIC) on the adductor longus. Suzuki [17]
+Regarding time-series data of the correction joint angle,     reported that muscle activation of the adductor longus
+the hip external rotation angle was smaller in both           in koshiwari and WSQ were not significantly different.
+exercises as the participants decreased their height. It is   According to the two studies, the muscle activation of
+reasonable to infer that the gluteus maximus and deep         adductor muscles does not contribute greatly to the hip
+external rotators are contracted eccentrically because        adductor torque in koshiwari. Neumann [15] described
+the angle of hip external rotation was reduced, even          that hip adductor muscles are the restricting tissue for
+though hip external rotation torque was found for the         at the end of the range of hip abduction. Robertson et al.
+descending phase for those two exercises.                     [18] reported that the sum of all tissues becomes one
+   Neuman [15] reported that the hip external rotation        joint torque. For analysis of motion occurring closer to
+angle decreases as the hip flexion angle increases. The       the end range of the joint, muscle extensibility becomes
+present study revealed that the hip flexion angle             the major contributor to joint torque.
+reached a maximum value at the phase of 50% and that             For koshiwari, this study revealed that the hip
+the hip external rotation angle becomes minimal.              adductor torque became greatest at the 40% phase and
+Accordingly, results of this study suggest that               the hip abduction angle reached approximately 50°
+koshiwari produces greater hip external rotation torque       (correction before joint angle), which is regarded as the
+than WSQ does, with greater activation of muscles for         end range of hip abduction. Therefore, the hip adductor
+hip external rotation because it requires maintenance of      muscle extensibility contributes to the hip adductor
+hip external rotation, which is normally reduced as the       torque in koshiwari.
+hip joint flexes.                                                This study revealed that koshiwari produced higher
+   Koshiwari produced greater angular impulse at the          angular impulse at the axis of flexion and extension of
+axis of abduction and adduction of the hip than WSQ           the hip than WSQ did. Koshiwari, as shown by
+did. Time-series data of joint torque show that both          time-series data, produced flexion torque constantly,
+exercises produced adductor torque at the hip joint, but      but WSQ produced flexion torque only at 1%, 10%,
+koshiwari has significantly greater torque at the phase       20%, 90%, and 100% of phase and extension torque
+from 30%-60% than WSQ does. Consequently, this                from the 40%-80% phase. Neuman [15] studied
+angular impulse resulted from the hip adduction torque,       characteristics of mechanics of the static standing
+which is greater in koshiwari, especially at the              posture. The center of gravity is located slightly
+descending phase and the hold phase. Additionally, in         posterior from the center of hip joints, so hip flexion
+both exercises, time-series data show that the                torque maintains the standing posture. For koshiwari,
+correction hip abduction angle increases from the             hip flexion torque becomes maximal at the 0% phase
+descending phase to the hold phase. Therefore,                and becomes minimal at the hold phase. Therefore, the
+koshiwari requires the use of hip adductors such as the       actual motion of hip flexion does not increase hip
+adductor longus and magnus eccentrically because the          flexion torque because the torque is produced to
+hip abduction angle increases, although the hip               maintain the standing posture. In WSQ, the hip flexion
+adduction torque increases.                                   torque is produced at the descending phase. Hip
+   Delmore et al. [16], however, reported that                extension torque is produced from the late descending
+activation of the adductor longus is minimal. That            phase to the ascending phase. Manabe et al. [19]
+                      A Three-Dimensional Biomechanical Analysis of KOSHIWARI Exercise                                  157
+
+
+studied the kinetics of squat motions related to different    the early ascending phase. Therefore, koshiwari can be
+techniques. They reported that hip extension torque           an effective exercise for sumo and for various sports
+becomes greater as the torso tilts further forward. The       that require athletes to lower the body.
+present study also demonstrated that WSQ has larger
+                                                              4.3 Implications for Future Research
+forward tilt of torso than koshiwari from 30%-100%
+phase in which hip extension torque is produced.                 This study specifically conducted analysis of the
+Therefore, the forward tilt of the torso strongly             kinematics and kinetics of koshiwari and WSQ by
+influences the production of hip extension torque at the      examining joint torques to predict muscle activation
+late descending phase to the early ascending phase in         around joints with the inverse dynamics assumption.
+WSQ.                                                          Some other muscles that have not been examined
+                                                              deeper and closer to the joint surface, such as deep
+4.2 Practical Applications
+                                                              external rotators and typically piriformis and iliopsoas,
+  Results obtained from this study demonstrate that           are important arthrokinematically. A simulation such
+koshiwari produces greater activation of hip external         as Software for Interactive Musculoskeletal Modeling
+rotators than WSQ does. Sahrmann [20] describes               (SIMM) is expected to be effective for safe analysis of
+tibiofemoral rotation with valgus (TFRVal), which is          deep muscles in the hip joint. Consequently, with the
+regarded as a typical malalignment of the knee joint, as      assistance of the simulation, it is necessary to examine
+the causative alignment for acute knee injuries such as       characteristics of koshiwari-related mechanics.
+ACL injuries [21], chronic knee injuries such as              Simultaneously, it is important to assess the
+patellofemoral pain syndrome [22], and iliotibial band        applications of koshiwari for athletes and for the
+syndrome [23]. Patients with TFRVal perform                   general population to clarify the effectiveness of
+partial-depth squats with adducted and internally             koshiwari.
+rotated hip joint and valgus knee joint. Koshiwari is an      5. Conclusion
+effective exercise to alleviate this malalignment, which
+is caused mainly by weak hip external rotators and               The results unveiled in this work are shown below.
+abductors, because it activates hip external rotators. It     Koshiwari was found to involve markedly greater
+can reduce the risk of ACL injuries and patellofemoral        excursions of abduction and external rotation at the hip
+pain syndrome.                                                compared with the WSQ, as well as markedly less hip
+   After studying baseball pitchers, Hirayama et al. [24]     flexion and torso forward tilt. Koshiwari also involved
+reported that faulty mechanics of the lower extremities       greater extension-flexion axis, abduction-adduction
+slow ball speed by reducing the hip extension torque of       axis, external rotation-internal rotation axis angular
+the leading leg (left leg of a right-handed pitcher) as the   impulse and flexion, adduction, and external rotation
+number of pitches increases. Hirayama also described          torques at the hip than WSQ exercises.
+the possible effectiveness of koshiwari to increase the       References
+activation of gluteal muscles at a flexed hip angle,
+                                                              [1]   Kuwamori, S., Kondo, M., and Touno, T. 1998. “Effects
+while not reducing the hip extension torque and not                 of Attaching Weight Load to Body on ‘DEASHI’
+degrading pitching performance.                                     (Dashing Forward) Power in SUMO Wrestlers—A
+   Koshiwari activates hip external rotators. Results of            Simulation Study of Body Fat Increase.” Research Journal
+                                                                    of BUDO 30 (3): 1-9. (in Japanese)
+the present study showed that the participants produced
+                                                              [2]   Suhara, H., Shiraki, H., and Miyakawa, S. 2014.
+hip external rotation torque while lowering their center            “Biomechanical Analysis of KOSHIWARI Exercise.”
+of gravity, especially from the late descending phase to            Japanese Journal of Clinical Sports Medicine 22 (1):
+158                      A Three-Dimensional Biomechanical Analysis of KOSHIWARI Exercise
+
+
+     128-37. (in Japanese)                                          [14] Ae, M. 1996. “Body Segment Inertia Parameters for
+[3]  Leetun, D., Ireland, M., Willson, J., Ballantyne, B., and           Japanese Children and Athletes.” Jpn. J. Sports Sci. 15 (3):
+     Davis, I. 2004. “Core Stability Measures as Risk Factors            155-62. (in Japanese)
+     for Lower Extremity Injury in Athletes.” Med. Sci. Sports      [15] Neumann, D. 2005. Kinesiology of the Musculoskeletal
+     Exerc. 36 (6): 926-34.                                              System. Translated by Shimada, T. Tokyo: Ishiyaku
+[4] Ireland, M., Willson, J., Ballantyne, B., and Davis, I. 2003.        Publishers, Inc.
+     “Hip Strength in Females with and without Patellofemoral       [16] Delmore, R., Laudner, K., and Torry, M. 2014. “Adductor
+     Pain.” J. Orthop. Sports Phys. Ther. 33 (11): 671-6.                Longus Activation during Common Hip Exercises.” J.
+[5] Zazulak, B., Ponce, P., Straub, S., Medvecky, M.,                    Sport Rehabil. 23 (2): 79-87.
+     Avedisian, L., and Hewett, T. 2005. “Gender Comparison         [17] Suzuki, T. 2004. The Study of the Electromyographic
+     of Hip Muscle Activity during Single-Leg Landing.” J.               Analysis of KOSHIWARI Exercise. Tokyo: University of
+     Orthop. Sports Phys. Ther. 35 (5): 292-9.                           Tsukuba Press. (in Japanese)
+[6] Manabe, Y., Yokozawa, T., and Ogata, M. 2003. “Effect           [18] Robertson, G., Caldwell, G., Hamill, J., Kamen, G., and
+     of Load Variation on Lower Muscle Activity and Joint                Whittlesey, S. 2004. Research Methods in Biomechanics.
+     Torque during Parallel Squats.” Jpn. J. Phys. Fitness               Translated by Ae, M. Tokyo: Taishukan Publishing Co., Ltd.
+     Sports Med. 52 (1): 89-98. (in Japanese)                       [19] Manabe, Y., Yokozawa, T., and Ogata, M. 2004. “Effect
+[7] Manabe, Y., Yokozawa, T., Shimada, K., and Ogata, M.                 of Movement Variation on Lower Limb Muscle Activity
+     2004. “Effect of Speed Variation and Stretch-Shortening             and Joint Torque during Squat.” Jpn. J. Phys. Fitness
+     Cycle on Lower Muscle Activity and Joint Torque during              Sports Med. 53 (3): 321-36. (in Japanese)
+     Parallel Squat.” Jpn J. Phys. Fitness Sports Med. 53 (4):      [20] Sahrmann, S. 2013. Movement System Impairment
+     425-42. (in Japanese)                                               Syndromes of the Extremities, Cervical and Thoracic
+[8] Caterisano, A., Moss, R., Pellinger, T., Woodruff, K.,               Spines. Translated by Takei, H. Tokyo: Ishiyaku
+     Lewis, V., Booth, W., and Khadra, T. 2002. “The Effect of           Publishers, Inc.
+     Back Squat Depth on the EMG Activity of 4 Superficial          [21] Hewett, T., Myer, G., Ford, K., Heidt, R., Colosimo, A.,
+     Hip and Thigh Muscles.” J. Strength Cond. Res. 16 (3):              Mclean, S., Bogert, A., Paterno, M., and Succop, P. 2005.
+     428-32.                                                             “Biomechanical Measures of Neuromuscular Control and
+[9] McCaw, S., and Melrose, D. 1999. “Stance Width and Bar               Valgus Loading of the Knee Predict Anterior Cruciate
+     Load Effects on Leg Muscle Activity during the Parallel             Ligament Injury Risk in Female Athletes: A Prospective
+     Squat.” Medicine & Science in Sports & Exercise 31 (3):             Study.” Am. J. Sports Med. 33 (4): 492-501.
+     428-36.                                                        [22] Dierks, T., Manal, K., Hamill, J., and Davis, I. 2008.
+[10] Escamilla, R. 2001. “Knee Biomechanics of the Dynamic               “Proximal and Distal Influences on Hip and Knee
+     Squat Exercise.” Med. Sci. Sports Exerc. 33 (1): 127-41.            Kinematics in Runners with Patellofemoral Pain during a
+[11] Wells, R., and Winter, D. 1980. “Assessment of Signal               Prolonged Run.” J. Orthop. Sports Phys. Ther. 38 (8):
+     Noise in the Kinematics of Normal, Pathological and                 448-56.
+     Sporting Gaits.” Human Locomotion 1 (1): 92-3.                 [23] Noehren, B., Davis, I., and Hamill, J. 2007. “ASB Clinical
+[12] Kurabayashi, J., Mochimaru, M., and Kawauchi, M. 2003.              Biomechanics Award Winner 2006 Prospective Study of
+     “Validation of the Estimation Methods for the Hip Joint             the Biomechanical Factors Associated with Iliotibial Band
+     Center.” Society of Biomechanisms Japan 27 (1): 29-35.              Syndrome.” Clin. Biomech. 22 (9): 951-6.
+     (in Japanese)                                                  [24] Hirayama, D., Fujii, N., Koike, S., and Ae, M. 2010. “The
+[13] Roy, B., Sylvia, O., Dennis, T., and James, R. 1991. “A             Changes on Mechanical Work of the Lower Limb Joints
+     Gait Analysis Data Collection and Reduction Technique.”             during Baseball Pitching in a Simulated Game.” Jpn. J.
+     Human Movement Science 10 (5): 575-87.                              Phys. Fitness Sports Med. 59 (2): 225-32. (in Japanese)
+
