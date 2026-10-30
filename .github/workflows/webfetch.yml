@@ -1,0 +1,38 @@
+# Скачивает открытые страницы и PDF из research/<тема>/urls.txt (метка<TAB>ссылка) и коммитит текст в research/<тема>/out/.
+name: webfetch
+on:
+  push:
+    paths: ['research/*/urls.txt']
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: fetch
+        run: |
+          sudo apt-get install -y -q poppler-utils > /dev/null 2>&1 || true
+          pip install -q html2text
+          for f in research/*/urls.txt; do
+            d=$(dirname "$f")/out; mkdir -p "$d"
+            while IFS=$'\t' read -r tag url; do
+              [ -z "$tag" ] && continue
+              [ -s "$d/$tag.txt" ] && continue
+              curl -sSL -m 60 -o "$d/$tag.raw" -w "%{http_code} %{content_type}\n" "$url" > "$d/$tag.status" 2>&1 || echo "curl fail" >> "$d/$tag.status"
+              if head -c 5 "$d/$tag.raw" | grep -q '%PDF'; then
+                pdftotext -layout "$d/$tag.raw" "$d/$tag.txt" || true
+              else
+                python3 -c "import sys,html2text;h=html2text.HTML2Text();h.body_width=0;print(h.handle(open(sys.argv[1],encoding='utf-8',errors='ignore').read()))" "$d/$tag.raw" > "$d/$tag.txt" || cp "$d/$tag.raw" "$d/$tag.txt"
+              fi
+              rm -f "$d/$tag.raw"
+              echo "$tag: $(cat $d/$tag.status) $(wc -c < $d/$tag.txt) bytes"
+            done < "$f"
+          done
+      - name: commit
+        if: always()
+        run: |
+          git config user.name "webfetch-bot"; git config user.email "actions@github.com"
+          git add research
+          git commit -q -m "webfetch: тексты" || exit 0
+          git push -q

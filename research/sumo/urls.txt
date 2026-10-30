@@ -1,0 +1,9 @@
+koshiwari	https://www.davidpublisher.com/Public/uploads/Contribute/5b3d916c52041.pdf
+lorenzetti2018	https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6050697/fullTextXML
+knee_outward	https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3916928/fullTextXML
+straub2024	https://ijspt.org/wp-content/uploads/2024/03/11-Straub.pdf
+sinclair_stance	https://knowledge.lancashire.ac.uk/id/eprint/43838/3/sports-10-00136-v2.pdf
+escamilla2001_ab	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:11404665%20AND%20SRC:MED&resultType=core&format=json
+paoli2009_ab	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=paoli%20stance%20width%20squat%20electromyographical&resultType=core&format=json
+mccaw1999_ab	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=McCaw%20Melrose%20stance%20width%20squat&resultType=core&format=json
+sumo_search	https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%22sumo%20squat%22%20OR%20%22wide%20stance%20squat%22&resultType=lite&format=json&pageSize=50
