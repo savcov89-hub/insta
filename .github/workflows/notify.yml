@@ -1,0 +1,110 @@
+# Шлёт уведомление Михаилу в Телеграм (облачный Claude до api.telegram.org не достаёт, а GitHub достаёт).
+# Живёт в публичном репо insta: бесплатные минуты Actions не кончаются (в приватном zvuk кончились до 1 ноября).
+# Запуск: вручную (workflow_dispatch) с текстом.
+# Первая строка текста идёт жирным, строка «link: https://…» в конце становится кнопкой «Открыть ветку».
+# Бот @bro_klod_bot, токен — секрет TELEGRAM_BOT_TOKEN. Если CHAT_ID пустой, берётся последний чат, где нажали «Старт».
+name: notify-telegram
+on:
+  workflow_dispatch:
+    inputs:
+      text:
+        description: Текст уведомления
+        default: Проверка уведомлений
+permissions:
+  contents: read
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: send
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: "270722409"  # Михаил (@savtsov_m)
+          TEXT: ${{ inputs.text }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import html, json, os, re, sys, urllib.error, urllib.parse, urllib.request
+          from datetime import datetime, timedelta, timezone
+
+          # Тихий режим, файл notify/quiet_until в main. Сообщения из тихого окна пропадают.
+          # Последняя строка с датой — разовая тишина до этого времени (например 2026-10-21T05:30+07:00; без пояса — Новосибирск).
+          # Строка вида 22:00-05:30 — тишина каждый день в это время по Новосибирску.
+          NSK = timezone(timedelta(hours=7))
+          now = datetime.now(timezone.utc)
+          until = None
+          req = urllib.request.Request(f"https://api.github.com/repos/{os.environ['REPO']}/contents/notify/quiet_until?ref=main",
+                                       headers={"Authorization": f"Bearer {os.environ['GH_TOKEN']}", "Accept": "application/vnd.github.raw"})
+          try:
+              with urllib.request.urlopen(req, timeout=15) as r:
+                  lines = [l.strip() for l in r.read().decode().splitlines() if l.strip() and not l.strip().startswith("#")]
+              once = None
+              for l in lines:
+                  try:
+                      if m := re.fullmatch(r"(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})", l):
+                          h1, m1, h2, m2 = map(int, m.groups())
+                          t = now.astimezone(NSK)
+                          cur, a, b = t.hour * 60 + t.minute, h1 * 60 + m1, h2 * 60 + m2
+                          if (a <= cur < b) if a <= b else (cur >= a or cur < b):
+                              end = t.replace(hour=h2, minute=m2, second=0, microsecond=0)
+                              end += timedelta(days=1) if end <= t else timedelta(0)
+                              until = max(until, end) if until else end
+                      else:
+                          once = datetime.fromisoformat(l.replace("Z", "+00:00"))
+                          once = once if once.tzinfo else once.replace(tzinfo=NSK)
+                  except ValueError as e:
+                      print(f"::warning::не понял строку notify/quiet_until «{l}»: {e}")
+              if once:
+                  until = max(until, once) if until else once
+          except urllib.error.HTTPError as e:
+              if e.code != 404:
+                  print(f"::warning::не прочитал notify/quiet_until: {e}")
+          except Exception as e:
+              print(f"::warning::не прочитал notify/quiet_until: {e!r}")
+          if until and now < until:
+              print(f"тихий режим до {until.isoformat()}, не отправляю")
+              sys.exit(0)
+
+          token = os.environ.get("TOKEN", "")
+          if not token:
+              print("::warning::Нет секрета TELEGRAM_BOT_TOKEN, уведомление не отправлено")
+              sys.exit(0)
+
+          def call(method, **params):
+              data = urllib.parse.urlencode(params).encode()
+              req = urllib.request.Request(f"https://api.telegram.org/bot{token}/{method}", data=data)
+              try:
+                  with urllib.request.urlopen(req, timeout=20) as r:
+                      return json.load(r)
+              except urllib.error.HTTPError as e:
+                  return json.load(e)
+
+          chat = os.environ.get("CHAT_ID", "").strip()
+          if not chat:
+              me = call("getMe")
+              if not me.get("ok"):
+                  sys.exit(f"Телеграм не принял токен: {me.get('description')}")
+              ups = call("getUpdates")
+              print(f"бот @{me['result']['username']}, getUpdates: ok={ups.get('ok')} {ups.get('description', '')}, обновлений {len(ups.get('result', []))}")
+              chats = [u["message"]["chat"] for u in ups.get("result", []) if u.get("message", {}).get("chat", {}).get("type") == "private"]
+              if not chats:
+                  sys.exit(f"CHAT_ID пустой и боту никто не писал: открой @{me['result']['username']} и нажми «Старт»")
+              chat = str(chats[-1]["id"])
+              print(f"chat_id={chat} ({chats[-1].get('first_name', '')} @{chats[-1].get('username', '')})")
+
+          lines = os.environ.get("TEXT", "").strip().split("\n")
+          link = ""
+          if lines and lines[-1].startswith("link: "):
+              link = lines.pop()[6:].strip()
+          head, body = lines[0][:200], "\n".join(lines[1:]).strip()[:3000]
+          text = f"<b>{html.escape(head)}</b>" + (f"\n{html.escape(body)}" if body else "")
+          params = dict(chat_id=chat, text=text, parse_mode="HTML", disable_web_page_preview="true")
+          if link:
+              params["reply_markup"] = json.dumps({"inline_keyboard": [[{"text": "Открыть ветку", "url": link}]]})
+          res = call("sendMessage", **params)
+          if not res.get("ok"):
+              sys.exit(f"Телеграм не принял сообщение: {res.get('description')}")
+          print("отправлено")
+          PY
