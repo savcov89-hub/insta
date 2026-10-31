@@ -1,6 +1,6 @@
 {
- "t": "2026-10-30T18:10:25+00:00",
- "followers_count": 1998,
+ "t": "2026-10-31T19:30:05+00:00",
+ "followers_count": 2326,
  "followers": {
   "city": {
    "Mochishche, Novosibirsk Oblast": 4,
@@ -27,7 +27,7 @@
    "Surgut, Khanty-Mansi Autonomous Okrug": 4,
    "Novyy Urengoy, Yamalo-Nenets Autonomous Okrug": 21,
    "Makhachkala, Dagestan": 4,
-   "Novosibirsk, Novosibirsk Oblast": 408,
+   "Novosibirsk, Novosibirsk Oblast": 410,
    "Novokuznetsk, Kemerovo Oblast": 9,
    "Krasnoyarsk, Krasnoyarsk Krai": 13,
    "Irkutsk, Irkutsk Oblast": 11,
@@ -50,16 +50,16 @@
    "Samara, Samara Oblast": 7
   },
   "gender": {
-   "F": 553,
+   "F": 555,
    "M": 380,
    "U": 292
   },
   "age": {
    "13-17": 2,
    "18-24": 30,
-   "25-34": 303,
+   "25-34": 304,
    "35-44": 558,
-   "45-54": 251,
+   "45-54": 252,
    "55-64": 65,
    "65+": 16
   }
