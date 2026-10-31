@@ -1,0 +1,25 @@
+# Скачивает чужой Reels по ссылке из razbor/url.txt (yt-dlp) и коммитит видео в ту же ветку — для разбора.
+name: razbor-fetch
+on:
+  push:
+    paths: ['razbor/url.txt']
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: download
+        run: |
+          pip install -q -U yt-dlp
+          url=$(head -1 razbor/url.txt)
+          id=$(echo "$url" | sed -E 's#.*/reel/([^/?]+).*#\1#')
+          yt-dlp -o "razbor/$id.%(ext)s" -f "mp4/best" --write-info-json --no-playlist "$url" || echo "fail" > razbor/$id.error
+          ls -la razbor
+      - name: commit
+        run: |
+          git config user.name "razbor-bot"; git config user.email "actions@github.com"
+          git add razbor
+          git commit -q -m "razbor: видео скачано" || exit 0
+          git push -q
