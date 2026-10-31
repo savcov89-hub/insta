@@ -15,4 +15,4 @@ jobs:
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           DAYS: '7'
-        run: python3 publisher/probe.py
+        run: python3 publisher/comments.py
