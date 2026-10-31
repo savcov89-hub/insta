@@ -1,0 +1,96 @@
+# Отчёт в Телеграм об агенте статей сайта (репо fit-site, workflow article.yml).
+# Запускает cron-job.org (задача «Отчёт агента статей») в 10:15, 14:15 и 18:15 по Новосибирску,
+# через 35–60 минут после запусков статей в 09:23, 13:17 и 17:41.
+# Смотрит запуски article.yml за последние HOURS часов (fit-site публичный, читается без отдельного токена)
+# и пишет: статья готова (с названием и ссылкой), норма уже выполнена, упало (со ссылкой на лог), ещё идёт
+# или запуска не было вовсе (значит, не сработал cron-job.org).
+# Бот @bro_klod_bot, токен — секрет TELEGRAM_BOT_TOKEN, как в notify.yml.
+name: article-report
+on:
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: За сколько часов смотреть запуски
+        default: "3"
+permissions:
+  contents: read
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: report
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: "270722409"  # Михаил (@savtsov_m)
+          GH_TOKEN: ${{ github.token }}
+          HOURS: ${{ inputs.hours || '3' }}
+        run: |
+          python3 - <<'PY'
+          import html, json, os, sys, urllib.error, urllib.parse, urllib.request
+          from datetime import datetime, timedelta, timezone
+
+          SITE = "savcov89-hub/fit-site"
+          NSK = timezone(timedelta(hours=7))
+          now = datetime.now(timezone.utc)
+          since = now - timedelta(hours=float(os.environ["HOURS"]))
+
+          def gh(path):
+              req = urllib.request.Request(f"https://api.github.com/repos/{SITE}/{path}",
+                                           headers={"Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                                                    "Accept": "application/vnd.github+json"})
+              with urllib.request.urlopen(req, timeout=20) as r:
+                  return json.load(r)
+
+          def ts(s):
+              return datetime.fromisoformat(s.replace("Z", "+00:00"))
+
+          runs = [r for r in gh("actions/workflows/article.yml/runs?per_page=20")["workflow_runs"]
+                  if ts(r["created_at"]) >= since]
+          runs.sort(key=lambda r: r["created_at"])
+          lines = []
+          for r in runs:
+              t = ts(r["created_at"]).astimezone(NSK).strftime("%H:%M")
+              if r["status"] != "completed":
+                  lines.append(f"⏳ {t}: ещё пишется\n{r['html_url']}")
+                  continue
+              if r["conclusion"] != "success":
+                  lines.append(f"❌ {t}: упало ({r['conclusion']})\n{r['html_url']}")
+                  continue
+              steps = {s["name"]: s["conclusion"] for j in gh(f"actions/runs/{r['id']}/jobs")["jobs"] for s in j["steps"]}
+              if steps.get("Написать статью") == "skipped":
+                  lines.append(f"⏭ {t}: пропущено, норма статей на сегодня уже выполнена")
+                  continue
+              prs = [p for p in gh("pulls?state=all&sort=created&direction=desc&per_page=10")
+                     if p["head"]["ref"].startswith("article/") and ts(p["created_at"]) >= ts(r["created_at"])]
+              if prs:
+                  p = prs[-1]
+                  lines.append(f"✅ {t}: {p['title']}\nна проверку: {p['html_url']}")
+              else:
+                  lines.append(f"✅ {t}: статья готова\n{r['html_url']}")
+
+          if lines:
+              head = "Агент статей"
+              body = "\n\n".join(lines)
+          else:
+              head = "Агент статей не запускался"
+              body = (f"За последние {os.environ['HOURS']} ч нет ни одного запуска article.yml. "
+                      "Проверь задачи «Агент статей» на cron-job.org.")
+          print(head, body, sep="\n")
+
+          token = os.environ.get("TOKEN", "")
+          if not token:
+              sys.exit("Нет секрета TELEGRAM_BOT_TOKEN")
+          data = urllib.parse.urlencode(dict(chat_id=os.environ["CHAT_ID"], parse_mode="HTML",
+                                             disable_web_page_preview="true",
+                                             text=f"<b>{html.escape(head)}</b>\n{html.escape(body)}")).encode()
+          try:
+              with urllib.request.urlopen(urllib.request.Request(
+                      f"https://api.telegram.org/bot{token}/sendMessage", data=data), timeout=20) as r:
+                  res = json.load(r)
+          except urllib.error.HTTPError as e:
+              res = json.load(e)
+          if not res.get("ok"):
+              sys.exit(f"Телеграм не принял сообщение: {res.get('description')}")
+          print("отправлено")
+          PY
