@@ -1,10 +1,8 @@
 name: read-comments
 on:
-  workflow_dispatch:
-    inputs:
-      days:
-        description: 'за сколько дней'
-        default: '7'
+  push:
+    branches: ['claude/project-thread-q94f95']
+    paths: ['.github/workflows/comments.yml']
 permissions:
   contents: read
 jobs:
@@ -13,13 +11,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
-      - uses: actions/checkout@v4
-        with:
-          path: br
       - name: read
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
-          DAYS: ${{ inputs.days }}
-        run: python3 br/publisher/comments.py
+          DAYS: '7'
+        run: python3 publisher/comments.py
