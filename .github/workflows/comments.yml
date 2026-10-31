@@ -1,0 +1,25 @@
+name: read-comments
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'за сколько дней'
+        default: '7'
+permissions:
+  contents: read
+jobs:
+  comments:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/checkout@v4
+        with:
+          path: br
+      - name: read
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          DAYS: ${{ inputs.days }}
+        run: python3 br/publisher/comments.py
