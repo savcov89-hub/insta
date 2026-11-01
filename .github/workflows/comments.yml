@@ -1,8 +1,11 @@
+# Читает комментарии к Reels за последние дни и печатает их в лог (в файлы не пишет).
 name: read-comments
 on:
-  push:
-    branches: ['claude/project-thread-q94f95']
-    paths: ['.github/workflows/comments.yml']
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'за сколько дней'
+        default: '7'
 permissions:
   contents: read
 jobs:
@@ -14,5 +17,5 @@ jobs:
       - name: read
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
-          DAYS: '7'
+          DAYS: ${{ inputs.days || '7' }}
         run: python3 publisher/comments.py
