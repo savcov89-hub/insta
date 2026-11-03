@@ -1,8 +1,12 @@
 {
-  "state": "uploading",
+  "state": "published",
   "container_id": "18652880050015498",
-  "updated": "2026-11-03T14:30:38+00:00",
+  "updated": "2026-11-03T14:45:23+00:00",
   "history": [
-    "03.11 21:30:38 видео отдано в Instagram"
-  ]
+    "03.11 21:30:38 видео отдано в Instagram",
+    "03.11 21:45:23 опубликован https://www.instagram.com/reel/DfSGeDHAuz6/"
+  ],
+  "media_id": "18115411495862581",
+  "permalink": "https://www.instagram.com/reel/DfSGeDHAuz6/",
+  "published_at": "2026-11-03T14:45:23+00:00"
 }
