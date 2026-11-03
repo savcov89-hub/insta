@@ -1,7 +1,6 @@
 {
   "state": "published",
   "container_id": "18652880038015498",
-<<<<<<< HEAD
   "updated": "2026-11-03T14:45:06+00:00",
   "history": [
     "03.11 21:30:35 видео отдано в Instagram",
@@ -10,11 +9,4 @@
   "media_id": "18102602030352372",
   "permalink": "https://www.instagram.com/reel/DfSGfU0koWf/",
   "published_at": "2026-11-03T14:45:06+00:00"
-=======
-  "updated": "2026-11-03T14:45:35+00:00",
-  "history": [
-    "03.11 21:30:35 видео отдано в Instagram",
-    "03.11 21:45:35 контейнер уже был опубликован"
-  ]
->>>>>>> bc4027f (status: do-otkaza-v1-0311 → published)
 }
