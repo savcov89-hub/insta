@@ -1,12 +1,9 @@
 {
   "state": "published",
   "container_id": "18652880044015498",
-  "updated": "2026-11-03T14:45:14+00:00",
+  "updated": "2026-11-03T14:45:36+00:00",
   "history": [
     "03.11 21:30:36 видео отдано в Instagram",
-    "03.11 21:45:14 опубликован https://www.instagram.com/reel/DfSGdR5FEcr/"
-  ],
-  "media_id": "18007339376789852",
-  "permalink": "https://www.instagram.com/reel/DfSGdR5FEcr/",
-  "published_at": "2026-11-03T14:45:14+00:00"
+    "03.11 21:45:36 контейнер уже был опубликован"
+  ]
 }
