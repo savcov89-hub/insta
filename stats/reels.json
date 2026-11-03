@@ -1,12 +1,56 @@
 {
- "updated": "2026-11-03T03:01:56+00:00",
+ "updated": "2026-11-03T11:16:11+00:00",
  "account": {
   "username": "fitness_savtsov",
-  "followers_count": 2598,
+  "followers_count": 2631,
   "follows_count": 676,
-  "media_count": 164
+  "media_count": 165
  },
  "reels": {
+  "18021640736939763": {
+   "id": "18021640736939763",
+   "queue_id": "szhiganie-v2-0311",
+   "permalink": "https://www.instagram.com/reel/DfRjcrpki11/",
+   "timestamp": "2026-11-03T09:26:10+0000",
+   "trial": true,
+   "caption": "Как убрать живот?",
+   "like_count": 0,
+   "comments_count": 0,
+   "insights": {
+    "views": 145,
+    "reach": 120,
+    "likes": 0,
+    "comments": 0,
+    "shares": 1,
+    "saved": 0,
+    "total_interactions": 1,
+    "ig_reels_avg_watch_time": 21515,
+    "ig_reels_video_view_total_time": 2603338,
+    "reels_skip_rate": 57.3
+   }
+  },
+  "18084528254751631": {
+   "id": "18084528254751631",
+   "queue_id": "szhiganie-v1-0311",
+   "permalink": "https://www.instagram.com/reel/DfRjWZ-AZox/",
+   "timestamp": "2026-11-03T09:26:01+0000",
+   "trial": true,
+   "caption": "Как на самом деле сжигается жир?",
+   "like_count": 22,
+   "comments_count": 2,
+   "insights": {
+    "views": 1255,
+    "reach": 923,
+    "likes": 22,
+    "comments": 2,
+    "shares": 18,
+    "saved": 11,
+    "total_interactions": 53,
+    "ig_reels_avg_watch_time": 48081,
+    "ig_reels_video_view_total_time": 44667431,
+    "reels_skip_rate": 30.4
+   }
+  },
   "18025745171923602": {
    "id": "18025745171923602",
    "queue_id": "vypady-v3-0111",
@@ -14,19 +58,19 @@
    "timestamp": "2026-11-01T11:18:19+0000",
    "trial": true,
    "caption": "Зачем качать ягодицы шагающими выпадами?",
-   "like_count": 9,
+   "like_count": 10,
    "comments_count": 0,
    "insights": {
-    "views": 1380,
-    "reach": 1216,
-    "likes": 9,
+    "views": 1415,
+    "reach": 1242,
+    "likes": 10,
     "comments": 0,
     "shares": 3,
     "saved": 6,
-    "total_interactions": 18,
-    "ig_reels_avg_watch_time": 16914,
-    "ig_reels_video_view_total_time": 20856100,
-    "reels_skip_rate": 34.4
+    "total_interactions": 19,
+    "ig_reels_avg_watch_time": 17132,
+    "ig_reels_video_view_total_time": 21587418,
+    "reels_skip_rate": 34.2
    }
   },
   "18104350124161887": {
@@ -39,15 +83,15 @@
    "like_count": 16,
    "comments_count": 0,
    "insights": {
-    "views": 1333,
-    "reach": 1157,
+    "views": 1337,
+    "reach": 1159,
     "likes": 16,
     "comments": 0,
     "shares": 5,
     "saved": 8,
     "total_interactions": 29,
-    "ig_reels_avg_watch_time": 16240,
-    "ig_reels_video_view_total_time": 18952675,
+    "ig_reels_avg_watch_time": 16287,
+    "ig_reels_video_view_total_time": 19055869,
     "reels_skip_rate": 32.6
    }
   },
@@ -58,19 +102,19 @@
    "timestamp": "2026-11-01T11:18:01+0000",
    "trial": true,
    "caption": "Я один не понимаю, зачем нужны шагающие выпады?",
-   "like_count": 13,
-   "comments_count": 1,
+   "like_count": 44,
+   "comments_count": 15,
    "insights": {
-    "views": 1324,
-    "reach": 1148,
-    "likes": 13,
-    "comments": 1,
-    "shares": 4,
-    "saved": 7,
-    "total_interactions": 25,
-    "ig_reels_avg_watch_time": 18199,
-    "ig_reels_video_view_total_time": 20401510,
-    "reels_skip_rate": 30
+    "views": 1823,
+    "reach": 1430,
+    "likes": 44,
+    "comments": 15,
+    "shares": 6,
+    "saved": 11,
+    "total_interactions": 76,
+    "ig_reels_avg_watch_time": 20075,
+    "ig_reels_video_view_total_time": 28386443,
+    "reels_skip_rate": 31
    }
   },
   "18101085488531938": {
@@ -124,18 +168,18 @@
    "timestamp": "2026-11-01T03:40:01+0000",
    "trial": true,
    "caption": "Какой главный стимул для роста ягодиц?",
-   "like_count": 62,
+   "like_count": 63,
    "comments_count": 6,
    "insights": {
-    "views": 2145,
-    "reach": 1716,
-    "likes": 62,
+    "views": 2170,
+    "reach": 1737,
+    "likes": 63,
     "comments": 6,
     "shares": 30,
-    "saved": 26,
-    "total_interactions": 126,
-    "ig_reels_avg_watch_time": 51428,
-    "ig_reels_video_view_total_time": 89486263,
+    "saved": 27,
+    "total_interactions": 128,
+    "ig_reels_avg_watch_time": 51375,
+    "ig_reels_video_view_total_time": 90472737,
     "reels_skip_rate": 27.7
    }
   },
@@ -149,15 +193,15 @@
    "like_count": 168,
    "comments_count": 9,
    "insights": {
-    "views": 3981,
-    "reach": 3006,
+    "views": 3995,
+    "reach": 3020,
     "likes": 168,
     "comments": 9,
     "shares": 116,
-    "saved": 58,
-    "total_interactions": 356,
-    "ig_reels_avg_watch_time": 70248,
-    "ig_reels_video_view_total_time": 208357357,
+    "saved": 59,
+    "total_interactions": 357,
+    "ig_reels_avg_watch_time": 70183,
+    "ig_reels_video_view_total_time": 209075941,
     "reels_skip_rate": 18.6
    }
   },
@@ -168,19 +212,19 @@
    "timestamp": "2026-10-30T12:10:09+0000",
    "trial": true,
    "caption": "Какой главный стимул для роста мышц?",
-   "like_count": 1947,
-   "comments_count": 118,
+   "like_count": 2016,
+   "comments_count": 122,
    "insights": {
-    "views": 44546,
-    "reach": 31393,
-    "likes": 1947,
-    "comments": 118,
-    "shares": 1210,
-    "saved": 1362,
-    "total_interactions": 4688,
-    "ig_reels_avg_watch_time": 68074,
-    "ig_reels_video_view_total_time": 2208283454,
-    "reels_skip_rate": 23.4
+    "views": 46115,
+    "reach": 32584,
+    "likes": 2016,
+    "comments": 122,
+    "shares": 1247,
+    "saved": 1401,
+    "total_interactions": 4840,
+    "ig_reels_avg_watch_time": 68112,
+    "ig_reels_video_view_total_time": 2285928675,
+    "reels_skip_rate": 23.5
    }
   },
   "18400429009161282": {
@@ -190,19 +234,19 @@
    "timestamp": "2026-10-30T12:10:00+0000",
    "trial": true,
    "caption": "Я провёл 50 собеседований с тренерами, и не все знают, от чего растут мышцы",
-   "like_count": 276,
-   "comments_count": 43,
+   "like_count": 304,
+   "comments_count": 54,
    "insights": {
-    "views": 11605,
-    "reach": 8639,
-    "likes": 276,
-    "comments": 43,
-    "shares": 215,
-    "saved": 317,
-    "total_interactions": 860,
-    "ig_reels_avg_watch_time": 58545,
-    "ig_reels_video_view_total_time": 509989053,
-    "reels_skip_rate": 22.2
+    "views": 13040,
+    "reach": 9717,
+    "likes": 304,
+    "comments": 54,
+    "shares": 224,
+    "saved": 357,
+    "total_interactions": 950,
+    "ig_reels_avg_watch_time": 56635,
+    "ig_reels_video_view_total_time": 554343906,
+    "reels_skip_rate": 23.3
    }
   },
   "18135603913675664": {
@@ -234,19 +278,19 @@
    "timestamp": "2026-10-29T10:42:26+0000",
    "trial": true,
    "caption": "Одна маленькая фишка, с которой ягодицы выросли в три раза больше",
-   "like_count": 79,
-   "comments_count": 4,
+   "like_count": 80,
+   "comments_count": 5,
    "insights": {
-    "views": 3205,
-    "reach": 2060,
-    "likes": 79,
-    "comments": 4,
+    "views": 3248,
+    "reach": 2093,
+    "likes": 80,
+    "comments": 5,
     "shares": 18,
-    "saved": 35,
-    "total_interactions": 136,
-    "ig_reels_avg_watch_time": 28562,
-    "ig_reels_video_view_total_time": 62323568,
-    "reels_skip_rate": 33.3
+    "saved": 36,
+    "total_interactions": 139,
+    "ig_reels_avg_watch_time": 28750,
+    "ig_reels_video_view_total_time": 63567325,
+    "reels_skip_rate": 33.2
    }
   },
   "17993113905113970": {
@@ -259,15 +303,15 @@
    "like_count": 90,
    "comments_count": 5,
    "insights": {
-    "views": 3559,
-    "reach": 2411,
+    "views": 3589,
+    "reach": 2427,
     "likes": 90,
     "comments": 5,
     "shares": 5,
     "saved": 2,
     "total_interactions": 102,
-    "ig_reels_avg_watch_time": 10819,
-    "ig_reels_video_view_total_time": 27438928,
+    "ig_reels_avg_watch_time": 10797,
+    "ig_reels_video_view_total_time": 27631248,
     "reels_skip_rate": 33.9
    }
   },
@@ -281,16 +325,16 @@
    "like_count": 85,
    "comments_count": 7,
    "insights": {
-    "views": 3852,
-    "reach": 3010,
+    "views": 3925,
+    "reach": 3050,
     "likes": 85,
     "comments": 7,
     "shares": 8,
-    "saved": 42,
-    "total_interactions": 145,
-    "ig_reels_avg_watch_time": 23386,
-    "ig_reels_video_view_total_time": 72428951,
-    "reels_skip_rate": 32.4
+    "saved": 43,
+    "total_interactions": 146,
+    "ig_reels_avg_watch_time": 23465,
+    "ig_reels_video_view_total_time": 73894088,
+    "reels_skip_rate": 32.5
    }
   },
   "18015324845959971": {
@@ -303,16 +347,16 @@
    "like_count": 89,
    "comments_count": 17,
    "insights": {
-    "views": 3299,
-    "reach": 2444,
+    "views": 3330,
+    "reach": 2477,
     "likes": 89,
     "comments": 17,
     "shares": 34,
     "saved": 11,
     "total_interactions": 153,
-    "ig_reels_avg_watch_time": 31405,
-    "ig_reels_video_view_total_time": 77603883,
-    "reels_skip_rate": 26.5
+    "ig_reels_avg_watch_time": 31321,
+    "ig_reels_video_view_total_time": 78116562,
+    "reels_skip_rate": 26.7
    }
   },
   "18416475340095568": {
@@ -322,19 +366,19 @@
    "timestamp": "2026-10-26T13:48:01+0000",
    "trial": true,
    "caption": "— Ну что, чувствуешь ягодицу?",
-   "like_count": 175,
+   "like_count": 176,
    "comments_count": 19,
    "insights": {
-    "views": 6964,
-    "reach": 5539,
-    "likes": 175,
+    "views": 7031,
+    "reach": 5568,
+    "likes": 176,
     "comments": 19,
     "shares": 105,
-    "saved": 9,
-    "total_interactions": 309,
-    "ig_reels_avg_watch_time": 11691,
-    "ig_reels_video_view_total_time": 63403794,
-    "reels_skip_rate": 26.8
+    "saved": 10,
+    "total_interactions": 311,
+    "ig_reels_avg_watch_time": 11737,
+    "ig_reels_video_view_total_time": 64192443,
+    "reels_skip_rate": 26.7
    }
   },
   "18103337273527860": {
@@ -347,15 +391,15 @@
    "like_count": 59,
    "comments_count": 4,
    "insights": {
-    "views": 5950,
-    "reach": 3821,
+    "views": 5975,
+    "reach": 3827,
     "likes": 59,
     "comments": 4,
     "shares": 4,
     "saved": 10,
     "total_interactions": 77,
-    "ig_reels_avg_watch_time": 23318,
-    "ig_reels_video_view_total_time": 95723599,
+    "ig_reels_avg_watch_time": 23305,
+    "ig_reels_video_view_total_time": 96020234,
     "reels_skip_rate": 23.3
    }
   },
@@ -366,19 +410,19 @@
    "timestamp": "2026-10-25T06:59:01+0000",
    "trial": true,
    "caption": "Почему «натуралы» из интернета больше тебя? Возможно, когда-то у них была химия, а мышцы помнят её годами.",
-   "like_count": 141,
-   "comments_count": 18,
+   "like_count": 142,
+   "comments_count": 16,
    "insights": {
-    "views": 9235,
-    "reach": 6439,
-    "likes": 141,
-    "comments": 18,
+    "views": 9261,
+    "reach": 6486,
+    "likes": 142,
+    "comments": 16,
     "shares": 104,
     "saved": 32,
-    "total_interactions": 298,
-    "ig_reels_avg_watch_time": 40907,
-    "ig_reels_video_view_total_time": 264344296,
-    "reels_skip_rate": 16.1
+    "total_interactions": 297,
+    "ig_reels_avg_watch_time": 40908,
+    "ig_reels_video_view_total_time": 265206798,
+    "reels_skip_rate": 16.2
    }
   },
   "17894287506435822": {
@@ -391,15 +435,15 @@
    "like_count": 49,
    "comments_count": 5,
    "insights": {
-    "views": 2843,
-    "reach": 2172,
+    "views": 2861,
+    "reach": 2190,
     "likes": 49,
     "comments": 5,
     "shares": 2,
     "saved": 6,
     "total_interactions": 65,
-    "ig_reels_avg_watch_time": 24877,
-    "ig_reels_video_view_total_time": 53661310,
+    "ig_reels_avg_watch_time": 24986,
+    "ig_reels_video_view_total_time": 54171367,
     "reels_skip_rate": 25.6
    }
   },
@@ -410,19 +454,19 @@
    "timestamp": "2026-10-23T09:36:00+0000",
    "trial": true,
    "caption": "Мышцы растут одинаково в статике и в динамике, если давить со всей силы и мышца растянута.",
-   "like_count": 93,
+   "like_count": 94,
    "comments_count": 5,
    "insights": {
-    "views": 2786,
-    "reach": 2190,
-    "likes": 93,
+    "views": 2845,
+    "reach": 2222,
+    "likes": 94,
     "comments": 5,
     "shares": 20,
     "saved": 37,
-    "total_interactions": 155,
-    "ig_reels_avg_watch_time": 38390,
-    "ig_reels_video_view_total_time": 86723624,
-    "reels_skip_rate": 25.2
+    "total_interactions": 156,
+    "ig_reels_avg_watch_time": 38446,
+    "ig_reels_video_view_total_time": 88465207,
+    "reels_skip_rate": 25.3
    }
   },
   "18642117376051519": {
@@ -529,15 +573,15 @@
    "like_count": 148,
    "comments_count": 12,
    "insights": {
-    "views": 4630,
-    "reach": 3211,
+    "views": 4641,
+    "reach": 3225,
     "likes": 148,
     "comments": 12,
     "shares": 12,
     "saved": 2,
     "total_interactions": 178,
-    "ig_reels_avg_watch_time": 10101,
-    "ig_reels_video_view_total_time": 34435588,
+    "ig_reels_avg_watch_time": 10103,
+    "ig_reels_video_view_total_time": 34513739,
     "reels_skip_rate": 29.8
    }
   },
@@ -548,18 +592,18 @@
    "timestamp": "2026-10-20T15:30:24+0000",
    "trial": true,
    "caption": "10 недель глубоких приседаний, а прямая мышца бедра не выросла совсем.",
-   "like_count": 81,
+   "like_count": 82,
    "comments_count": 13,
    "insights": {
-    "views": 3128,
-    "reach": 2528,
-    "likes": 81,
+    "views": 3176,
+    "reach": 2566,
+    "likes": 82,
     "comments": 13,
     "shares": 4,
     "saved": 18,
-    "total_interactions": 117,
+    "total_interactions": 118,
     "ig_reels_avg_watch_time": 40476,
-    "ig_reels_video_view_total_time": 107303505,
+    "ig_reels_video_view_total_time": 108880647,
     "reels_skip_rate": 30.4
    }
   },
@@ -617,15 +661,15 @@
    "like_count": 101,
    "comments_count": 11,
    "insights": {
-    "views": 4633,
-    "reach": 3578,
+    "views": 4650,
+    "reach": 3601,
     "likes": 101,
     "comments": 11,
     "shares": 28,
     "saved": 38,
     "total_interactions": 180,
-    "ig_reels_avg_watch_time": 37303,
-    "ig_reels_video_view_total_time": 134366630,
+    "ig_reels_avg_watch_time": 37369,
+    "ig_reels_video_view_total_time": 135129311,
     "reels_skip_rate": 26.6
    }
   },
@@ -639,15 +683,15 @@
    "like_count": 26,
    "comments_count": 0,
    "insights": {
-    "views": 1345,
-    "reach": 1177,
+    "views": 1346,
+    "reach": 1178,
     "likes": 26,
     "comments": 0,
     "shares": 18,
     "saved": 14,
     "total_interactions": 60,
-    "ig_reels_avg_watch_time": 34375,
-    "ig_reels_video_view_total_time": 41181976,
+    "ig_reels_avg_watch_time": 34354,
+    "ig_reels_video_view_total_time": 41190851,
     "reels_skip_rate": 25.1
    }
   },
@@ -661,15 +705,15 @@
    "like_count": 148,
    "comments_count": 21,
    "insights": {
-    "views": 6158,
-    "reach": 4724,
+    "views": 6165,
+    "reach": 4734,
     "likes": 148,
     "comments": 21,
     "shares": 169,
     "saved": 51,
     "total_interactions": 392,
-    "ig_reels_avg_watch_time": 29869,
-    "ig_reels_video_view_total_time": 144090669,
+    "ig_reels_avg_watch_time": 29910,
+    "ig_reels_video_view_total_time": 144409822,
     "reels_skip_rate": 27.2
    }
   },
@@ -727,16 +771,16 @@
    "like_count": 158,
    "comments_count": 13,
    "insights": {
-    "views": 3888,
-    "reach": 2563,
+    "views": 3893,
+    "reach": 2570,
     "likes": 158,
     "comments": 13,
     "shares": 11,
     "saved": 1,
     "total_interactions": 183,
     "ig_reels_avg_watch_time": 20459,
-    "ig_reels_video_view_total_time": 57573611,
-    "reels_skip_rate": 22.9
+    "ig_reels_video_view_total_time": 57635652,
+    "reels_skip_rate": 23
    }
   },
   "18122109346843928": {
@@ -749,15 +793,15 @@
    "like_count": 88,
    "comments_count": 5,
    "insights": {
-    "views": 5135,
+    "views": 5137,
     "reach": 3428,
     "likes": 88,
     "comments": 5,
     "shares": 5,
     "saved": 1,
     "total_interactions": 101,
-    "ig_reels_avg_watch_time": 10063,
-    "ig_reels_video_view_total_time": 35022483,
+    "ig_reels_avg_watch_time": 10065,
+    "ig_reels_video_view_total_time": 35037148,
     "reels_skip_rate": 29.2
    }
   },
@@ -793,15 +837,15 @@
    "like_count": 12,
    "comments_count": 0,
    "insights": {
-    "views": 1583,
-    "reach": 1366,
+    "views": 1584,
+    "reach": 1368,
     "likes": 12,
     "comments": 0,
     "shares": 6,
     "saved": 2,
     "total_interactions": 20,
-    "ig_reels_avg_watch_time": 30245,
-    "ig_reels_video_view_total_time": 41103443,
+    "ig_reels_avg_watch_time": 30231,
+    "ig_reels_video_view_total_time": 41114171,
     "reels_skip_rate": 25.5
    }
   },
@@ -815,15 +859,15 @@
    "like_count": 76,
    "comments_count": 12,
    "insights": {
-    "views": 8531,
-    "reach": 7279,
+    "views": 8535,
+    "reach": 7281,
     "likes": 76,
     "comments": 12,
     "shares": 28,
     "saved": 8,
     "total_interactions": 124,
-    "ig_reels_avg_watch_time": 35023,
-    "ig_reels_video_view_total_time": 254306244,
+    "ig_reels_avg_watch_time": 35025,
+    "ig_reels_video_view_total_time": 254428340,
     "reels_skip_rate": 20.4
    }
   },
@@ -859,15 +903,15 @@
    "like_count": 374,
    "comments_count": 101,
    "insights": {
-    "views": 39861,
+    "views": 39871,
     "reach": 27722,
     "likes": 374,
     "comments": 101,
     "shares": 729,
     "saved": 278,
     "total_interactions": 1490,
-    "ig_reels_avg_watch_time": 34652,
-    "ig_reels_video_view_total_time": 985544352,
+    "ig_reels_avg_watch_time": 34642,
+    "ig_reels_video_view_total_time": 985622336,
     "reels_skip_rate": 19.1
    }
   },
@@ -881,15 +925,15 @@
    "like_count": 77,
    "comments_count": 6,
    "insights": {
-    "views": 3405,
+    "views": 3406,
     "reach": 2667,
     "likes": 77,
     "comments": 6,
     "shares": 18,
     "saved": 2,
     "total_interactions": 103,
-    "ig_reels_avg_watch_time": 14874,
-    "ig_reels_video_view_total_time": 41796609,
+    "ig_reels_avg_watch_time": 14880,
+    "ig_reels_video_view_total_time": 41828270,
     "reels_skip_rate": 34.3
    }
   },
@@ -903,15 +947,15 @@
    "like_count": 47,
    "comments_count": 2,
    "insights": {
-    "views": 2948,
+    "views": 2950,
     "reach": 2304,
     "likes": 47,
     "comments": 2,
     "shares": 1,
     "saved": 2,
     "total_interactions": 52,
-    "ig_reels_avg_watch_time": 8281,
-    "ig_reels_video_view_total_time": 21224485,
+    "ig_reels_avg_watch_time": 8310,
+    "ig_reels_video_view_total_time": 21307446,
     "reels_skip_rate": 71.7
    }
   },
@@ -991,16 +1035,16 @@
    "like_count": 34,
    "comments_count": 0,
    "insights": {
-    "views": 621,
-    "reach": 456,
+    "views": 622,
+    "reach": 457,
     "likes": 34,
     "comments": 0,
     "shares": 3,
     "saved": 0,
     "total_interactions": 37,
-    "ig_reels_avg_watch_time": 15705,
-    "ig_reels_video_view_total_time": 7475977,
-    "reels_skip_rate": 47.3
+    "ig_reels_avg_watch_time": 15677,
+    "ig_reels_video_view_total_time": 7478263,
+    "reels_skip_rate": 47.4
    }
   },
   "17909609658488658": {
@@ -1124,7 +1168,7 @@
    "comments_count": 10,
    "insights": {
     "views": 1306,
-    "reach": 232,
+    "reach": 233,
     "likes": 21,
     "comments": 10,
     "shares": 0,
@@ -1145,16 +1189,16 @@
    "like_count": 19,
    "comments_count": 36,
    "insights": {
-    "views": 458,
-    "reach": 178,
+    "views": 459,
+    "reach": 179,
     "likes": 19,
     "comments": 36,
     "shares": 0,
     "saved": 0,
     "total_interactions": 55,
-    "ig_reels_avg_watch_time": 6687,
-    "ig_reels_video_view_total_time": 3089789,
-    "reels_skip_rate": 23.6
+    "ig_reels_avg_watch_time": 6675,
+    "ig_reels_video_view_total_time": 3090905,
+    "reels_skip_rate": 23.7
    }
   },
   "17879893223748521": {
