@@ -579,12 +579,16 @@
     "media_branch": "media/szhiganie-v2-0311"
    },
    "st": {
-    "state": "uploading",
+    "state": "published",
     "container_id": "18652794658015498",
-    "updated": "2026-11-03T09:23:51+00:00",
+    "updated": "2026-11-03T09:26:16+00:00",
     "history": [
-     "03.11 16:23:51 видео отдано в Instagram"
-    ]
+     "03.11 16:23:51 видео отдано в Instagram",
+     "03.11 16:26:16 опубликован https://www.instagram.com/reel/DfRjcrpki11/"
+    ],
+    "media_id": "18021640736939763",
+    "permalink": "https://www.instagram.com/reel/DfRjcrpki11/",
+    "published_at": "2026-11-03T09:26:16+00:00"
    }
   },
   {
