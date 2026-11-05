@@ -931,12 +931,16 @@
     "media_branch": "media/sila-v2-0511"
    },
    "st": {
-    "state": "uploading",
+    "state": "published",
     "container_id": "18653537974015498",
-    "updated": "2026-11-05T08:07:26+00:00",
+    "updated": "2026-11-05T08:10:15+00:00",
     "history": [
-     "05.11 15:07:26 видео отдано в Instagram"
-    ]
+     "05.11 15:07:26 видео отдано в Instagram",
+     "05.11 15:10:15 опубликован https://www.instagram.com/reel/DfWkMc-AYAX/"
+    ],
+    "media_id": "18151752418569677",
+    "permalink": "https://www.instagram.com/reel/DfWkMc-AYAX/",
+    "published_at": "2026-11-05T08:10:15+00:00"
    }
   },
   {
