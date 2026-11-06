@@ -1,7 +1,6 @@
 {
   "state": "published",
   "container_id": "18653839354015498",
-<<<<<<< HEAD
   "updated": "2026-11-06T07:00:07+00:00",
   "history": [
     "06.11 13:20:25 видео отдано в Instagram",
@@ -10,11 +9,4 @@
   "media_id": "18083228342708707",
   "permalink": "https://www.instagram.com/reel/DfY8vpBlG10/",
   "published_at": "2026-11-06T07:00:07+00:00"
-=======
-  "updated": "2026-11-06T07:00:35+00:00",
-  "history": [
-    "06.11 13:20:25 видео отдано в Instagram",
-    "06.11 14:00:35 контейнер уже был опубликован"
-  ]
->>>>>>> 9bec85c (status: kosti-v1-0511 → published)
 }
