@@ -1,6 +1,7 @@
 {
   "state": "published",
   "container_id": "18654196585015498",
+<<<<<<< HEAD
   "updated": "2026-11-07T07:00:06+00:00",
   "history": [
     "07.11 13:20:24 видео отдано в Instagram",
@@ -9,4 +10,11 @@
   "media_id": "18100001522643847",
   "permalink": "https://www.instagram.com/reel/DfbhidKjk_1/",
   "published_at": "2026-11-07T07:00:06+00:00"
+=======
+  "updated": "2026-11-07T07:00:35+00:00",
+  "history": [
+    "07.11 13:20:24 видео отдано в Instagram",
+    "07.11 14:00:35 контейнер уже был опубликован"
+  ]
+>>>>>>> a8f5a94 (status: kruglaya-v1-0711 → published)
 }
