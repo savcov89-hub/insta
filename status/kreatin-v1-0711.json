@@ -1,6 +1,7 @@
 {
   "state": "published",
   "container_id": "18654220618015498",
+<<<<<<< HEAD
   "updated": "2026-11-07T09:00:07+00:00",
   "history": [
     "07.11 15:20:24 видео отдано в Instagram",
@@ -9,4 +10,11 @@
   "media_id": "17963537816999465",
   "permalink": "https://www.instagram.com/reel/DfbvRRTCaPK/",
   "published_at": "2026-11-07T09:00:07+00:00"
+=======
+  "updated": "2026-11-07T09:00:34+00:00",
+  "history": [
+    "07.11 15:20:24 видео отдано в Instagram",
+    "07.11 16:00:34 контейнер уже был опубликован"
+  ]
+>>>>>>> c7ecf40 (status: kreatin-v1-0711 → published)
 }
