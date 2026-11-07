@@ -73,16 +73,32 @@ def commit_push(message):
         return
     git("commit", "-q", "-m", message)
     for attempt in range(5):
-        git("pull", "-q", "--rebase", "origin", "main", check=False)
+        if git("pull", "-q", "--rebase", "origin", "main", check=False).returncode != 0 and rebase_stuck():
+            # Тот же файл статуса уже поменяли в main. Без отмены конфликт-маркеры уйдут
+            # в main следующим «git add status», и все запуски будут падать на битом JSON.
+            git("rebase", "--abort", check=False)
+            log(f"статус не запушил: в main этот файл уже другой ({message})")
+            return
         if git("push", "-q", "origin", "HEAD:main", check=False).returncode == 0:
             return
         time.sleep(3 * (attempt + 1))
     log("не получилось запушить статус, он останется только в логе")
 
 
+def rebase_stuck():
+    gitdir = ROOT / git("rev-parse", "--git-dir").stdout.strip()
+    return (gitdir / "rebase-merge").exists() or (gitdir / "rebase-apply").exists()
+
+
 def load_status(item_id):
     p = STATUS / f"{item_id}.json"
-    return json.loads(p.read_text()) if p.exists() else {}
+    if not p.exists():
+        return {}
+    try:
+        return json.loads(p.read_text())
+    except ValueError as e:
+        # битый файл не должен ронять весь запуск; сам пост не трогаем, пока файл не починят
+        return {"state": "broken", "error": f"битый status/{p.name}: {e}"}
 
 
 def save_status(item, st, note=None):
@@ -158,6 +174,9 @@ def pick_due(items):
         st = load_status(it["id"])
         state = st.get("state", "queued")
         if state in DONE:
+            continue
+        if state == "broken":
+            log(f"{it['id']}: {st['error']} — пропускаю, пока его не починят")
             continue
         if it.get("cancel"):
             save_status(it, {**st, "state": "cancelled"}, "отменён в очереди")

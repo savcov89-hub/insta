@@ -323,6 +323,52 @@ class PublisherTest(unittest.TestCase):
         pubs = [c for c in FakeIG.calls if c[1].endswith("media_publish")]
         self.assertEqual(len(pubs), 1, "опубликовал второй раз")
 
+    def test_broken_status_does_not_block_others(self):
+        # 07.11: конфликт-маркеры в status/kreatin-v1-0711.json роняли каждый запуск
+        self.add("bad", 1)
+        self.add("good", 2)
+        (self.dir / "status").mkdir()
+        (self.dir / "status" / "bad.json").write_text(
+            '{\n  "state": "published",\n<<<<<<< HEAD\n  "permalink": "x"\n=======\n>>>>>>> c7ecf40\n}\n')
+        r = self.run_pub()
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertEqual(self.status("good")["state"], "published")
+        self.assertIn("битый status/bad.json", r.stdout)
+        self.assertEqual(len([c for c in FakeIG.calls if c[1] == "/v25.0/1789/media"]), 1, "тронул пост с битым статусом")
+        self.assertIn("<<<<<<<", (self.dir / "status" / "bad.json").read_text(), "переписал битый файл")
+
+    def test_conflicting_status_push_never_lands_markers(self):
+        # Запуск со старым статусом пишет тот же файл, который в main уже поменяли
+        def g(cwd, *a):
+            return subprocess.run(["git", *a], cwd=cwd, check=True, capture_output=True, text=True).stdout
+        env_git = ["-c", "user.name=t", "-c", "user.email=t@t"]
+        remote, other = self.dir / "remote.git", self.dir / "other"
+        g(self.dir, "init", "-q", "--bare", "-b", "main", str(remote))
+        g(self.dir, "init", "-q", "-b", "main")
+        (self.dir / "status").mkdir()
+        (self.dir / "status" / "x.json").write_text('{"state": "uploading"}\n')
+        g(self.dir, "add", "status")
+        g(self.dir, *env_git, "commit", "-q", "-m", "a")
+        g(self.dir, "remote", "add", "origin", str(remote))
+        g(self.dir, "push", "-q", "origin", "main")
+        g(self.dir, "clone", "-q", str(remote), str(other))
+        (other / "status" / "x.json").write_text('{"state": "published", "permalink": "https://www.instagram.com/reel/OK/"}\n')
+        g(other, *env_git, "commit", "-qam", "b")
+        g(other, "push", "-q", "origin", "main")
+        (self.dir / "status" / "x.json").write_text('{"state": "published"}\n')
+        code = ("import sys; sys.path.insert(0, 'publisher'); import run; "
+                "run.commit_push('status: x'); open('status/y.json', 'w').write('{}'); run.commit_push('status: y')")
+        e = {**os.environ, "GIT_PUSH": "1", "GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@t",
+             "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@t"}
+        r = subprocess.run([sys.executable, "-c", code], cwd=self.dir, env=e, capture_output=True, text=True, timeout=60)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("статус не запушил", r.stdout)
+        g(other, "pull", "-q")
+        self.assertEqual(json.loads((other / "status" / "x.json").read_text())["permalink"],
+                         "https://www.instagram.com/reel/OK/", "затёр ссылку в main")
+        self.assertNotIn("<<<<<<<", (self.dir / "status" / "x.json").read_text())
+        self.assertFalse((self.dir / ".git" / "rebase-merge").exists(), "оставил незавершённый rebase")
+
     def test_bad_token_reports_without_leaking(self):
         self.add("t", 1)
         r = self.run_pub(IG_TOKEN="IGAAwrongTOKEN99999999")
