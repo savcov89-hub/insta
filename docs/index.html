@@ -303,7 +303,18 @@ a { color: var(--accent); }
     try { localStorage.setItem(CACHE_KEY, JSON.stringify({ sha: sha, rows: rows, stats: state.stats, blobs: blobs })); } catch (e) {}
   }
 
+  function loadOrigin() {
+    return getJSON(RAW + BRANCH + '/stats/origin.json', { cache: 'no-cache' }).then(function (o) { state.origin = o; }, function () {});
+  }
+  function originOf(qid) {
+    var o = state.origin || {};
+    if (!qid) return 'human';
+    if ((o.auto || []).indexOf(qid) >= 0) return 'auto';
+    return 'human';
+  }
+
   function load(manual) {
+    loadOrigin();
     var btn = document.getElementById('refresh');
     btn.classList.add('spin');
     var useApi = Date.now() > state.apiPausedUntil;
@@ -443,6 +454,7 @@ a { color: var(--accent); }
     row.appendChild(el('time', '', hhmm(i.when)));
     row.appendChild(el('span', 'badge ' + info.cls, info.label));
     row.appendChild(el('span', 'badge plain', i.trial ? 'пробный' : 'обычный'));
+    if (originOf(i.id) === 'auto') row.appendChild(el('span', 'badge ok', 'сделал Claude, без правок'));
     card.appendChild(row);
 
     var first = i.caption ? i.caption : 'без подписи';
@@ -622,6 +634,15 @@ a { color: var(--accent); }
       : function (a, b) { return (b._t || 0) - (a._t || 0); });
     var max = rows.reduce(function (m, r) { return Math.max(m, r.insights.views || 0); }, 0) || 1;
 
+    var grp = { auto: [], human: [] };
+    rows.forEach(function (r) { grp[originOf(r.queue_id)].push(r.insights.views || 0); });
+    if (grp.auto.length) {
+      var avg = function (a) { return a.length ? Math.round(a.reduce(function (x, y) { return x + y; }, 0) / a.length) : 0; };
+      var med = function (a) { var b = a.slice().sort(function (x, y) { return x - y; }); return b.length ? b[Math.floor(b.length / 2)] : 0; };
+      view.appendChild(el('div', 'panel', 'Без правок Михаила (Claude): ' + grp.auto.length + ' шт., в среднем ' + num(avg(grp.auto)) + ' просмотров, медиана ' + num(med(grp.auto)) +
+        '. С Михаилом (идея или правки): ' + grp.human.length + ' шт., в среднем ' + num(avg(grp.human)) + ', медиана ' + num(med(grp.human)) + '.'));
+    }
+
     var list = el('div', 'list');
     rows.forEach(function (r) {
       var ins = r.insights, q = byMedia[r.id];
@@ -630,6 +651,7 @@ a { color: var(--accent); }
       top.appendChild(el('span', '', r._t ? stamp(r._t) : ''));
       var trial = q ? q.trial : r.trial;
       if (trial === true) top.appendChild(el('span', 'badge plain', 'пробный'));
+      if (originOf(r.queue_id) === 'auto') top.appendChild(el('span', 'badge ok', 'сделал Claude, без правок'));
       if (r.deleted) top.appendChild(el('span', 'badge idle', 'удалён'));
       if (!r.deleted && /^https:\/\/(www\.)?instagram\.com\//.test(r.permalink || '')) {
         var a = el('a', '', 'Открыть'); a.href = r.permalink; a.target = '_blank'; a.rel = 'noopener';
