@@ -23,4 +23,4 @@ jobs:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           TEST_VIDEO_URL: ${{ inputs.test_video_url }}
           TRIAL: ${{ inputs.trial && '1' || '0' }}
-        run: python3 publisher/check.py
+        run: python3 publisher/online_once.py
