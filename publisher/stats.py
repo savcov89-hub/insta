@@ -10,6 +10,9 @@ GitHub Actions запускает его раз в 3 часа (.github/workflows
   stats/audience.json  последний снимок подписчиков по городам, полу и возрасту
                        и тех, кто реагировал на контент за месяц (раз в AUDIENCE_HOURS часов)
   stats/audience.jsonl все такие снимки подряд, чтобы видеть прирост по городам
+  stats/account.json   аккаунт по дням (новосибирские сутки): подписались, отписались, охват, просмотры,
+                       переходы по ссылке в шапке и т. п., плюс часы онлайн подписчиков. Instagram отдаёт
+                       это только за 30 дней назад, поэтому файл копит дни и ничего старого не стирает.
 
 В лог пишет только количество роликов и какие метрики отдал Instagram, сами цифры — только в файлы.
 
@@ -63,6 +66,10 @@ AUDIENCE = [
 # Период для «кто реагировал»; у разных версий API свои значения, пробуем по очереди.
 TIMEFRAMES = {"follower_demographics": [None, "this_month", "last_30_days"],
               "engaged_audience_demographics": ["this_month", "last_30_days"]}
+# Аккаунт по дням: метрики с total_value за сутки (что Instagram не отдаст, отсеется по ответу).
+DAY_METRICS = ["views", "reach", "accounts_engaged", "total_interactions", "likes", "comments", "shares",
+               "saves", "profile_links_taps"]
+ACCOUNT_DAYS = int(os.environ.get("ACCOUNT_DAYS", "28"))   # глубина досбора пропущенных дней
 PERMISSION_CODES = {10, 200, 3}   # «нет разрешения» у Instagram: нужен instagram_business_manage_insights
 
 
@@ -252,6 +259,135 @@ def audience(token, t0, followers):
     return snap if got else None
 
 
+def nsk_day_bounds(day):
+    start = dt.datetime.combine(day, dt.time(0), NSK)
+    return int(start.timestamp()), int((start + dt.timedelta(days=1)).timestamp())
+
+
+def day_totals(token, day, metrics, unsupported):
+    """{метрика: число} за новосибирские сутки day."""
+    since, until = nsk_day_bounds(day)
+    ask = [m for m in metrics if m not in unsupported]
+    while ask:
+        try:
+            data = ig.call("GET", "me/insights", token, {"metric": ",".join(ask), "period": "day",
+                                                          "metric_type": "total_value",
+                                                          "since": since, "until": until}).get("data", [])
+            return {d["name"]: _value(d) for d in data}
+        except ig.IGError as e:
+            if e.code in PERMISSION_CODES:
+                raise
+            msg = f"{e} {e.raw or ''}"
+            m = re.search(r"must be one of the following values:?(.*)", msg, re.S)
+            bad = [x for x in ask if x not in _names(m.group(1))] if m else [x for x in ask if x in _names(msg)]
+            if not bad:   # непонятно, кто виноват: по одной
+                out = {}
+                for x in ask:
+                    try:
+                        out.update(day_totals(token, day, [x], unsupported))
+                    except ig.IGError:
+                        unsupported.add(x)
+                return out
+            unsupported.update(bad)
+            ask = [x for x in ask if x not in bad]
+    return {}
+
+
+def day_follows(token, day):
+    """(подписались, отписались) за сутки: follows_and_unfollows с разбивкой follow_type."""
+    since, until = nsk_day_bounds(day)
+    data = ig.call("GET", "me/insights", token, {"metric": "follows_and_unfollows", "period": "day",
+                                                  "metric_type": "total_value", "breakdown": "follow_type",
+                                                  "since": since, "until": until}).get("data", [])
+    out = {}
+    for item in data:
+        for b in (item.get("total_value") or {}).get("breakdowns", []):
+            for r in b.get("results", []):
+                key = str((r.get("dimension_values") or [""])[0]).upper()
+                if key == "FOLLOWER":
+                    out["follows"] = r.get("value")
+                elif key == "NON_FOLLOWER":
+                    out["unfollows"] = r.get("value")
+    return out
+
+
+def online_hours(token, day):
+    """Часы онлайн подписчиков за сутки Instagram (тихоокеанские), пересчитанные в часы Новосибирска.
+    {"date": «новосибирская дата начала суток», "hours": {час Нск: число}} или None."""
+    since, until = nsk_day_bounds(day)
+    data = ig.call("GET", "me/insights", token, {"metric": "online_followers", "period": "lifetime",
+                                                  "since": since, "until": until}).get("data", [])
+    for item in data:
+        for v in item.get("values") or []:
+            vals, end = v.get("value"), v.get("end_time")
+            if not isinstance(vals, dict) or not vals or not end:
+                continue
+            start = parse_time(end) - dt.timedelta(days=1)
+            hours = {}
+            for h, n in vals.items():
+                at = (start + dt.timedelta(hours=int(h))).astimezone(NSK)
+                hours[f"{at:%Y-%m-%d} {at.hour:02d}"] = n
+            return hours
+    return None
+
+
+def account_daily(token, t0, followers):
+    """Дополняет stats/account.json: сегодня и вчера перезаписываются каждый запуск,
+    более старые дни (до ACCOUNT_DAYS назад) дособираются, если их нет."""
+    path = STATS / "account.json"
+    try:
+        acc = json.loads(path.read_text())
+    except (OSError, ValueError):
+        acc = {}
+    days, online = acc.setdefault("days", {}), acc.setdefault("online", {})
+    today = t0.astimezone(NSK).date()
+    want = []
+    for back in range(ACCOUNT_DAYS):
+        d = today - dt.timedelta(days=back)
+        k = d.isoformat()
+        if back <= 1 or k not in days or days[k].get("partial"):
+            want.append(d)
+    unsupported, failed = set(), set()
+    for d in want:
+        k = d.isoformat()
+        row = {}
+        try:
+            row.update(day_totals(token, d, DAY_METRICS, unsupported))
+        except ig.IGError as e:
+            if e.code in PERMISSION_CODES:
+                raise
+            failed.add(f"сутки ({e})")
+        try:
+            row.update(day_follows(token, d))
+        except ig.IGError as e:
+            failed.add(f"follows_and_unfollows ({e})")
+        if not row:
+            continue
+        if d == today:
+            row["partial"] = True
+        days[k] = row
+        if d < today and not any(h.startswith(k) for h in online):
+            try:
+                hrs = online_hours(token, d)
+                if hrs:
+                    online.update(hrs)
+            except ig.IGError as e:
+                failed.add(f"online_followers ({e})")
+    # подписчики на конец каждой новосибирской даты — из наших снимков (Instagram их по дням не хранит)
+    if followers is not None:
+        acc.setdefault("followers", {})[today.isoformat()] = followers
+    acc["days"] = dict(sorted(days.items()))
+    keep = sorted(online)[-24 * 60:]   # часы онлайн хранить за 60 дней
+    acc["online"] = {h: online[h] for h in keep}
+    acc["updated"] = t0.isoformat(timespec="seconds")
+    got = sorted({m for r in days.values() for m in r if m != "partial"})
+    log(f"аккаунт по дням: {len(want)} дн. запрошено, есть метрики {', '.join(got) or 'никаких'}"
+        + (f"; нет у Instagram: {', '.join(sorted(unsupported))}" if unsupported else ""))
+    if failed:
+        log("аккаунт по дням, не отдал: " + "; ".join(sorted(failed)))
+    return acc
+
+
 def git(*args, check=True):
     return subprocess.run(["git", *args], cwd=ROOT, check=check, capture_output=True, text=True)
 
@@ -263,9 +399,10 @@ def commit_push(message):
     if git("diff", "--cached", "--quiet", check=False).returncode == 0:
         return
     git("commit", "-q", "-m", message)
+    branch = os.environ.get("GITHUB_REF_NAME") or "main"   # запуск с ветки пишет в ту же ветку, не в main
     for attempt in range(5):
-        git("pull", "-q", "--rebase", "origin", "main", check=False)
-        if git("push", "-q", "origin", "HEAD:main", check=False).returncode == 0:
+        git("pull", "-q", "--rebase", "origin", branch, check=False)
+        if git("push", "-q", "origin", f"HEAD:{branch}", check=False).returncode == 0:
             return
         time.sleep(3 * (attempt + 1))
     log("не получилось запушить статистику")
@@ -357,6 +494,11 @@ def main():
     except Exception as e:  # noqa: BLE001 — аудитория не должна ломать статистику роликов
         log(f"аудитория не снялась: {type(e).__name__}: {e}")
         aud = None
+    try:
+        account = account_daily(token, t0, acc.get("followers_count"))
+    except Exception as e:  # noqa: BLE001 — то же: не ломать статистику роликов
+        log(f"аккаунт по дням не снялся: {type(e).__name__}: {e}")
+        account = None
     if DRY:
         log("пробный запуск: ничего не записываю")
         return 0
@@ -379,6 +521,8 @@ def main():
         (STATS / "audience.json").write_text(json.dumps(aud, ensure_ascii=False, indent=1) + "\n")
         with open(STATS / "audience.jsonl", "a") as h:
             h.write(json.dumps(aud, ensure_ascii=False) + "\n")
+    if account:
+        (STATS / "account.json").write_text(json.dumps(account, ensure_ascii=False, indent=1) + "\n")
     commit_push(f"stats: {len(reels)} роликов" + (", аудитория" if aud else ""))
     return 1 if errors and errors == len(reels) else 0
 
