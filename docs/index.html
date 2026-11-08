@@ -121,6 +121,20 @@ a { color: var(--accent); }
 .banner { padding: 10px 12px; border-radius: 12px; margin-bottom: 12px; font-size: 14px; background: var(--warn-bg); color: var(--warn); }
 .banner.bad { background: var(--bad-bg); color: var(--bad); }
 .banner button { border: 0; background: transparent; text-decoration: underline; cursor: pointer; color: inherit; padding: 0; }
+.com { padding: 12px 14px; }
+.com .who { font-size: 13px; color: var(--muted); }
+.com .who b { color: var(--fg); font-weight: 600; }
+.com .txt { margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.com .thread { margin: 8px 0 0 10px; padding-left: 10px; border-left: 2px solid var(--line); font-size: 14px; }
+.com .thread p { margin: 4px 0; overflow-wrap: anywhere; }
+.com .reel { font-size: 13px; margin-top: 8px; display: block; text-decoration: none; overflow-wrap: anywhere; }
+.draft { margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: var(--accent-bg); }
+.draft .lbl { font-size: 12px; color: var(--accent); font-weight: 600; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.draft .txt { margin-top: 4px; }
+.draft .why { font-size: 12px; color: var(--muted); margin-top: 6px; overflow-wrap: anywhere; }
+.draft button { margin-top: 8px; border: 1px solid var(--accent); background: var(--panel); color: var(--accent); border-radius: 9px; height: 36px; padding: 0 14px; cursor: pointer; font-weight: 600; }
+#tab-com { position: relative; white-space: nowrap; }
+#com-n:not(:empty) { position: absolute; top: 0; right: 2px; min-width: 16px; padding: 0 4px; font-size: 11px !important; line-height: 16px !important; border-radius: 9px; background: var(--accent); color: #fff; font-weight: 600; }
 .foot { margin-top: 24px; font-size: 12px; color: var(--muted); }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 4px 4px 0; font-size: 12px; color: var(--muted); }
 .legend i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
@@ -191,6 +205,7 @@ a { color: var(--accent); }
     <button role="tab" id="tab-cal" aria-selected="true">Календарь</button>
     <button role="tab" id="tab-list" aria-selected="false">Списком</button>
     <button role="tab" id="tab-stats" aria-selected="false">Цифры</button>
+    <button role="tab" id="tab-com" aria-selected="false">Комменты <span id="com-n"></span></button>
   </nav>
 
   <main id="view"><div class="skeleton"></div></main>
@@ -223,11 +238,11 @@ a { color: var(--accent); }
   };
   var INACTIVE = { cancelled: 1, failed: 1, missed: 1 };
 
-  var state = { items: [], sha: null, loadedAt: null, failed: false, mode: 'live', apiPausedUntil: 0,
+  var state = { items: [], sha: null, loadedAt: null, failed: false, mode: 'live', apiPausedUntil: 0, comments: null, drafts: {}, comAll: false,
                 stats: null, statsSort: 'date',
                 tab: 'cal', selDay: null, month: null, showPast: false, open: {} };
   try {
-    var t = localStorage.getItem(CACHE_KEY + ':tab'); if (t === 'list' || t === 'cal' || t === 'stats') state.tab = t;
+    var t = localStorage.getItem(CACHE_KEY + ':tab'); if (t === 'list' || t === 'cal' || t === 'stats' || t === 'com') state.tab = t;
     var srt = localStorage.getItem(CACHE_KEY + ':sort'); if (srt) state.statsSort = srt;
   } catch (e) {}
 
@@ -235,6 +250,7 @@ a { color: var(--accent); }
   function parseTime(s) {
     s = String(s || '');
     if (!/(Z|[+-]\d\d:?\d\d)$/.test(s)) s += '+07:00';   // без пояса — Новосибирск, как в run.py
+    s = s.replace(/([+-]\d\d)(\d\d)$/, '$1:$2');          // Instagram пишет +0000, Safari такое не понимает
     var d = new Date(s);
     return isNaN(d) ? null : d;
   }
@@ -338,8 +354,16 @@ a { color: var(--accent); }
     return 'human';
   }
 
+  function loadComments() {
+    return Promise.all([
+      getJSON(RAW + BRANCH + '/comments/comments.json', { cache: 'no-cache' }).catch(function () { return null; }),
+      getJSON(RAW + BRANCH + '/comments/drafts.json', { cache: 'no-cache' }).catch(function () { return {}; })
+    ]).then(function (r) { state.comments = r[0]; state.drafts = r[1] || {}; });
+  }
+
   function load(manual) {
     loadOrigin();
+    loadComments().then(function () { comBadge(); if (state.tab === 'com') render(); });
     loadAccount().then(function () { if (state.tab === 'stats') render(); });
     var btn = document.getElementById('refresh');
     btn.classList.add('spin');
@@ -815,9 +839,93 @@ a { color: var(--accent); }
     document.getElementById('tab-cal').setAttribute('aria-selected', state.tab === 'cal');
     document.getElementById('tab-list').setAttribute('aria-selected', state.tab === 'list');
     document.getElementById('tab-stats').setAttribute('aria-selected', state.tab === 'stats');
+    document.getElementById('tab-com').setAttribute('aria-selected', state.tab === 'com');
     if (state.tab === 'cal') renderCalendar(view);
     else if (state.tab === 'list') renderList(view);
+    else if (state.tab === 'com') renderComments(view);
     else renderStats(view);
+  }
+
+  // ---------- комментарии ----------
+  var DRAFT_ST = { draft: ['Черновик ответа', 'warn'], approved: ['Одобрен, уйдёт в Instagram', 'wait'],
+                   posted: ['Ответ отправлен', 'ok'], answered: ['Ты уже ответил сам', 'ok'], skip: ['Не отвечаем', 'plain'] };
+  function waiting() {
+    var c = state.comments && state.comments.comments || {};
+    return Object.keys(c).map(function (k) { return c[k]; }).filter(function (x) {
+      var d = state.drafts[x.id];
+      return x.need_reply && !(d && (d.status === 'posted' || d.status === 'skip'));
+    });
+  }
+  function comBadge() {
+    var n = waiting().length;
+    document.getElementById('com-n').textContent = n ? String(n) : '';
+  }
+  function comCard(x) {
+    var card = el('article', 'panel com');
+    var t = parseTime(x.timestamp);
+    var who = el('div', 'who');
+    who.appendChild(el('b', '', '@' + x.username));
+    who.appendChild(document.createTextNode(' · ' + (t ? stamp(t) : '') + (x.like_count ? ' · ♥ ' + x.like_count : '')));
+    card.appendChild(who);
+    card.appendChild(el('p', 'txt', x.text));
+    if (x.replies && x.replies.length) {
+      var th = el('div', 'thread');
+      x.replies.forEach(function (r) {
+        var p = el('p');
+        p.appendChild(el('b', '', '@' + r.username + ': '));
+        p.appendChild(document.createTextNode(r.text));
+        th.appendChild(p);
+      });
+      card.appendChild(th);
+    }
+    var d = state.drafts[x.id];
+    if (d && d.reply) {
+      var box = el('div', 'draft');
+      var st = DRAFT_ST[d.status] || DRAFT_ST.draft;
+      var lbl = el('div', 'lbl', st[0]);
+      box.appendChild(lbl);
+      box.appendChild(el('p', 'txt', d.reply));
+      if (d.why) box.appendChild(el('div', 'why', d.why));
+      if (d.status === 'draft' || d.status === 'approved') {
+        var b = el('button', '', 'Скопировать ответ');
+        b.onclick = function () {
+          var done = function () { b.textContent = 'Скопировано'; setTimeout(function () { b.textContent = 'Скопировать ответ'; }, 1500); };
+          if (navigator.clipboard) navigator.clipboard.writeText(d.reply).then(done, function () {});
+        };
+        box.appendChild(b);
+      }
+      card.appendChild(box);
+    } else if (x.need_reply) {
+      card.appendChild(el('div', 'note warn', 'Черновика пока нет: Claude подготовит его после следующего сбора.'));
+    }
+    if (x.permalink) {
+      var a = el('a', 'reel', '▶ ' + (x.caption || 'ролик'));
+      a.href = x.permalink; a.target = '_blank'; a.rel = 'noopener';
+      card.appendChild(a);
+    }
+    return card;
+  }
+  function renderComments(view) {
+    var c = state.comments;
+    if (!c) { view.appendChild(el('div', 'empty', 'Комментарии ещё не собирали.')); return; }
+    var all = Object.keys(c.comments || {}).map(function (k) { return c.comments[k]; });
+    var head = el('div', 'shead');
+    var acc = el('div', 'acc', 'Собрано ' + (c.updated ? stamp(parseTime(c.updated)) : '—') + ' · всего ' + all.length);
+    head.appendChild(acc);
+    var tg = el('button', 'badge plain', state.comAll ? 'Только ждущие ответа' : 'Показать все');
+    tg.style.cursor = 'pointer';
+    tg.onclick = function () { state.comAll = !state.comAll; render(); };
+    head.appendChild(tg);
+    view.appendChild(head);
+    if (c.empty_reels && !all.length) view.appendChild(el('div', 'banner',
+      'Instagram пока не отдаёт тексты комментариев: приложение Meta ещё в режиме разработки. Как только оно станет «Опубликовано», комментарии появятся здесь.'));
+    var list = state.comAll ? all : waiting();
+    if (!list.length) view.appendChild(el('div', 'empty', state.comAll ? 'Комментариев нет.' : 'Все комментарии отвечены.'));
+    var box = el('div', 'list');
+    list.forEach(function (x) { box.appendChild(comCard(x)); });
+    view.appendChild(box);
+    view.appendChild(el('p', 'foot', 'Комментарии собираются раз в сутки утром. Черновики пишет Claude твоим языком и сверяет со сценарием и источниками ролика. ' +
+      'В Instagram ответ уходит, только когда ты скажешь «да» в треде, или скопируй и ответь сам.'));
   }
 
   function setTab(t) {
@@ -828,6 +936,7 @@ a { color: var(--accent); }
   document.getElementById('tab-cal').onclick = function () { setTab('cal'); };
   document.getElementById('tab-list').onclick = function () { setTab('list'); };
   document.getElementById('tab-stats').onclick = function () { setTab('stats'); };
+  document.getElementById('tab-com').onclick = function () { setTab('com'); };
   document.getElementById('refresh').onclick = function () { load(true); };
 
   // сразу показать прошлую загрузку, пока идёт свежая
