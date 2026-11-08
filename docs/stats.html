@@ -133,6 +133,13 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
     </section>
 
     <section class="card">
+      <h2>Переходы в профиль по дням</h2>
+      <p class="hint">Сколько раз открыли твой профиль за сутки, и сколько из них подписались. Подписки Instagram отдаёт с задержкой в 1–2 дня.</p>
+      <div class="legend" id="l-pv"></div>
+      <div class="chart" id="c-pv"></div>
+    </section>
+
+    <section class="card">
       <h2>Просмотры аккаунта по дням</h2>
       <p class="hint">Все просмотры за сутки: ролики, посты, истории.</p>
       <div class="chart" id="c-views"></div>
@@ -564,6 +571,14 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
       var hasF = days.some(function (d) { return d.follows != null; });
       if (hasF) box.appendChild(tile('Подписались / отписались', num(sum('follows')) + ' / ' + num(sum('unfollows')), 'по данным Instagram, ' + days.length + ' дн.'));
       if (days.some(function (d) { return d.views != null; })) box.appendChild(tile('Просмотры аккаунта', compact(sum('views')), 'охват за день в сумме ' + compact(sum('reach'))));
+      var pv = days.filter(function (d) { return d.profile_views != null; });
+      if (pv.length) {
+        var pvs = pv.reduce(function (a, d) { return a + d.profile_views; }, 0);
+        var fl = pv.reduce(function (a, d) { return a + (d.follows || 0); }, 0);
+        var flDays = pv.filter(function (d) { return d.follows != null; });
+        var pvF = flDays.reduce(function (a, d) { return a + d.profile_views; }, 0);
+        box.appendChild(tile('Переходы в профиль', num(pvs), pvF ? 'подписались ' + Math.round(100 * fl / pvF) + '% из перешедших' : pv.length + ' дн.'));
+      }
       if (days.some(function (d) { return d.profile_links_taps != null; })) box.appendChild(tile('Нажатия на ссылку в шапке', num(sum('profile_links_taps')), days.length + ' дн.'));
     }
     var rs = D.list.filter(function (r) { return inPeriod(r.t); });
@@ -588,6 +603,15 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
       { key: 'follows', label: 'подписались', color: css('--s1') },
       { key: 'unfollows', label: 'отписались', color: css('--s2'), neg: true }
     ], { aria: 'Подписались и отписались по дням', empty: empty });
+    var lp = $('l-pv'); lp.textContent = '';
+    [['Переходы в профиль', '--s1'], ['Подписались', '--s3']].forEach(function (x) {
+      var s = el('span'); var i = el('i'); i.style.background = css(x[1]); s.appendChild(i); s.appendChild(document.createTextNode(x[0])); lp.appendChild(s);
+    });
+    columns($('c-pv'), days.filter(function (d) { return d.profile_views != null; }), [
+      { key: 'profile_views', label: 'переходов в профиль', color: css('--s1') },
+      { key: 'follows', label: 'подписались', color: css('--s3') }
+    ], { aria: 'Переходы в профиль и подписки по дням', empty: 'Переходы в профиль появятся после ближайшего сбора статистики (раз в 3 часа).',
+         extra: function (d) { return d.profile_views && d.follows != null ? [{ value: Math.round(100 * d.follows / d.profile_views) + '%', label: 'подписались из перешедших' }] : []; } });
     columns($('c-views'), days.filter(function (d) { return d.views != null; }), [
       { key: 'views', label: 'просмотров', color: css('--s1') }
     ], { aria: 'Просмотры аккаунта по дням', empty: empty });
