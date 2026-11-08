@@ -378,16 +378,16 @@
    "unfollows": 0
   },
   "2026-11-07": {
-   "views": 15543,
-   "reach": 10964,
-   "accounts_engaged": 647,
-   "total_interactions": 1164,
-   "likes": 375,
+   "views": 16874,
+   "reach": 11774,
+   "accounts_engaged": 700,
+   "total_interactions": 1280,
+   "likes": 419,
    "comments": 8,
-   "shares": 300,
-   "saves": 174,
+   "shares": 327,
+   "saves": 190,
    "profile_links_taps": 0,
-   "profile_views": 61
+   "profile_views": 66
   }
  },
  "online": {
@@ -730,8 +730,8 @@
  },
  "followers": {
   "2026-11-07": 2921,
-  "2026-11-08": 2948
+  "2026-11-08": 2953
  },
- "updated": "2026-11-08T03:57:59+00:00",
+ "updated": "2026-11-08T06:36:15+00:00",
  "schema": 2
 }
