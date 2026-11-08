@@ -607,7 +607,7 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
     { k: 'saved', l: 'Сохранения', f: function (r) { return r.i.saved; } },
     { k: 'likes', l: 'Лайки', f: function (r) { return r.i.likes != null ? r.i.likes : r.like_count; } },
     { k: 'comments', l: 'Коммент.', f: function (r) { return r.i.comments != null ? r.i.comments : r.comments_count; } },
-    { k: 'hold', l: 'Удержание 3 с', f: function (r) { return r.hold; }, fmt: function (v) { return v == null ? '—' : Math.round(v) + '%'; } },
+    { k: 'hold', l: 'Хук (досмотр 3 с)', f: function (r) { return r.hold; }, fmt: function (v) { return v == null ? '—' : Math.round(v) + '%'; } },
     { k: 'avg', l: 'Ср. время', f: function (r) { return r.i.ig_reels_avg_watch_time != null ? r.i.ig_reels_avg_watch_time / 1000 : null; }, fmt: function (v) { return v == null ? '—' : v.toFixed(1).replace('.', ',') + ' с'; } }
   ];
   var sortBy = 't', sortDir = -1, showAll = false;
