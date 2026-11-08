@@ -142,3 +142,8 @@ def permalink(token, media_id):
 def refresh_token(token):
     """Продлевает долгоживущий токен ещё на 60 дней (токену должно быть больше суток)."""
     return call("GET", f"{API}/refresh_access_token", token, {"grant_type": "ig_refresh_token"})
+
+
+def reply_comment(token, comment_id, message):
+    """Отвечает в ветке комментария. Вызывается только из reply.py для одобренных Михаилом ответов."""
+    return call("POST", f"{comment_id}/replies", token, {"message": message}, retries=0)["id"]
