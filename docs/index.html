@@ -132,6 +132,14 @@ a { color: var(--accent); }
 .draft .lbl { font-size: 12px; color: var(--accent); font-weight: 600; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .draft .txt { margin-top: 4px; }
 .draft .why { font-size: 12px; color: var(--muted); margin-top: 6px; overflow-wrap: anywhere; }
+.draft textarea { width: 100%; margin-top: 6px; font: inherit; color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; resize: vertical; min-height: 84px; }
+.draft .acts { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.draft button.send { background: var(--accent); color: #fff; }
+.draft button:disabled { opacity: .6; cursor: default; }
+.draft .msg { font-size: 13px; margin-top: 6px; }
+.draft .msg.bad { color: var(--bad); } .draft .msg.ok { color: var(--ok); }
+.tokenbox { margin-top: 8px; font-size: 13px; }
+.tokenbox input { width: 100%; height: 40px; margin: 6px 0; font: inherit; padding: 0 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); color: var(--fg); }
 .draft button { margin-top: 8px; border: 1px solid var(--accent); background: var(--panel); color: var(--accent); border-radius: 9px; height: 36px; padding: 0 14px; cursor: pointer; font-weight: 600; }
 #tab-com { position: relative; white-space: nowrap; }
 #com-n:not(:empty) { position: absolute; top: 0; right: 2px; min-width: 16px; padding: 0 4px; font-size: 11px !important; line-height: 16px !important; border-radius: 9px; background: var(--accent); color: #fff; font-weight: 600; }
@@ -238,9 +246,10 @@ a { color: var(--accent); }
   };
   var INACTIVE = { cancelled: 1, failed: 1, missed: 1 };
 
-  var state = { items: [], sha: null, loadedAt: null, failed: false, mode: 'live', apiPausedUntil: 0, comments: null, drafts: {}, comAll: false,
+  var state = { items: [], sha: null, loadedAt: null, failed: false, mode: 'live', apiPausedUntil: 0, comments: null, drafts: {}, comAll: false, sent: {},
                 stats: null, statsSort: 'date',
                 tab: 'cal', selDay: null, month: null, showPast: false, open: {} };
+  try { state.sent = JSON.parse(sessionStorage.getItem('insta-sent') || '{}') || {}; } catch (e) {}
   try {
     var t = localStorage.getItem(CACHE_KEY + ':tab'); if (t === 'list' || t === 'cal' || t === 'stats' || t === 'com') state.tab = t;
     var srt = localStorage.getItem(CACHE_KEY + ':sort'); if (srt) state.statsSort = srt;
@@ -853,7 +862,7 @@ a { color: var(--accent); }
     var c = state.comments && state.comments.comments || {};
     return Object.keys(c).map(function (k) { return c[k]; }).filter(function (x) {
       var d = state.drafts[x.id];
-      return x.need_reply && !(d && (d.status === 'posted' || d.status === 'skip'));
+      return x.need_reply && !state.sent[x.id] && !(d && (d.status === 'posted' || d.status === 'skip'));
     });
   }
   function comBadge() {
@@ -884,19 +893,21 @@ a { color: var(--accent); }
       var st = DRAFT_ST[d.status] || DRAFT_ST.draft;
       var lbl = el('div', 'lbl', st[0]);
       box.appendChild(lbl);
-      box.appendChild(el('p', 'txt', d.reply));
+      var editable = !state.sent[x.id] && (d.status === 'draft' || d.status === 'approved');
+      if (!editable) box.appendChild(el('p', 'txt', d.reply));
       if (d.why) box.appendChild(el('div', 'why', d.why));
-      if (d.status === 'draft' || d.status === 'approved') {
-        var b = el('button', '', 'Скопировать ответ');
-        b.onclick = function () {
-          var done = function () { b.textContent = 'Скопировано'; setTimeout(function () { b.textContent = 'Скопировать ответ'; }, 1500); };
-          if (navigator.clipboard) navigator.clipboard.writeText(d.reply).then(done, function () {});
-        };
-        box.appendChild(b);
+      if (state.sent[x.id]) {
+        box.appendChild(el('div', 'msg ok', 'Отправлено. Ответ появится в Instagram в течение пары минут.'));
+      } else if (d.status === 'draft' || d.status === 'approved') {
+        draftForm(box, x, d.reply);
       }
       card.appendChild(box);
     } else if (x.need_reply) {
-      card.appendChild(el('div', 'note warn', 'Черновика пока нет: Claude подготовит его после следующего сбора.'));
+      var nb = el('div', 'draft');
+      nb.appendChild(el('div', 'lbl', 'Черновика нет — можешь написать ответ сам'));
+      if (state.sent[x.id]) nb.appendChild(el('div', 'msg ok', 'Отправлено. Ответ появится в Instagram в течение пары минут.'));
+      else draftForm(nb, x, '');
+      card.appendChild(nb);
     }
     if (x.permalink) {
       var a = el('a', 'reel', '▶ ' + (x.caption || 'ролик'));
@@ -905,6 +916,68 @@ a { color: var(--accent); }
     }
     return card;
   }
+  // Кнопка «Ответить»: запускает workflow reply-comments токеном GitHub, который хранится только в этом браузере.
+  var TOKEN_KEY = 'insta-reply-token';
+  function ghToken() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } }
+  function tokenForm(box, onSaved) {
+    var t = el('div', 'tokenbox');
+    t.appendChild(document.createTextNode('Один раз на этом телефоне: вставь ключ GitHub, чтобы кнопка могла отправлять ответы. '));
+    var a = el('a', '', 'Как получить ключ');
+    a.href = 'https://github.com/settings/personal-access-tokens/new'; a.target = '_blank'; a.rel = 'noopener';
+    t.appendChild(a);
+    t.appendChild(el('div', 'why', 'Repository access → Only select repositories → insta; Permissions → Actions: Read and write. Ключ хранится только в этом браузере.'));
+    var inp = el('input'); inp.type = 'password'; inp.placeholder = 'github_pat_…'; inp.autocomplete = 'off';
+    t.appendChild(inp);
+    var b = el('button', 'send', 'Сохранить ключ');
+    b.onclick = function () {
+      var v = inp.value.trim(); if (!v) return;
+      try { localStorage.setItem(TOKEN_KEY, v); } catch (e) {}
+      t.remove(); onSaved();
+    };
+    t.appendChild(b);
+    box.appendChild(t);
+  }
+  function draftForm(box, x, text) {
+    var ta = el('textarea'); ta.value = text; ta.rows = 4;
+    box.appendChild(ta);
+    var acts = el('div', 'acts');
+    var send = el('button', 'send', 'Ответить');
+    var copy = el('button', '', 'Скопировать');
+    var msg = el('div', 'msg');
+    copy.onclick = function () {
+      if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(function () { copy.textContent = 'Скопировано'; }, function () {});
+    };
+    send.onclick = function () {
+      var body = ta.value.trim();
+      if (!body) { msg.className = 'msg bad'; msg.textContent = 'Пустой ответ.'; return; }
+      var tok = ghToken();
+      if (!tok) { tokenForm(box, function () { send.onclick(); }); return; }
+      send.disabled = true; send.textContent = 'Отправляю…'; msg.className = 'msg'; msg.textContent = '';
+      fetch(API + '/actions/workflows/reply.yml/dispatches', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + tok, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ref: 'main', inputs: { ids: x.id, approve: 'true', text: body } })
+      }).then(function (r) {
+        if (r.status === 204) {
+          state.sent[x.id] = 1;
+          try { sessionStorage.setItem('insta-sent', JSON.stringify(state.sent)); } catch (e) {}
+          comBadge(); render();
+          return;
+        }
+        if (r.status === 401 || r.status === 403 || r.status === 404) {
+          try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+          throw new Error('ключ GitHub не подошёл (нужен доступ Actions: Read and write к insta). Нажми «Ответить» ещё раз и вставь новый');
+        }
+        throw new Error('GitHub ответил ' + r.status);
+      }).catch(function (e) {
+        send.disabled = false; send.textContent = 'Ответить';
+        msg.className = 'msg bad'; msg.textContent = 'Не отправилось: ' + (e && e.message || 'нет сети') + '.';
+      });
+    };
+    acts.appendChild(send); acts.appendChild(copy);
+    box.appendChild(acts); box.appendChild(msg);
+  }
+
   function renderComments(view) {
     var c = state.comments;
     if (!c) { view.appendChild(el('div', 'empty', 'Комментарии ещё не собирали.')); return; }
@@ -925,7 +998,7 @@ a { color: var(--accent); }
     list.forEach(function (x) { box.appendChild(comCard(x)); });
     view.appendChild(box);
     view.appendChild(el('p', 'foot', 'Комментарии собираются раз в сутки утром. Черновики пишет Claude твоим языком и сверяет со сценарием и источниками ролика. ' +
-      'В Instagram ответ уходит, только когда ты скажешь «да» в треде, или скопируй и ответь сам.'));
+      'Текст можно поправить прямо в поле. «Ответить» отправляет его в Instagram от твоего имени, без кнопки ничего не уходит. Ещё можно сказать «да» или «ответь на 1 и 3» в треде.'));
   }
 
   function setTab(t) {

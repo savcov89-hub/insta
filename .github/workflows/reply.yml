@@ -7,6 +7,14 @@ on:
       ids:
         description: 'id комментариев через запятую'
         required: true
+      approve:
+        description: 'запуск кнопкой «Ответить» в календаре: нажатие = одобрение Михаила (только для одного id)'
+        type: boolean
+        default: false
+      text:
+        description: 'исправленный текст ответа (необязательно, только для одного id)'
+        required: false
+        default: ''
       dry_run:
         description: 'только проверить, ничего не отправлять'
         type: boolean
@@ -29,6 +37,8 @@ jobs:
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           IDS: ${{ inputs.ids }}
+          APPROVE: ${{ inputs.approve && '1' || '0' }}
+          TEXT: ${{ inputs.text }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
         run: |
           git config user.name "reels-bot"

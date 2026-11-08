@@ -156,5 +156,17 @@ class CommentsTest(unittest.TestCase):
         self.assertEqual(self.data("drafts.json")["c2"]["status"], "posted")
 
 
+    def test_button_sends_edited_text(self):
+        self.run_py("comments.py")
+        (self.dir / "comments" / "drafts.json").write_text(json.dumps({"c2": {"reply": "Почему?", "status": "draft"}}))
+        self.run_py("reply.py", IDS="c2,c3", APPROVE="1")      # кнопка — только один id
+        self.assertFalse(any(c[0] == "POST" for c in Fake.calls))
+        self.run_py("reply.py", IDS="c2", APPROVE="1", TEXT="А что не так?")
+        posts = [c for c in Fake.calls if c[0] == "POST"]
+        self.assertEqual(posts[0][2]["message"], "А что не так?")
+        d = self.data("drafts.json")["c2"]
+        self.assertEqual((d["status"], d["draft_was"]), ("posted", "Почему?"))
+
+
 if __name__ == "__main__":
     unittest.main()
