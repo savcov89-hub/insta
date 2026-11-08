@@ -69,6 +69,7 @@ TIMEFRAMES = {"follower_demographics": [None, "this_month", "last_30_days"],
 # Аккаунт по дням: метрики с total_value за сутки (что Instagram не отдаст, отсеется по ответу).
 DAY_METRICS = ["views", "reach", "accounts_engaged", "total_interactions", "likes", "comments", "shares",
                "saves", "profile_links_taps", "profile_views"]
+ACCOUNT_SCHEMA = 2   # 2: добавлены profile_views (переходы в профиль)
 ACCOUNT_DAYS = int(os.environ.get("ACCOUNT_DAYS", "28"))   # глубина досбора пропущенных дней
 PERMISSION_CODES = {10, 200, 3}   # «нет разрешения» у Instagram: нужен instagram_business_manage_insights
 
@@ -340,12 +341,13 @@ def account_daily(token, t0, followers):
     except (OSError, ValueError):
         acc = {}
     days, online = acc.setdefault("days", {}), acc.setdefault("online", {})
+    refetch_all = acc.get("schema", 1) < ACCOUNT_SCHEMA   # добавили метрику — один раз пересобрать старые дни
     today = t0.astimezone(NSK).date()
     want = []
     for back in range(ACCOUNT_DAYS):
         d = today - dt.timedelta(days=back)
         k = d.isoformat()
-        if back <= 1 or k not in days or days[k].get("partial"):
+        if back <= 1 or refetch_all or k not in days or days[k].get("partial"):
             want.append(d)
     unsupported, failed = set(), set()
     for d in want:
@@ -380,6 +382,7 @@ def account_daily(token, t0, followers):
     keep = sorted(online)[-24 * 60:]   # часы онлайн хранить за 60 дней
     acc["online"] = {h: online[h] for h in keep}
     acc["updated"] = t0.isoformat(timespec="seconds")
+    acc["schema"] = ACCOUNT_SCHEMA
     got = sorted({m for r in days.values() for m in r if m != "partial"})
     log(f"аккаунт по дням: {len(want)} дн. запрошено, есть метрики {', '.join(got) or 'никаких'}"
         + (f"; нет у Instagram: {', '.join(sorted(unsupported))}" if unsupported else ""))
