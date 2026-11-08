@@ -143,6 +143,18 @@ a { color: var(--accent); }
 .bar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
 .sortsel { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
 .sortsel select { font-size: 15px; height: 38px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--fg); padding: 0 8px; max-width: 100%; }
+.funnel { padding: 12px 14px; margin-bottom: 12px; }
+.funnel h3 { margin: 0 0 10px; font-size: 16px; }
+.fsteps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 6px; }
+.fsteps b { display: block; font-size: 18px; font-weight: 650; }
+.fsteps span { display: block; font-size: 12px; color: var(--muted); line-height: 1.2; }
+.fsteps i { display: block; font-style: normal; font-size: 12px; color: var(--ok); margin-top: 2px; line-height: 1.2; }
+.fnote { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+.fwrap { overflow-x: auto; margin-top: 10px; }
+.ftable { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.ftable th, .ftable td { padding: 6px 4px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.ftable th { font-size: 12px; color: var(--muted); font-weight: 600; }
+.ftable th:first-child, .ftable td:first-child { text-align: left; }
 .fulllink { display: block; padding: 12px 14px; margin-bottom: 12px; text-decoration: none; font-weight: 600; }
 .mgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 6px; }
 .mgrid div { min-width: 0; }
@@ -313,6 +325,9 @@ a { color: var(--accent); }
     try { localStorage.setItem(CACHE_KEY, JSON.stringify({ sha: sha, rows: rows, stats: state.stats, blobs: blobs })); } catch (e) {}
   }
 
+  function loadAccount() {
+    return getJSON(RAW + BRANCH + '/stats/account.json', { cache: 'no-cache' }).then(function (a) { state.account = a; }, function () {});
+  }
   function loadOrigin() {
     return getJSON(RAW + BRANCH + '/stats/origin.json', { cache: 'no-cache' }).then(function (o) { state.origin = o; }, function () {});
   }
@@ -325,6 +340,7 @@ a { color: var(--accent); }
 
   function load(manual) {
     loadOrigin();
+    loadAccount().then(function () { if (state.tab === 'stats') render(); });
     var btn = document.getElementById('refresh');
     btn.classList.add('spin');
     var useApi = Date.now() > state.apiPausedUntil;
@@ -622,6 +638,58 @@ a { color: var(--accent); }
     likes: function (r) { return r.insights.likes; },
     reach: function (r) { return r.insights.reach; }
   };
+  // Воронка аккаунта по дням: просмотры → переходы в профиль → клики по ссылке в шапке / подписки
+  function pct(a, b) { return b ? (100 * a / b < 10 ? (100 * a / b).toFixed(1).replace('.', ',') : Math.round(100 * a / b)) + ' %' : '—'; }
+  function renderFunnel(view) {
+    var acc = state.account;
+    if (!acc || !acc.days) return;
+    var keys = Object.keys(acc.days).sort().reverse();
+    var withPv = keys.filter(function (k) { return acc.days[k].profile_views != null; });
+    if (!withPv.length) return;
+    var box = el('section', 'panel funnel');
+    box.appendChild(el('h3', '', 'Переходы в профиль и ссылка в шапке'));
+    // итог за 7 полных дней, где уже есть подписки (Instagram отдаёт их с задержкой 1–2 дня)
+    var full = withPv.filter(function (k) { return !acc.days[k].partial && acc.days[k].follows != null; }).slice(0, 7);
+    if (full.length) {
+      var t = { views: 0, pv: 0, taps: 0, fol: 0 };
+      full.forEach(function (k) { var d = acc.days[k]; t.views += d.views || 0; t.pv += d.profile_views || 0; t.taps += d.profile_links_taps || 0; t.fol += d.follows || 0; });
+      var f = el('div', 'fsteps');
+      [[num(t.views), 'просмотров', ''], [num(t.pv), 'зашли в профиль', pct(t.pv, t.views) + ' от просмотров'],
+       [num(t.taps), 'нажали ссылку', pct(t.taps, t.pv) + ' от зашедших'], [num(t.fol), 'подписались', pct(t.fol, t.pv) + ' от зашедших']]
+        .forEach(function (x) {
+          var d = el('div'); d.appendChild(el('b', '', x[0])); d.appendChild(el('span', '', x[1]));
+          if (x[2]) d.appendChild(el('i', '', x[2]));
+          f.appendChild(d);
+        });
+      box.appendChild(f);
+      var a = full[full.length - 1], z = full[0];
+      box.appendChild(el('p', 'fnote', 'Сумма за ' + full.length + ' ' + plural(full.length, 'день', 'дня', 'дней') + ': ' +
+        fmtShort.format(new Date(a + 'T00:00:00Z')) + ' – ' + fmtShort.format(new Date(z + 'T00:00:00Z'))));
+    }
+    var tbl = el('table', 'ftable');
+    var hr = el('tr');
+    ['День', 'Просмотры', 'В профиль', 'Ссылка', 'Подписки'].forEach(function (h) { hr.appendChild(el('th', '', h)); });
+    var th = el('thead'); th.appendChild(hr); tbl.appendChild(th);
+    var tb = el('tbody');
+    var showN = state.funnelAll ? withPv.length : 10;
+    withPv.slice(0, showN).forEach(function (k) {
+      var d = acc.days[k], tr = el('tr');
+      tr.appendChild(el('td', '', fmtShort.format(new Date(k + 'T00:00:00Z')) + (d.partial ? ' (идёт)' : '')));
+      [d.views, d.profile_views, d.profile_links_taps].forEach(function (v) { tr.appendChild(el('td', '', num(v))); });
+      tr.appendChild(el('td', '', d.follows == null ? 'позже' : num(d.follows)));
+      tb.appendChild(tr);
+    });
+    tbl.appendChild(tb);
+    var wrap = el('div', 'fwrap'); wrap.appendChild(tbl); box.appendChild(wrap);
+    if (withPv.length > 10) {
+      var b = el('button', 'past-toggle', state.funnelAll ? 'Свернуть' : 'Все дни (' + withPv.length + ')');
+      b.onclick = function () { state.funnelAll = !state.funnelAll; render(); };
+      box.appendChild(b);
+    }
+    box.appendChild(el('p', 'fnote', 'Кто именно заходил в профиль, Instagram не показывает никому, даже через API: только количество за день. ' +
+      '«Ссылка» — нажатия на ссылку в шапке профиля. Подписки Instagram отдаёт с задержкой в 1–2 дня.'));
+    view.appendChild(box);
+  }
   function renderStats(view) {
     var st = state.stats;
     if (!st) {
@@ -655,6 +723,8 @@ a { color: var(--accent); }
     var more = el('a', 'panel fulllink', 'Вся статистика: подписчики по дням, версии, аудитория →');
     more.href = 'stats.html';
     view.appendChild(more);
+
+    renderFunnel(view);
 
     var byMedia = {};
     state.items.forEach(function (i) { if (i.mediaId) byMedia[i.mediaId] = i; });
