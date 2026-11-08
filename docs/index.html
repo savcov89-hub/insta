@@ -200,7 +200,8 @@ a { color: var(--accent); }
     cap_wait:  { label: 'Ждёт лимита', cls: 'warn', note: 'Упёрлись в лимит пробных Instagram. Программа выложит, когда освободится окно.' },
     failed:    { label: 'Ошибка',     cls: 'bad' },
     missed:    { label: 'Не вышел',   cls: 'bad', note: 'Запуск опоздал больше чем на 3 часа, программа его не выложила.' },
-    cancelled: { label: 'Отменён',    cls: 'idle' }
+    cancelled: { label: 'Отменён',    cls: 'idle' },
+    broken:    { label: 'Сбой записи', cls: 'bad', note: 'Файл статуса испорчен. Программа этот пост не трогает, пока файл не починят.' }
   };
   var INACTIVE = { cancelled: 1, failed: 1, missed: 1 };
 
