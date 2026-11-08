@@ -23,6 +23,7 @@
    "shares": 2,
    "saves": 0,
    "profile_links_taps": 0,
+   "profile_views": 13,
    "follows": 4,
    "unfollows": 0
   },
@@ -36,6 +37,7 @@
    "shares": 17,
    "saves": 2,
    "profile_links_taps": 0,
+   "profile_views": 24,
    "follows": 5,
    "unfollows": 0
   },
@@ -49,6 +51,7 @@
    "shares": 143,
    "saves": 59,
    "profile_links_taps": 0,
+   "profile_views": 47,
    "follows": 11,
    "unfollows": 0
   },
@@ -62,6 +65,7 @@
    "shares": 482,
    "saves": 161,
    "profile_links_taps": 0,
+   "profile_views": 64,
    "follows": 19,
    "unfollows": 0
   },
@@ -75,6 +79,7 @@
    "shares": 65,
    "saves": 26,
    "profile_links_taps": 0,
+   "profile_views": 71,
    "follows": 4,
    "unfollows": 1
   },
@@ -88,6 +93,7 @@
    "shares": 32,
    "saves": 15,
    "profile_links_taps": 0,
+   "profile_views": 49,
    "follows": 4,
    "unfollows": 0
   },
@@ -101,6 +107,7 @@
    "shares": 69,
    "saves": 27,
    "profile_links_taps": 0,
+   "profile_views": 35,
    "follows": 7,
    "unfollows": 0
   },
@@ -114,6 +121,7 @@
    "shares": 81,
    "saves": 19,
    "profile_links_taps": 0,
+   "profile_views": 27,
    "follows": 6,
    "unfollows": 0
   },
@@ -127,6 +135,7 @@
    "shares": 60,
    "saves": 49,
    "profile_links_taps": 0,
+   "profile_views": 34,
    "follows": 20,
    "unfollows": 0
   },
@@ -140,6 +149,7 @@
    "shares": 45,
    "saves": 24,
    "profile_links_taps": 0,
+   "profile_views": 74,
    "follows": 6,
    "unfollows": 0
   },
@@ -153,6 +163,7 @@
    "shares": 21,
    "saves": 11,
    "profile_links_taps": 0,
+   "profile_views": 28,
    "follows": 2,
    "unfollows": 0
   },
@@ -166,6 +177,7 @@
    "shares": 17,
    "saves": 22,
    "profile_links_taps": 0,
+   "profile_views": 22,
    "follows": 9,
    "unfollows": 0
   },
@@ -179,6 +191,7 @@
    "shares": 4,
    "saves": 5,
    "profile_links_taps": 0,
+   "profile_views": 20,
    "follows": 3,
    "unfollows": 0
   },
@@ -192,6 +205,7 @@
    "shares": 45,
    "saves": 12,
    "profile_links_taps": 0,
+   "profile_views": 18,
    "follows": 2,
    "unfollows": 0
   },
@@ -205,6 +219,7 @@
    "shares": 74,
    "saves": 13,
    "profile_links_taps": 0,
+   "profile_views": 41,
    "follows": 2,
    "unfollows": 2
   },
@@ -218,6 +233,7 @@
    "shares": 46,
    "saves": 12,
    "profile_links_taps": 0,
+   "profile_views": 61,
    "follows": 2,
    "unfollows": 0
   },
@@ -231,6 +247,7 @@
    "shares": 31,
    "saves": 32,
    "profile_links_taps": 0,
+   "profile_views": 36,
    "follows": 5,
    "unfollows": 0
   },
@@ -244,6 +261,7 @@
    "shares": 23,
    "saves": 24,
    "profile_links_taps": 0,
+   "profile_views": 38,
    "follows": 2,
    "unfollows": 0
   },
@@ -257,11 +275,12 @@
    "shares": 635,
    "saves": 572,
    "profile_links_taps": 0,
+   "profile_views": 196,
    "follows": 183,
    "unfollows": 0
   },
   "2026-10-31": {
-   "views": 28605,
+   "views": 28606,
    "reach": 16685,
    "accounts_engaged": 1961,
    "total_interactions": 3388,
@@ -270,6 +289,7 @@
    "shares": 647,
    "saves": 806,
    "profile_links_taps": 0,
+   "profile_views": 279,
    "follows": 270,
    "unfollows": 0
   },
@@ -283,11 +303,12 @@
    "shares": 300,
    "saves": 357,
    "profile_links_taps": 0,
+   "profile_views": 166,
    "follows": 135,
    "unfollows": 2
   },
   "2026-11-02": {
-   "views": 9507,
+   "views": 9510,
    "reach": 6066,
    "accounts_engaged": 547,
    "total_interactions": 932,
@@ -296,11 +317,12 @@
    "shares": 173,
    "saves": 231,
    "profile_links_taps": 0,
+   "profile_views": 121,
    "follows": 77,
    "unfollows": 0
   },
   "2026-11-03": {
-   "views": 21299,
+   "views": 21301,
    "reach": 15142,
    "accounts_engaged": 872,
    "total_interactions": 1429,
@@ -309,11 +331,12 @@
    "shares": 285,
    "saves": 312,
    "profile_links_taps": 0,
+   "profile_views": 137,
    "follows": 85,
    "unfollows": 0
   },
   "2026-11-04": {
-   "views": 32727,
+   "views": 32738,
    "reach": 22749,
    "accounts_engaged": 1126,
    "total_interactions": 1892,
@@ -322,11 +345,12 @@
    "shares": 416,
    "saves": 338,
    "profile_links_taps": 0,
+   "profile_views": 128,
    "follows": 82,
    "unfollows": 3
   },
   "2026-11-05": {
-   "views": 20729,
+   "views": 20735,
    "reach": 14615,
    "accounts_engaged": 674,
    "total_interactions": 1276,
@@ -335,30 +359,35 @@
    "shares": 320,
    "saves": 190,
    "profile_links_taps": 0,
+   "profile_views": 90,
    "follows": 57,
    "unfollows": 1
   },
   "2026-11-06": {
-   "views": 25771,
-   "reach": 19649,
+   "views": 25805,
+   "reach": 19665,
    "accounts_engaged": 1076,
    "total_interactions": 2132,
    "likes": 619,
    "comments": 45,
    "shares": 602,
    "saves": 244,
-   "profile_links_taps": 0
+   "profile_links_taps": 0,
+   "profile_views": 85,
+   "follows": 60,
+   "unfollows": 0
   },
   "2026-11-07": {
-   "views": 15450,
-   "reach": 10944,
-   "accounts_engaged": 646,
-   "total_interactions": 1158,
-   "likes": 371,
+   "views": 15543,
+   "reach": 10964,
+   "accounts_engaged": 647,
+   "total_interactions": 1164,
+   "likes": 375,
    "comments": 8,
    "shares": 300,
-   "saves": 172,
-   "profile_links_taps": 0
+   "saves": 174,
+   "profile_links_taps": 0,
+   "profile_views": 61
   }
  },
  "online": {
@@ -673,11 +702,36 @@
   "2026-11-05 11": 478,
   "2026-11-05 12": 520,
   "2026-11-05 13": 550,
-  "2026-11-05 14": 565
+  "2026-11-05 14": 565,
+  "2026-11-05 15": 615,
+  "2026-11-05 16": 596,
+  "2026-11-05 17": 609,
+  "2026-11-05 18": 635,
+  "2026-11-05 19": 650,
+  "2026-11-05 20": 631,
+  "2026-11-05 21": 642,
+  "2026-11-05 22": 659,
+  "2026-11-05 23": 659,
+  "2026-11-06 00": 615,
+  "2026-11-06 01": 543,
+  "2026-11-06 02": 511,
+  "2026-11-06 03": 465,
+  "2026-11-06 04": 335,
+  "2026-11-06 05": 230,
+  "2026-11-06 06": 171,
+  "2026-11-06 07": 189,
+  "2026-11-06 08": 214,
+  "2026-11-06 09": 272,
+  "2026-11-06 10": 351,
+  "2026-11-06 11": 411,
+  "2026-11-06 12": 512,
+  "2026-11-06 13": 566,
+  "2026-11-06 14": 577
  },
  "followers": {
   "2026-11-07": 2921,
   "2026-11-08": 2948
  },
- "updated": "2026-11-08T03:35:41+00:00"
+ "updated": "2026-11-08T03:57:59+00:00",
+ "schema": 2
 }
