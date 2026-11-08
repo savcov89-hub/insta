@@ -141,6 +141,8 @@ a { color: var(--accent); }
 .srow .views span { font-size: 13px; color: var(--muted); }
 .bar { height: 4px; border-radius: 2px; background: var(--idle-bg); margin: 6px 0 10px; overflow: hidden; }
 .bar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+.sortsel { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.sortsel select { font-size: 15px; height: 38px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--fg); padding: 0 8px; max-width: 100%; }
 .fulllink { display: block; padding: 12px 14px; margin-bottom: 12px; text-decoration: none; font-weight: 600; }
 .mgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 6px; }
 .mgrid div { min-width: 0; }
@@ -214,7 +216,7 @@ a { color: var(--accent); }
                 tab: 'cal', selDay: null, month: null, showPast: false, open: {} };
   try {
     var t = localStorage.getItem(CACHE_KEY + ':tab'); if (t === 'list' || t === 'cal' || t === 'stats') state.tab = t;
-    var srt = localStorage.getItem(CACHE_KEY + ':sort'); if (srt === 'views' || srt === 'conv') state.statsSort = srt;
+    var srt = localStorage.getItem(CACHE_KEY + ':sort'); if (srt) state.statsSort = srt;
   } catch (e) {}
 
   // ---------- время ----------
@@ -603,6 +605,23 @@ a { color: var(--accent); }
     }
   }
 
+  var SORTS = [['date', 'сначала новые'], ['views', 'просмотры'], ['follows', 'подписки с ролика'],
+    ['conv', 'конверсия в подписчиков'], ['hook', 'сила хука (досмотр 3 с)'], ['watch', 'среднее время просмотра'],
+    ['shares', 'репосты'], ['saved', 'сохранения'], ['comments', 'комментарии'], ['likes', 'лайки'], ['reach', 'охват']];
+  var SORT_KEY = {
+    date: function (r) { return r._t; },
+    views: function (r) { return r.insights.views; },
+    follows: function (r) { return r.follows_est; },
+    conv: function (r) { return r._conv; },
+    // у роликов меньше 300 просмотров досмотр случайный, их в конец
+    hook: function (r) { return (r.insights.views || 0) >= 300 && r.insights.reels_skip_rate != null ? 100 - r.insights.reels_skip_rate : null; },
+    watch: function (r) { return r.insights.ig_reels_avg_watch_time; },
+    shares: function (r) { return r.insights.shares; },
+    saved: function (r) { return r.insights.saved; },
+    comments: function (r) { return r.insights.comments; },
+    likes: function (r) { return r.insights.likes; },
+    reach: function (r) { return r.insights.reach; }
+  };
   function renderStats(view) {
     var st = state.stats;
     if (!st) {
@@ -617,17 +636,20 @@ a { color: var(--accent); }
     }
     acc.appendChild(document.createTextNode('цифры на ' + statsStamp()));
     head.appendChild(acc);
-    var seg = el('div', 'seg');
-    [['date', 'по дате'], ['views', 'по просмотрам'], ['conv', 'по подпискам']].forEach(function (o) {
-      var b = el('button', '', o[1]);
-      b.setAttribute('aria-pressed', state.statsSort === o[0]);
-      b.onclick = function () {
-        state.statsSort = o[0];
-        try { localStorage.setItem(CACHE_KEY + ':sort', o[0]); } catch (e) {}
-        render();
-      };
-      seg.appendChild(b);
+    var seg = el('label', 'sortsel');
+    seg.appendChild(document.createTextNode('Сортировать: '));
+    var sel = el('select');
+    SORTS.forEach(function (o) {
+      var op = el('option', '', o[1]); op.value = o[0];
+      if (state.statsSort === o[0]) op.selected = true;
+      sel.appendChild(op);
     });
+    sel.onchange = function () {
+      state.statsSort = sel.value;
+      try { localStorage.setItem(CACHE_KEY + ':sort', sel.value); } catch (e) {}
+      render();
+    };
+    seg.appendChild(sel);
     head.appendChild(seg);
     view.appendChild(head);
     var more = el('a', 'panel fulllink', 'Вся статистика: подписчики по дням, версии, аудитория →');
@@ -646,12 +668,14 @@ a { color: var(--accent); }
     });
     var convRank = rows.filter(function (r) { return r._conv != null && r._conv > 0; })
       .sort(function (a, b) { return b._conv - a._conv; }).slice(0, 3).map(function (r) { return r.id; });
-    rows.sort(state.statsSort === 'views'
-      ? function (a, b) { return (b.insights.views || 0) - (a.insights.views || 0); }
-      : state.statsSort === 'conv'
-      ? function (a, b) { return (b._conv == null ? -1 : b._conv) - (a._conv == null ? -1 : a._conv); }
-      : function (a, b) { return (b._t || 0) - (a._t || 0); });
-    if (state.statsSort === 'conv') view.appendChild(el('p', 'foot', 'Подписок с ролика Instagram через API не даёт, это оценка: прирост подписчиков между замерами ' +
+    var key = SORT_KEY[state.statsSort] || SORT_KEY.date;
+    rows.sort(function (a, b) {
+      var x = key(a), y = key(b);
+      if (x == null && y == null) return (b._t || 0) - (a._t || 0);
+      if (x == null) return 1; if (y == null) return -1;
+      return y - x || (b._t || 0) - (a._t || 0);
+    });
+    if (state.statsSort === 'conv' || state.statsSort === 'follows') view.appendChild(el('p', 'foot', 'Подписок с ролика Instagram через API не даёт, это оценка: прирост подписчиков между замерами ' +
       'делится между роликами по их приросту просмотров. «На 1000» — сколько подписок на каждую тысячу просмотров, считается у роликов от 500 просмотров.'));
     var max = rows.reduce(function (m, r) { return Math.max(m, r.insights.views || 0); }, 0) || 1;
 
