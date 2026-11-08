@@ -964,11 +964,15 @@ a { color: var(--accent); }
           comBadge(); render();
           return;
         }
-        if (r.status === 401 || r.status === 403 || r.status === 404) {
-          try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
-          throw new Error('ключ GitHub не подошёл (нужен доступ Actions: Read and write к insta). Нажми «Ответить» ещё раз и вставь новый');
-        }
-        throw new Error('GitHub ответил ' + r.status);
+        return r.text().then(function (t) {
+          var why = ''; try { why = (JSON.parse(t).message || ''); } catch (e) {}
+          if (r.status === 401 || r.status === 403 || r.status === 404) {
+            try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+            throw new Error('ключ GitHub не подошёл (код ' + r.status + (why ? ': ' + why : '') +
+              '). Нужен доступ к insta с правом Actions: Read and write. Нажми «Ответить» ещё раз и вставь новый');
+          }
+          throw new Error('GitHub ответил ' + r.status + (why ? ': ' + why : ''));
+        });
       }).catch(function (e) {
         send.disabled = false; send.textContent = 'Ответить';
         msg.className = 'msg bad'; msg.textContent = 'Не отправилось: ' + (e && e.message || 'нет сети') + '.';
