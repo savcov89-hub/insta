@@ -7,7 +7,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Reels">
 <title>Календарь Reels</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='10' width='52' height='48' rx='10' fill='%23c2552d'/%3E%3Crect x='6' y='10' width='52' height='14' rx='7' fill='%23912f12'/%3E%3Ccircle cx='22' cy='38' r='5' fill='%23fff'/%3E%3Ccircle cx='42' cy='38' r='5' fill='%23fff' opacity='.6'/%3E%3C/svg%3E">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#e8513a">
 <style>
 :root {
   --bg: #f6f5f2; --panel: #ffffff; --fg: #1d1c1a; --muted: #6d6a63; --line: #e4e1da;
@@ -138,6 +141,7 @@ a { color: var(--accent); }
 .srow .views span { font-size: 13px; color: var(--muted); }
 .bar { height: 4px; border-radius: 2px; background: var(--idle-bg); margin: 6px 0 10px; overflow: hidden; }
 .bar i { display: block; height: 100%; background: var(--accent); border-radius: 2px; }
+.fulllink { display: block; padding: 12px 14px; margin-bottom: 12px; text-decoration: none; font-weight: 600; }
 .mgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 6px; }
 .mgrid div { min-width: 0; }
 .mgrid b { display: block; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -210,7 +214,7 @@ a { color: var(--accent); }
                 tab: 'cal', selDay: null, month: null, showPast: false, open: {} };
   try {
     var t = localStorage.getItem(CACHE_KEY + ':tab'); if (t === 'list' || t === 'cal' || t === 'stats') state.tab = t;
-    if (localStorage.getItem(CACHE_KEY + ':sort') === 'views') state.statsSort = 'views';
+    var srt = localStorage.getItem(CACHE_KEY + ':sort'); if (srt === 'views' || srt === 'conv') state.statsSort = srt;
   } catch (e) {}
 
   // ---------- время ----------
@@ -614,7 +618,7 @@ a { color: var(--accent); }
     acc.appendChild(document.createTextNode('цифры на ' + statsStamp()));
     head.appendChild(acc);
     var seg = el('div', 'seg');
-    [['date', 'по дате'], ['views', 'по просмотрам']].forEach(function (o) {
+    [['date', 'по дате'], ['views', 'по просмотрам'], ['conv', 'по подпискам']].forEach(function (o) {
       var b = el('button', '', o[1]);
       b.setAttribute('aria-pressed', state.statsSort === o[0]);
       b.onclick = function () {
@@ -626,6 +630,9 @@ a { color: var(--accent); }
     });
     head.appendChild(seg);
     view.appendChild(head);
+    var more = el('a', 'panel fulllink', 'Вся статистика: подписчики по дням, версии, аудитория →');
+    more.href = 'stats.html';
+    view.appendChild(more);
 
     var byMedia = {};
     state.items.forEach(function (i) { if (i.mediaId) byMedia[i.mediaId] = i; });
@@ -633,9 +640,19 @@ a { color: var(--accent); }
     var blind = rows.filter(function (r) { return r.no_insights; }).length;
     rows = rows.filter(function (r) { return !r.no_insights && r.insights && r.insights.views != null; });
     rows.forEach(function (r) { r._t = r.timestamp ? parseTime(String(r.timestamp).replace(/([+-]\d\d)(\d\d)$/, '$1:$2')) : null; });
+    rows.forEach(function (r) {
+      // конверсия считается только у роликов с заметным числом просмотров, иначе 1 подписка на 50 просмотров выглядит рекордом
+      r._conv = r.follows_est != null && (r.insights.views || 0) >= 500 ? 1000 * r.follows_est / r.insights.views : null;
+    });
+    var convRank = rows.filter(function (r) { return r._conv != null && r._conv > 0; })
+      .sort(function (a, b) { return b._conv - a._conv; }).slice(0, 3).map(function (r) { return r.id; });
     rows.sort(state.statsSort === 'views'
       ? function (a, b) { return (b.insights.views || 0) - (a.insights.views || 0); }
+      : state.statsSort === 'conv'
+      ? function (a, b) { return (b._conv == null ? -1 : b._conv) - (a._conv == null ? -1 : a._conv); }
       : function (a, b) { return (b._t || 0) - (a._t || 0); });
+    if (state.statsSort === 'conv') view.appendChild(el('p', 'foot', 'Подписок с ролика Instagram через API не даёт, это оценка: прирост подписчиков между замерами ' +
+      'делится между роликами по их приросту просмотров. «На 1000» — сколько подписок на каждую тысячу просмотров, считается у роликов от 500 просмотров.'));
     var max = rows.reduce(function (m, r) { return Math.max(m, r.insights.views || 0); }, 0) || 1;
 
     var grp = { auto: [], human: [] };
@@ -657,6 +674,8 @@ a { color: var(--accent); }
       if (trial === true) top.appendChild(el('span', 'badge plain', 'пробный'));
       if (originOf(r.queue_id) === 'auto') top.appendChild(el('span', 'badge ok', 'сделал Claude, без правок'));
       if (r.deleted) top.appendChild(el('span', 'badge idle', 'удалён'));
+      var rank = convRank.indexOf(r.id);
+      if (rank >= 0) top.appendChild(el('span', 'badge ok', ['лучшая', '2-я', '3-я'][rank] + ' конверсия в подписчиков'));
       if (!r.deleted && /^https:\/\/(www\.)?instagram\.com\//.test(r.permalink || '')) {
         var a = el('a', '', 'Открыть'); a.href = r.permalink; a.target = '_blank'; a.rel = 'noopener';
         top.appendChild(a);
@@ -674,7 +693,8 @@ a { color: var(--accent); }
       var cells = [[num(ins.reach), 'охват'], [h == null ? '—' : h + ' %', 'досмотрели 3 с'],
         [secs(ins.ig_reels_avg_watch_time), 'смотрят в среднем'], [num(ins.likes), 'лайки'],
         [num(ins.saved), 'сохранения'], [num(ins.shares), 'репосты'], [num(ins.comments), 'комментарии']];
-      if (ins.follows != null) cells.push([num(ins.follows), 'подписки']);
+      if (r.follows_est != null) cells.push(['≈ ' + num(Math.max(0, r.follows_est)), 'подписок (оценка)']);
+      if (r._conv != null) cells.push([(Math.max(0, r._conv)).toFixed(1).replace('.', ','), 'подписок на 1000 просм.']);
       cells.forEach(function (m) {
         var d = el('div'); d.appendChild(el('b', '', m[0])); d.appendChild(el('span', '', m[1])); g.appendChild(d);
       });

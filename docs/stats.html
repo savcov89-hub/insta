@@ -7,7 +7,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Статистика">
 <title>Статистика Instagram</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%232a78d6'/%3E%3Crect x='16' y='34' width='7' height='14' rx='2' fill='%23fff'/%3E%3Crect x='28' y='24' width='7' height='24' rx='2' fill='%23fff'/%3E%3Crect x='40' y='16' width='7' height='32' rx='2' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#e8513a">
 <style>
 :root {
   color-scheme: light;
@@ -145,6 +148,12 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
         Поэтому оценка: прирост подписчиков между замерами делится между роликами пропорционально тому,
         сколько просмотров каждый набрал за это время. Подписки из историй и шапки тоже попадают в ролики,
         так что это ориентир, а не точное число. Удержание — доля тех, кто не пролистал первые 3 секунды.</p>
+    </section>
+
+    <section class="card">
+      <h2>Кто лучше всех приводит подписчиков</h2>
+      <p class="hint">Подписок на 1000 просмотров, топ-10 за период. Считаются ролики от 500 просмотров. Синим — три лучших.</p>
+      <div class="chart" id="c-conv"></div>
     </section>
 
     <section class="card">
@@ -499,7 +508,9 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
       r.t = parseT(r.timestamp);
       r.i = r.insights || {};
       r.v24 = viewsAt(series[r.id], r.t + DAY);
-      r.fEst = est[r.id];
+      r.fEst = r.follows_est != null ? r.follows_est : est[r.id];
+      if (r.fEst != null && r.fEst < 0) r.fEst = 0;
+      r.conv = r.fEst != null && (r.i.views || 0) >= 500 ? 1000 * r.fEst / r.i.views : null;
       r.hold = r.i.reels_skip_rate != null ? 100 - r.i.reels_skip_rate : null;
     });
     reels.sort(function (a, b) { return b.t - a.t; });
@@ -589,6 +600,7 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
     { k: 't', l: 'Ролик' },
     { k: 'views', l: 'Просмотры', f: function (r) { return r.i.views; } },
     { k: 'fEst', l: 'Подписок ≈', f: function (r) { return r.fEst; } },
+    { k: 'conv', l: 'На 1000 просм.', f: function (r) { return r.conv; }, fmt: function (v) { return v == null ? '—' : v.toFixed(1).replace('.', ','); } },
     { k: 'v24', l: 'За 24 ч', f: function (r) { return r.v24; } },
     { k: 'reach', l: 'Охват', f: function (r) { return r.i.reach; } },
     { k: 'shares', l: 'Пересылки', f: function (r) { return r.i.shares; } },
@@ -643,6 +655,17 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
     more.hidden = total <= 15;
     more.textContent = showAll ? 'Свернуть' : 'Показать все ' + total;
   }
+  function renderConv() {
+    var rs = D.list.filter(function (r) { return inPeriod(r.t) && r.conv != null && r.conv > 0; })
+      .sort(function (a, b) { return b.conv - a.conv; }).slice(0, 10);
+    hbars($('c-conv'), rs.map(function (r, i) {
+      return { label: (r.caption || '(без подписи)'), value: r.conv, color: i < 3 ? css('--s1') : css('--gray'),
+        text: r.conv.toFixed(1).replace('.', ','),
+        tip: [{ value: r.conv.toFixed(1).replace('.', ','), label: 'подписок на 1000 просмотров' },
+              { value: num(r.fEst), label: 'подписок ≈' }, { value: num(r.i.views), label: 'просмотров' },
+              { value: dShort(r.t), label: '' }] };
+    }), { labelW: Math.min(300, width($('c-conv')) * .6), aria: 'Конверсия в подписчиков', empty: 'За этот период пока нечего сравнить.' });
+  }
   function renderVersions() {
     var box = $('versions'); box.textContent = '';
     var groups = {};
@@ -671,7 +694,8 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
           tip: [{ value: num(v), label: r.v24 == null ? 'просмотров сейчас (24 ч ещё не прошло)' : 'за 24 ч' },
                 { value: num(r.i.views), label: 'всего сейчас' },
                 { value: r.hold != null ? Math.round(r.hold) + '%' : '—', label: 'удержание 3 с' },
-                { value: r.fEst != null ? num(r.fEst) : '—', label: 'подписок ≈' }]
+                { value: r.fEst != null ? num(r.fEst) : '—', label: 'подписок ≈' },
+                { value: r.conv != null ? r.conv.toFixed(1).replace('.', ',') : '—', label: 'на 1000 просмотров' }]
         };
       }), { labelW: Math.min(260, width(c) * .55), aria: 'Версии: ' + k });
     });
@@ -765,7 +789,7 @@ td .date { display: block; color: var(--muted); font-size: 12px; }
 
   function render() {
     document.querySelectorAll('.filters button').forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.p === period)); });
-    renderTiles(); renderFollowers(); renderDaily(); renderTable(); renderVersions(); renderOrigin(); renderAudience(); renderOnline();
+    renderTiles(); renderFollowers(); renderDaily(); renderTable(); renderConv(); renderVersions(); renderOrigin(); renderAudience(); renderOnline();
   }
 
   $('more-reels').addEventListener('click', function () { showAll = !showAll; renderTable(); });
