@@ -123,6 +123,17 @@ class CommentsTest(unittest.TestCase):
         self.assertFalse(d["d1"]["need_reply"])
         self.assertFalse(d["d2"]["need_reply"])
 
+    def test_reply_author_from_top_level(self):
+        Fake.comments = {"m1": [
+            {"id": "e1", "username": "kate", "text": "А колени?", "timestamp": "2026-11-07T10:00:00+0000",
+             "replies": {"data": [{"id": "e1r", "text": "@kate можно", "timestamp": "2026-11-07T11:00:00+0000"}]}},
+            {"id": "e1r", "username": "fitness_savtsov", "text": "@kate можно", "timestamp": "2026-11-07T11:00:00+0000"},
+        ]}
+        self.run_py("comments.py")
+        d = self.data("comments.json")["comments"]
+        self.assertNotIn("e1r", d)
+        self.assertFalse(d["e1"]["need_reply"])
+
     def test_empty_answer_rereads_tomorrow(self):
         Fake.comments = {}
         r = self.run_py("comments.py", WINDOW_DAYS="0")

@@ -35,7 +35,7 @@ OUT = ROOT / "comments"
 WINDOW = dt.timedelta(days=int(os.environ.get("WINDOW_DAYS", "30")))
 KEEP = dt.timedelta(days=int(os.environ.get("KEEP_DAYS", "90")))
 PUSH = os.environ.get("GIT_PUSH", "1") != "0"
-SCHEMA = 2
+SCHEMA = 3
 FIELDS = ("id,text,username,from{id,username},timestamp,like_count,hidden,"
           "replies{id,text,username,from{id,username},timestamp,like_count}")
 
@@ -160,7 +160,28 @@ def main():
             empty += 1   # счётчик не ноль, а пусто: перечитаем завтра
         reel = {"media_id": mid, "permalink": r.get("permalink"), "caption": (r.get("caption") or "").split("\n")[0][:140],
                 "queue_id": r.get("queue_id"), "reel_time": r.get("timestamp")}
+        # Instagram отдаёт ответы в ветках и среди комментариев верхнего уровня (там с именем автора),
+        # а внутри replies{} имя автора пустое. Берём имя оттуда, а нет — спрашиваем сам ответ.
+        names = {c["id"]: c for c in got if author(c)[0]}
+        reply_ids = set()
         for c in got:
+            for r in (c.get("replies") or {}).get("data") or []:
+                reply_ids.add(r["id"])
+                if author(r)[0]:
+                    continue
+                src = names.get(r["id"])
+                if not src:
+                    try:
+                        src = ig.call("GET", r["id"], token, {"fields": "username,from{id,username}"})
+                    except ig.IGError:
+                        src = {}
+                if src.get("username"):
+                    r["username"] = src["username"]
+                if src.get("from"):
+                    r["from"] = src["from"]
+        for c in got:
+            if c["id"] in reply_ids:
+                continue          # это ответ внутри чужой ветки, а не новая ветка
             item = thread_of(c, me, my_ids)
             item.update(reel)
             item["first_seen"] = (old.get(c["id"]) or {}).get("first_seen") or t0.isoformat(timespec="seconds")
