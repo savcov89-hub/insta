@@ -68,7 +68,7 @@ TIMEFRAMES = {"follower_demographics": [None, "this_month", "last_30_days"],
               "engaged_audience_demographics": ["this_month", "last_30_days"]}
 # Аккаунт по дням: метрики с total_value за сутки (что Instagram не отдаст, отсеется по ответу).
 DAY_METRICS = ["views", "reach", "accounts_engaged", "total_interactions", "likes", "comments", "shares",
-               "saves", "profile_links_taps"]
+               "saves", "profile_links_taps", "profile_views"]
 ACCOUNT_DAYS = int(os.environ.get("ACCOUNT_DAYS", "28"))   # глубина досбора пропущенных дней
 PERMISSION_CODES = {10, 200, 3}   # «нет разрешения» у Instagram: нужен instagram_business_manage_insights
 
