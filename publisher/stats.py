@@ -388,6 +388,42 @@ def account_daily(token, t0, followers):
     return acc
 
 
+def estimate_follows(path):
+    """Оценка подписок с каждого ролика: Instagram не отдаёт follows для Reels.
+    Между соседними замерами прирост подписчиков (followers_count) делится между роликами
+    пропорционально тому, сколько просмотров каждый набрал за это время. Отписки и подписки
+    не с роликов тоже попадают в оценку, так что это ориентир. {media_id: подписок}."""
+    followers, views = {}, {}
+    try:
+        lines = path.read_text().splitlines()
+    except OSError:
+        return {}
+    for line in lines:
+        try:
+            r = json.loads(line)
+        except ValueError:
+            continue
+        t = r.get("t")
+        if r.get("id"):
+            views.setdefault(t, {})[r["id"]] = r.get("views") or 0
+        elif r.get("followers") is not None:
+            followers[t] = r["followers"]
+    times = sorted((parse_time(t), t) for t in followers if t in views)
+    est = {}
+    for (_, a), (_, b) in zip(times, times[1:]):
+        gain = followers[b] - followers[a]
+        if not gain:
+            continue
+        dv = {i: max(0, v - views[a].get(i, 0)) for i, v in views[b].items()}
+        total = sum(dv.values())
+        if not total:
+            continue
+        for i, x in dv.items():
+            if x:
+                est[i] = est.get(i, 0) + gain * x / total
+    return est
+
+
 def git(*args, check=True):
     return subprocess.run(["git", *args], cwd=ROOT, check=check, capture_output=True, text=True)
 
@@ -510,13 +546,17 @@ def main():
         "account": {k: acc.get(k) for k in ("username", "followers_count", "follows_count", "media_count")},
         "reels": dict(sorted(reels.items(), key=lambda kv: kv[1].get("timestamp") or "", reverse=True)),
     }
-    old_path.write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n")
     with open(STATS / "history.jsonl", "a") as h:
         h.write(json.dumps({"t": stamp, "followers": acc.get("followers_count")}, ensure_ascii=False) + "\n")
         for r in reels.values():
             ts = r.get("timestamp")
             if ts and not r.get("deleted") and t0 - parse_time(ts) <= dt.timedelta(days=HISTORY_DAYS):
                 h.write(json.dumps({"t": stamp, "id": r["id"], **r["insights"]}, ensure_ascii=False) + "\n")
+    est = estimate_follows(STATS / "history.jsonl")
+    for media_id, r in summary["reels"].items():
+        if media_id in est:
+            r["follows_est"] = round(est[media_id], 1)
+    old_path.write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n")
     if aud:
         (STATS / "audience.json").write_text(json.dumps(aud, ensure_ascii=False, indent=1) + "\n")
         with open(STATS / "audience.jsonl", "a") as h:
