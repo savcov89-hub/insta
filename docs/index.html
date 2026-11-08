@@ -864,7 +864,7 @@ a { color: var(--accent); }
     var card = el('article', 'panel com');
     var t = parseTime(x.timestamp);
     var who = el('div', 'who');
-    who.appendChild(el('b', '', '@' + x.username));
+    who.appendChild(el('b', '', x.username ? '@' + x.username : 'Комментарий'));
     who.appendChild(document.createTextNode(' · ' + (t ? stamp(t) : '') + (x.like_count ? ' · ♥ ' + x.like_count : '')));
     card.appendChild(who);
     card.appendChild(el('p', 'txt', x.text));
@@ -872,7 +872,7 @@ a { color: var(--accent); }
       var th = el('div', 'thread');
       x.replies.forEach(function (r) {
         var p = el('p');
-        p.appendChild(el('b', '', '@' + r.username + ': '));
+        p.appendChild(el('b', '', (r.mine ? 'Ты' : '@' + (r.username || '…')) + ': '));
         p.appendChild(document.createTextNode(r.text));
         th.appendChild(p);
       });

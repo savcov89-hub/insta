@@ -35,8 +35,20 @@ OUT = ROOT / "comments"
 WINDOW = dt.timedelta(days=int(os.environ.get("WINDOW_DAYS", "30")))
 KEEP = dt.timedelta(days=int(os.environ.get("KEEP_DAYS", "90")))
 PUSH = os.environ.get("GIT_PUSH", "1") != "0"
-FIELDS = ("id,text,username,timestamp,like_count,hidden,"
-          "replies{id,text,username,timestamp,like_count}")
+SCHEMA = 2
+FIELDS = ("id,text,username,from{id,username},timestamp,like_count,hidden,"
+          "replies{id,text,username,from{id,username},timestamp,like_count}")
+
+
+def author(c):
+    """Instagram отдаёт автора то в username, то только в from{id,username}."""
+    f = c.get("from") or {}
+    return c.get("username") or f.get("username"), str(f.get("id") or "")
+
+
+def is_text(t):
+    """Комментарий из одних эмодзи, стикеров или пустой — ответа не ждёт."""
+    return any(ch.isalnum() for ch in (t or ""))
 
 
 def now():
@@ -68,20 +80,24 @@ def fetch(token, media_id):
             return out
 
 
-def thread_of(c, me):
+def msg(c, me, my_ids):
+    name, uid = author(c)
+    return {"id": c["id"], "username": name, "text": c.get("text", ""), "timestamp": c.get("timestamp"),
+            "like_count": c.get("like_count", 0), "mine": name == me or (uid and uid in my_ids)}
+
+
+def thread_of(c, me, my_ids=()):
     replies = sorted(((c.get("replies") or {}).get("data") or []), key=lambda r: r.get("timestamp", ""))
-    msgs = [{"id": c["id"], "username": c.get("username"), "text": c.get("text", ""),
-             "timestamp": c.get("timestamp"), "like_count": c.get("like_count", 0)}]
-    msgs += [{"id": r["id"], "username": r.get("username"), "text": r.get("text", ""),
-              "timestamp": r.get("timestamp"), "like_count": r.get("like_count", 0)} for r in replies]
+    msgs = [msg(c, me, my_ids)] + [msg(r, me, my_ids) for r in replies]
     last = msgs[-1]
+    first = msgs[0]
     return {
-        "id": c["id"], "username": c.get("username"), "text": c.get("text", ""),
+        "id": c["id"], "username": first["username"], "text": c.get("text", ""),
         "timestamp": c.get("timestamp"), "like_count": c.get("like_count", 0),
         "hidden": bool(c.get("hidden")),
         "replies": msgs[1:],
         # Отвечать надо, если последнее сообщение ветки не наше. Свои комментарии верхнего уровня не в счёт.
-        "need_reply": last["username"] != me and c.get("username") != me and not c.get("hidden"),
+        "need_reply": bool(not last["mine"] and not first["mine"] and not c.get("hidden") and is_text(last["text"])),
         "last_id": last["id"], "last_from": last["username"],
     }
 
@@ -113,10 +129,13 @@ def main():
         log("нет секрета IG_TOKEN")
         return 1
     t0 = now()
-    me = ig.me(token).get("username")
+    acc = ig.me(token)
+    me = acc.get("username")
+    my_ids = {str(acc.get(k)) for k in ("user_id", "id") if acc.get(k)}
     reels = read(ROOT / "stats" / "reels.json", {}).get("reels", {})
     state = read(OUT / "comments.json", {})
-    seen = state.get("seen", {})            # media_id → comments_count при прошлом чтении
+    # media_id → comments_count при прошлом чтении; при смене схемы перечитываем всё
+    seen = state.get("seen", {}) if state.get("schema") == SCHEMA else {}
     old = state.get("comments", {})
     drafts = read(OUT / "drafts.json", {})
 
@@ -142,7 +161,7 @@ def main():
         reel = {"media_id": mid, "permalink": r.get("permalink"), "caption": (r.get("caption") or "").split("\n")[0][:140],
                 "queue_id": r.get("queue_id"), "reel_time": r.get("timestamp")}
         for c in got:
-            item = thread_of(c, me)
+            item = thread_of(c, me, my_ids)
             item.update(reel)
             item["first_seen"] = (old.get(c["id"]) or {}).get("first_seen") or t0.isoformat(timespec="seconds")
             comments[c["id"]] = item
@@ -169,12 +188,15 @@ def main():
     new = sum(1 for c in comments.values() if c["first_seen"] == t0.isoformat(timespec="seconds"))
     OUT.mkdir(exist_ok=True)
     (OUT / "comments.json").write_text(json.dumps({
-        "updated": t0.isoformat(timespec="seconds"), "username": me,
+        "schema": SCHEMA, "updated": t0.isoformat(timespec="seconds"), "username": me,
         "waiting": waiting, "empty_reels": empty, "seen": seen,
         "comments": dict(sorted(comments.items(), key=lambda kv: kv[1].get("timestamp") or "", reverse=True)),
     }, ensure_ascii=False, indent=1) + "\n")
     if changed_drafts:
         (OUT / "drafts.json").write_text(json.dumps(drafts, ensure_ascii=False, indent=1) + "\n")
+    anon = sum(1 for c in comments.values() if not c.get("username"))
+    if anon:
+        log(f"без имени автора: {anon}")
     log(f"перечитано роликов {read_n}, ошибок {errors}; комментариев {len(comments)}, новых {new}, ждут ответа {waiting}")
     if empty:
         log(f"у {empty} роликов счётчик комментариев не ноль, а Instagram не отдал ни одного: "

@@ -110,6 +110,19 @@ class CommentsTest(unittest.TestCase):
         self.assertFalse(any(c[1].startswith("/v25.0/m2") for c in Fake.calls))   # пустые ролики не трогаем
         self.assertFalse(any(c[0] == "POST" for c in Fake.calls))
 
+    def test_author_in_from_and_emoji(self):
+        Fake.comments = {"m1": [
+            {"id": "d1", "from": {"id": "77", "username": "kate"}, "text": "А колени?", "timestamp": "2026-11-07T10:00:00+0000",
+             "replies": {"data": [{"id": "d1r", "from": {"id": "1789", "username": "fitness_savtsov"}, "text": "Можно",
+                                   "timestamp": "2026-11-07T11:00:00+0000"}]}},
+            {"id": "d2", "text": "🔥🔥🔥", "timestamp": "2026-11-07T12:00:00+0000"},
+        ]}
+        self.run_py("comments.py")
+        d = self.data("comments.json")["comments"]
+        self.assertEqual(d["d1"]["username"], "kate")
+        self.assertFalse(d["d1"]["need_reply"])
+        self.assertFalse(d["d2"]["need_reply"])
+
     def test_empty_answer_rereads_tomorrow(self):
         Fake.comments = {}
         r = self.run_py("comments.py", WINDOW_DAYS="0")
