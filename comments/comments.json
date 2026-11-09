@@ -1,8 +1,8 @@
 {
  "schema": 3,
- "updated": "2026-11-09T03:23:58+00:00",
+ "updated": "2026-11-09T09:29:27+00:00",
  "username": "fitness_savtsov",
- "waiting": 237,
+ "waiting": 238,
  "empty_reels": 0,
  "seen": {
   "18085714175706744": 3,
@@ -71,6 +71,68 @@
   "18145866688596865": 3
  },
  "comments": {
+  "18134156518773752": {
+   "id": "18134156518773752",
+   "username": "ivan_malykhin91",
+   "text": "Мне твои видео смотреть нравится больше чем качаться",
+   "timestamp": "2026-11-09T07:57:15+0000",
+   "like_count": 2,
+   "hidden": false,
+   "replies": [
+    {
+     "id": "18023762021951816",
+     "username": "fitness_savtsov",
+     "text": "@ivan_malykhin91 😂",
+     "timestamp": "2026-11-09T07:59:38+0000",
+     "like_count": 0,
+     "mine": true
+    },
+    {
+     "id": "18210180178334346",
+     "username": "yuliyazentsova",
+     "text": "@ivan_malykhin91 😂🔥",
+     "timestamp": "2026-11-09T09:10:45+0000",
+     "like_count": 0,
+     "mine": false
+    }
+   ],
+   "need_reply": true,
+   "last_id": "18210180178334346",
+   "last_from": "yuliyazentsova",
+   "media_id": "18339556618272938",
+   "permalink": "https://www.instagram.com/reel/DfZl8fWARNP/",
+   "caption": "Нужно ли кардио после силовой тренировки?",
+   "queue_id": "kardio-0611",
+   "reel_time": "2026-11-06T13:00:01+0000",
+   "first_seen": "2026-11-09T09:29:27+00:00"
+  },
+  "18078248342768677": {
+   "id": "18078248342768677",
+   "username": "berdnikova_marina87",
+   "text": "Я бы вам не сильно верила 😄 🙃  по вам видно с каким весом работаете",
+   "timestamp": "2026-11-09T05:54:35+0000",
+   "like_count": 0,
+   "hidden": false,
+   "replies": [
+    {
+     "id": "18157387429480482",
+     "username": "fitness_savtsov",
+     "text": "@berdnikova_marina87 чтобы вызывать доверие, надо с большим весом работать? 😁",
+     "timestamp": "2026-11-09T06:57:24+0000",
+     "like_count": 0,
+     "mine": true
+    }
+   ],
+   "need_reply": false,
+   "last_id": "18157387429480482",
+   "last_from": "fitness_savtsov",
+   "media_id": "18400429009161282",
+   "permalink": "https://www.instagram.com/reel/DfHhiSJAD25/",
+   "caption": "Я провёл 50 собеседований с тренерами, и не все знают, от чего растут мышцы",
+   "queue_id": "myshcy-v1-3010",
+   "reel_time": "2026-10-30T12:10:00+0000",
+   "first_seen": "2026-11-09T09:29:27+00:00"
+  },
   "18418318573082979": {
    "id": "18418318573082979",
    "username": "eva_i_asya_kuscontrol",
@@ -1070,11 +1132,19 @@
      "timestamp": "2026-11-08T17:21:20+0000",
      "like_count": 0,
      "mine": false
+    },
+    {
+     "id": "18099873890463002",
+     "username": "samorodov_2018",
+     "text": "@miragorv блин. Дак это говорится в видео)). Внимательно смотрите. Перегрузы как и отсутствие нагрузки это плохо)",
+     "timestamp": "2026-11-09T08:20:00+0000",
+     "like_count": 0,
+     "mine": false
     }
    ],
    "need_reply": true,
-   "last_id": "18136970926640153",
-   "last_from": "arkady.kozhedub",
+   "last_id": "18099873890463002",
+   "last_from": "samorodov_2018",
    "media_id": "18083228342708707",
    "permalink": "https://www.instagram.com/reel/DfY8vpBlG10/",
    "caption": "Изнашиваются ли суставы от нагрузки?",
