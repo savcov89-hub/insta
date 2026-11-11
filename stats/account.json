@@ -424,6 +424,18 @@
    "saves": 121,
    "profile_links_taps": 0,
    "profile_views": 68
+  },
+  "2026-11-11": {
+   "views": 4416,
+   "reach": 3173,
+   "accounts_engaged": 178,
+   "total_interactions": 299,
+   "likes": 125,
+   "comments": 2,
+   "shares": 60,
+   "saves": 49,
+   "profile_links_taps": 0,
+   "profile_views": 36
   }
  },
  "online": {
@@ -769,8 +781,9 @@
   "2026-11-08": 2977,
   "2026-11-09": 3011,
   "2026-11-10": 3034,
-  "2026-11-11": 3068
+  "2026-11-11": 3068,
+  "2026-11-12": 3095
  },
- "updated": "2026-11-11T06:59:23+00:00",
+ "updated": "2026-11-11T17:24:25+00:00",
  "schema": 2
 }
