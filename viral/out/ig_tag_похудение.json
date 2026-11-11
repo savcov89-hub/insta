@@ -1,0 +1,7 @@
+{
+ "job": "ig_tag похудение",
+ "sec": 0.4,
+ "result": {
+  "error": "ERROR: [instagram:tag] похудение: Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)\n"
+ }
+}

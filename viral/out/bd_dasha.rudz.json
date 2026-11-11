@@ -1,0 +1,22 @@
+{
+ "job": "bd dasha.rudz",
+ "sec": 0.4,
+ "result": {
+  "https://graph.instagram.com/v25.0": {
+   "error": {
+    "message": "Tried accessing nonexisting field (business_discovery)",
+    "type": "IGApiException",
+    "code": 100,
+    "fbtrace_id": "A4Ig6Y6iF6xHhZ-KeRMB8q-"
+   }
+  },
+  "https://graph.facebook.com/v25.0": {
+   "error": {
+    "message": "Invalid OAuth access token - Cannot parse access token",
+    "type": "OAuthException",
+    "code": 190,
+    "fbtrace_id": "A4eZUiajHsGSFPJTLTOHQoK"
+   }
+  }
+ }
+}

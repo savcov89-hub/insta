@@ -1,0 +1,7 @@
+{
+ "job": "yt_shorts https://www.youtube.com/@fitnesslera",
+ "sec": 1.0,
+ "result": {
+  "error": "ERROR: [youtube:tab] @fitnesslera/shorts: Unable to download API page: HTTP Error 404: Not Found (caused by <HTTPError 404: Not Found>)\n"
+ }
+}
