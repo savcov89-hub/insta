@@ -1,7 +1,31 @@
-# probe 1
-ig_reel https://www.instagram.com/reel/DeyubG1MBb_/
-ig_user dasha.rudz
-ig_tag похудение
-bd dasha.rudz
-yt_search похудение для женщин
-yt_shorts https://www.youtube.com/@fitnesslera
+# yt scan 1
+yt_hot похудение после 40
+yt_hot как убрать живот
+yt_hot жиросжигание
+yt_hot дефицит калорий не худею
+yt_hot вес стоит на месте
+yt_hot тренировка для девушек в зале
+yt_hot тренировка ягодиц
+yt_hot девушка первый раз в зале
+yt_hot персональный тренер
+yt_hot белок для похудения
+yt_hot тяга к сладкому
+yt_hot отеки похудение
+yt_hot целлюлит
+yt_hot менопауза вес
+yt_hot кардио или силовая
+yt_hot гормоны и похудение
+yt_hot метаболизм замедлился
+yt_hot ошибки в тренажерном зале
+yt_hot приседания колени
+yt_hot пилатес
+yt_hot шаги для похудения
+yt_hot голод вечером
+yt_hot срыв на диете
+yt_hot инсулинорезистентность
+yt_hot кортизол живот
+yt_hot сколько тренироваться в неделю
+yt_hot мышцы и вес
+yt_hot крепатура
+yt_hot растяжка
+yt_hot питание после тренировки

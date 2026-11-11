@@ -68,6 +68,19 @@ def yt(url_or_search, n=50):
     return {"title": d.get("title"), "channel_follower_count": d.get("channel_follower_count"),
             "entries": [slim(e) for e in d.get("entries", [])]}
 
+def yt_hot(query, top=8):
+    """Shorts по запросу: список, затем полные данные (подписчики, дата) для самых просматриваемых."""
+    d = yt(f"https://www.youtube.com/results?search_query={requests.utils.quote(query)}&sp=EgIYAQ%253D%253D", 60)
+    if "error" in d: return d
+    ents = [e for e in d["entries"] if re.search("[а-яА-Я]", e.get("title", "")) and e.get("view_count")]
+    ents.sort(key=lambda e: -e["view_count"])
+    full = []
+    for e in ents[:top]:
+        f = ytdlp(["--skip-download", "--no-playlist", e["url"]], 120)
+        full.append(slim(f) if "error" not in f else {**e, "full_error": f["error"][-300:]})
+        time.sleep(1.5)
+    return {"query": query, "all": ents, "top": full}
+
 for line in open(sys.argv[1], encoding="utf-8"):
     line = line.strip()
     if not line or line.startswith("#"): continue
@@ -78,6 +91,7 @@ for line in open(sys.argv[1], encoding="utf-8"):
         elif mode == "ig_user": data = ig_user(arg)
         elif mode == "bd": data = bd(arg)
         elif mode == "yt_search": data = yt(f"https://www.youtube.com/results?search_query={requests.utils.quote(arg)}&sp=EgIYAQ%253D%253D")
+        elif mode == "yt_hot": data = yt_hot(arg)
         elif mode == "yt_shorts": data = yt(arg.rstrip("/") + "/shorts")
         elif mode == "ig_tag": data = ytdlp(["--flat-playlist", "--playlist-end", "30", f"https://www.instagram.com/explore/tags/{arg}/"])
         else: data = {"error": "неизвестный режим"}
