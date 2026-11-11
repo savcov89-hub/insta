@@ -19,6 +19,7 @@ jobs:
       - name: scan
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          FB_TOKEN: ${{ secrets.FB_TOKEN }}
         run: |
           pip install -q -U yt-dlp requests
           python3 tools/viral.py viral/job.txt viral/out

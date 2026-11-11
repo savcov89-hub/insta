@@ -1,0 +1,12 @@
+# Аккаунты для поиска залетевших рилс (по одному в строке). Робот сам добавит кандидатов из @упоминаний.
+# Проверенные: присылал Михаил или нашлись в поиске
+dasha.rudz
+romafitmind
+oksana_teroshyna
+trener.katena
+anastasiya_kozina_
+katerinamusik
+natikoq
+moyput24
+yanooocka
+# Михаил, допиши сюда аккаунты, которые видишь в ленте

@@ -11,9 +11,12 @@ import requests
 
 out_dir = sys.argv[2]; os.makedirs(out_dir, exist_ok=True)
 TOKEN = os.environ.get("IG_TOKEN", "").strip()
+FB = os.environ.get("FB_TOKEN", "").strip()
 
 def scrub(s):
-    return s.replace(TOKEN, "***") if TOKEN else s
+    for t in (TOKEN, FB):
+        if t: s = s.replace(t, "***")
+    return s
 
 def ytdlp(args, timeout=600):
     p = subprocess.run(["yt-dlp", "--no-warnings", "-J", *args], capture_output=True, text=True, timeout=timeout)
@@ -81,6 +84,56 @@ def yt_hot(query, top=8):
         time.sleep(1.5)
     return {"query": query, "all": ents, "top": full}
 
+GRAPH = "https://graph.facebook.com/v25.0"
+MEDIA = "id,caption,media_product_type,like_count,comments_count,timestamp,permalink"
+
+def fb_get(path, **params):
+    params["access_token"] = FB
+    r = requests.get(f"{GRAPH}/{path}", params=params, timeout=60)
+    return json.loads(scrub(r.text))
+
+def bd_scan(list_file):
+    """Конкуренты через Business Discovery (вход через Facebook). Рилс, набравшие в разы больше нормы автора."""
+    if not FB: return {"error": "нет секрета FB_TOKEN"}
+    acc = fb_get("me/accounts", fields="name,instagram_business_account{id,username}")
+    ig = next((a["instagram_business_account"]["id"] for a in acc.get("data", []) if a.get("instagram_business_account")), None)
+    if not ig: return {"error": "к странице не привязан Instagram", "accounts": acc}
+    names = [l.split("#")[0].strip().lstrip("@") for l in open(list_file, encoding="utf-8")]
+    names = [n for n in names if n]
+    now = time.time(); accounts = []; hits = []; mentions = {}
+    for n in names:
+        q = f"business_discovery.username({n}){{username,name,followers_count,media_count,media.limit(60){{{MEDIA}}}}}"
+        j = fb_get(ig, fields=q)
+        if "error" in j:
+            accounts.append({"username": n, "error": j["error"].get("message", "")[:200]}); time.sleep(1); continue
+        b = j["business_discovery"]; media = b.get("media", {}).get("data", [])
+        reels = [m for m in media if m.get("media_product_type") == "REELS" and m.get("like_count") is not None]
+        likes = sorted(m["like_count"] for m in reels)
+        med = likes[len(likes)//2] if likes else 0
+        accounts.append({"username": b["username"], "followers": b.get("followers_count"), "reels": len(reels), "median_likes": med})
+        for m in reels:
+            for h in re.findall(r"@([A-Za-z0-9_.]{3,30})", m.get("caption") or ""):
+                h = h.rstrip(".").lower()
+                if h not in names: mentions[h] = mentions.get(h, 0) + 1
+            try:
+                age = (now - time.mktime(time.strptime(m["timestamp"][:19], "%Y-%m-%dT%H:%M:%S"))) / 86400
+            except Exception:
+                age = 999
+            x = m["like_count"] / max(med, 1)
+            if age <= 120 and x >= 3 and m["like_count"] >= 500:
+                hits.append({"username": b["username"], "followers": b.get("followers_count"), "likes": m["like_count"],
+                             "comments": m.get("comments_count"), "x_norm": round(x, 1), "age_days": round(age),
+                             "permalink": m.get("permalink"), "caption": (m.get("caption") or "")[:400]})
+        time.sleep(1)
+    hits.sort(key=lambda h: -h["x_norm"])
+    md = ["# Залетевшие рилс конкурентов", "", "лайки / медиана лайков автора (x), за 120 дней", ""]
+    for h in hits:
+        cap = " ".join(h["caption"].split())[:160]
+        md.append(f"- x{h['x_norm']} · {h['likes']} лайков · {h['comments']} комм. · @{h['username']} ({h['followers']} подп.) · {h['age_days']} дн. · {h['permalink']}\n  {cap}")
+    md += ["", "## Новые аккаунты из подписей (кандидаты)", ""] + [f"- {k} ({v})" for k, v in sorted(mentions.items(), key=lambda kv: -kv[1])[:60]]
+    open(os.path.join(out_dir, "bd_top.md"), "w").write("\n".join(md))
+    return {"accounts": accounts, "hits": hits, "mentions": mentions}
+
 for line in open(sys.argv[1], encoding="utf-8"):
     line = line.strip()
     if not line or line.startswith("#"): continue
@@ -91,6 +144,7 @@ for line in open(sys.argv[1], encoding="utf-8"):
         elif mode == "ig_user": data = ig_user(arg)
         elif mode == "bd": data = bd(arg)
         elif mode == "yt_search": data = yt(f"https://www.youtube.com/results?search_query={requests.utils.quote(arg)}&sp=EgIYAQ%253D%253D")
+        elif mode == "bd_scan": data = bd_scan(arg)
         elif mode == "yt_hot": data = yt_hot(arg)
         elif mode == "yt_shorts": data = yt(arg.rstrip("/") + "/shorts")
         elif mode == "ig_tag": data = ytdlp(["--flat-playlist", "--playlist-end", "30", f"https://www.instagram.com/explore/tags/{arg}/"])
