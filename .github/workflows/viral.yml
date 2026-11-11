@@ -1,0 +1,30 @@
+# Поиск залетевших роликов: читает viral/job.txt, пишет результаты в viral/out/ этой же ветки.
+name: viral-scan
+on:
+  push:
+    branches: ['claude/project-thread-fofx81']
+    paths: ['viral/job.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: viral-scan
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: scan
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          pip install -q -U yt-dlp requests
+          python3 tools/viral.py viral/job.txt viral/out
+      - name: commit
+        run: |
+          git config user.name "viral-bot"; git config user.email "actions@github.com"
+          git add viral/out
+          git commit -q -m "viral: результаты поиска" || exit 0
+          git pull -q --rebase; git push -q
