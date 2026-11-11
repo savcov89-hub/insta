@@ -1,0 +1,32 @@
+{
+ "job": "yt_list широчайшие не чувствую",
+ "sec": 9.3,
+ "result": {
+  "query": "широчайшие не чувствую",
+  "all": [
+   {
+    "id": "tLvsT1KUD7c",
+    "url": "https://www.youtube.com/watch?v=tLvsT1KUD7c",
+    "title": "ПОЧЕМУ ТЫ НЕ ЧУВСТВУЕШЬ МЫШЦЫ СПИНЫ - все дело в технике | Джефф Кавальер",
+    "description": "ПОДПИСЫВАЙСЯ НА КАНАЛ И БЕЙ В КОЛОКОЛ!",
+    "channel": "SMART TRAINING Channel",
+    "uploader": "SMART TRAINING Channel",
+    "uploader_id": "@smarttrainingchannel",
+    "view_count": 135496,
+    "duration": 233
+   },
+   {
+    "id": "BlD78EvaGPU",
+    "url": "https://www.youtube.com/watch?v=BlD78EvaGPU",
+    "title": "Почему я не чувствую дельты на тренировке плеч? #тренировка #сашабраун #плечи #дельты #тренер",
+    "description": "ПОЧЕМУ Я НЕ ЧУВСТВУЮ ДЕЛЬТЫ НА ТРЕНИРОВКАХ ПЛЕЧ? #плечи #дельты #тренировка_плеч #сашабраун #delts ...",
+    "channel": "Sasha Brown",
+    "uploader": "Sasha Brown",
+    "uploader_id": "@sashabrown",
+    "view_count": 4426,
+    "duration": 160
+   }
+  ],
+  "top": []
+ }
+}
