@@ -146,6 +146,7 @@ for line in open(sys.argv[1], encoding="utf-8"):
         elif mode == "yt_search": data = yt(f"https://www.youtube.com/results?search_query={requests.utils.quote(arg)}&sp=EgIYAQ%253D%253D")
         elif mode == "bd_scan": data = bd_scan(arg)
         elif mode == "yt_hot": data = yt_hot(arg)
+        elif mode == "yt_list": data = yt_hot(arg, top=0)
         elif mode == "yt_shorts": data = yt(arg.rstrip("/") + "/shorts")
         elif mode == "ig_tag": data = ytdlp(["--flat-playlist", "--playlist-end", "30", f"https://www.instagram.com/explore/tags/{arg}/"])
         else: data = {"error": "неизвестный режим"}
