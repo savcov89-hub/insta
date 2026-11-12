@@ -1,8 +1,12 @@
 {
-  "state": "uploading",
+  "state": "published",
   "container_id": "18655973146015498",
-  "updated": "2026-11-12T09:00:17+00:00",
+  "updated": "2026-11-12T09:30:07+00:00",
   "history": [
-    "12.11 16:00:17 видео отдано в Instagram"
-  ]
+    "12.11 16:00:17 видео отдано в Instagram",
+    "12.11 16:30:07 опубликован https://www.instagram.com/reel/Dforz-hgX-Q/"
+  ],
+  "media_id": "18114604658135573",
+  "permalink": "https://www.instagram.com/reel/Dforz-hgX-Q/",
+  "published_at": "2026-11-12T09:30:07+00:00"
 }
