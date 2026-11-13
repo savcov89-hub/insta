@@ -1,0 +1,31 @@
+name: Assemble media for glutes guide
+on:
+  push:
+    branches:
+      - media/glutes-guide-1411
+    paths:
+      - 'parts/part-*'
+permissions:
+  contents: write
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: media/glutes-guide-1411
+      - name: Assemble and verify final video
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat parts/part-* > glutes_complete_guide_final.mp4
+          echo '9ddb79cf494f822247f3740c98c3bf9e68763a77863d58b88f58a80f6ef4a5f8  glutes_complete_guide_final.mp4' | sha256sum -c -
+          test "$(stat -c %s glutes_complete_guide_final.mp4)" = '22757652'
+      - name: Store complete media
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add glutes_complete_guide_final.mp4
+          git commit -m 'Assemble glutes guide final MP4' || exit 0
+          git push origin HEAD:media/glutes-guide-1411
