@@ -2111,6 +2111,42 @@
    }
   },
   {
+   "id": "topic-01a-1511",
+   "q": {
+    "publish_at": "2026-11-15T14:30:00+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "video_url": "https://raw.githubusercontent.com/savcov89-hub/insta/753dcfe4d47340f3905da1a5934db19da2673198/topic_01a_hq.mp4",
+    "media_branch": "media/topics-01-03a-1511",
+    "caption": "Медленнее повторения — больше мышцы? Разбираем, что действительно важно в темпе упражнения."
+   },
+   "st": {}
+  },
+  {
+   "id": "topic-02a-1511",
+   "q": {
+    "publish_at": "2026-11-15T15:00:00+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "video_url": "https://raw.githubusercontent.com/savcov89-hub/insta/753dcfe4d47340f3905da1a5934db19da2673198/topic_02a_hq.mp4",
+    "media_branch": "media/topics-01-03a-1511",
+    "caption": "Импульс и читинг: когда движение корпуса помогает поднять вес, но меняет нагрузку."
+   },
+   "st": {}
+  },
+  {
+   "id": "topic-03a-1511",
+   "q": {
+    "publish_at": "2026-11-15T15:30:00+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "video_url": "https://raw.githubusercontent.com/savcov89-hub/insta/753dcfe4d47340f3905da1a5934db19da2673198/topic_03a_hq.mp4",
+    "media_branch": "media/topics-01-03a-1511",
+    "caption": "Трос натянут, а нагрузка меняется. Как линия тяги и плечо силы влияют на упражнение."
+   },
+   "st": {}
+  },
+  {
    "id": "topic-09a-1511",
    "q": {
     "publish_at": "2026-11-15T14:00:00+07:00",
