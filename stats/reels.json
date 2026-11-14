@@ -1,8 +1,8 @@
 {
- "updated": "2026-11-13T19:58:18+00:00",
+ "updated": "2026-11-14T01:41:12+00:00",
  "account": {
   "username": "fitness_savtsov",
-  "followers_count": 3151,
+  "followers_count": 3156,
   "follows_count": 680,
   "media_count": 175
  },
@@ -17,18 +17,18 @@
    "like_count": 13,
    "comments_count": 0,
    "insights": {
-    "views": 1341,
-    "reach": 1171,
+    "views": 1404,
+    "reach": 1223,
     "likes": 13,
     "comments": 0,
     "shares": 5,
     "saved": 7,
     "total_interactions": 25,
-    "ig_reels_avg_watch_time": 25343,
-    "ig_reels_video_view_total_time": 29271310,
-    "reels_skip_rate": 36
+    "ig_reels_avg_watch_time": 25315,
+    "ig_reels_video_view_total_time": 30580836,
+    "reels_skip_rate": 35.8
    },
-   "follows_est": 2.7
+   "follows_est": 3.1
   },
   "18237440875324241": {
    "id": "18237440875324241",
@@ -37,21 +37,21 @@
    "timestamp": "2026-11-13T08:30:00+0000",
    "trial": true,
    "caption": "Когда лучше тренироваться: утром или вечером?",
-   "like_count": 9,
+   "like_count": 11,
    "comments_count": 2,
    "insights": {
-    "views": 877,
-    "reach": 726,
-    "likes": 9,
+    "views": 1197,
+    "reach": 1005,
+    "likes": 11,
     "comments": 2,
-    "shares": 1,
+    "shares": 2,
     "saved": 0,
-    "total_interactions": 12,
-    "ig_reels_avg_watch_time": 27584,
-    "ig_reels_video_view_total_time": 19860529,
-    "reels_skip_rate": 28.6
+    "total_interactions": 15,
+    "ig_reels_avg_watch_time": 32326,
+    "ig_reels_video_view_total_time": 32099753,
+    "reels_skip_rate": 26.1
    },
-   "follows_est": 2.2
+   "follows_est": 4.1
   },
   "18121606439059609": {
    "id": "18121606439059609",
@@ -63,18 +63,18 @@
    "like_count": 15,
    "comments_count": 0,
    "insights": {
-    "views": 1374,
-    "reach": 1220,
+    "views": 1391,
+    "reach": 1238,
     "likes": 15,
     "comments": 0,
     "shares": 11,
     "saved": 10,
     "total_interactions": 36,
-    "ig_reels_avg_watch_time": 19210,
-    "ig_reels_video_view_total_time": 23321799,
-    "reels_skip_rate": 32.2
+    "ig_reels_avg_watch_time": 19211,
+    "ig_reels_video_view_total_time": 23630030,
+    "reels_skip_rate": 32.4
    },
-   "follows_est": 2.5
+   "follows_est": 2.6
   },
   "17916559215518575": {
    "id": "17916559215518575",
@@ -86,18 +86,18 @@
    "like_count": 10,
    "comments_count": 0,
    "insights": {
-    "views": 1489,
-    "reach": 1202,
+    "views": 1575,
+    "reach": 1278,
     "likes": 10,
     "comments": 0,
     "shares": 3,
-    "saved": 10,
-    "total_interactions": 23,
-    "ig_reels_avg_watch_time": 29583,
-    "ig_reels_video_view_total_time": 35352369,
-    "reels_skip_rate": 29.8
+    "saved": 11,
+    "total_interactions": 24,
+    "ig_reels_avg_watch_time": 29696,
+    "ig_reels_video_view_total_time": 37773427,
+    "reels_skip_rate": 29.7
    },
-   "follows_est": 2.8
+   "follows_est": 3.3
   },
   "18108148586205567": {
    "id": "18108148586205567",
@@ -109,18 +109,18 @@
    "like_count": 10,
    "comments_count": 0,
    "insights": {
-    "views": 1362,
-    "reach": 1122,
+    "views": 1387,
+    "reach": 1140,
     "likes": 10,
     "comments": 0,
     "shares": 10,
     "saved": 3,
     "total_interactions": 23,
-    "ig_reels_avg_watch_time": 28621,
-    "ig_reels_video_view_total_time": 32571233,
+    "ig_reels_avg_watch_time": 28912,
+    "ig_reels_video_view_total_time": 33394454,
     "reels_skip_rate": 22.8
    },
-   "follows_est": 4.5
+   "follows_est": 4.7
   },
   "18399417832165297": {
    "id": "18399417832165297",
@@ -178,16 +178,16 @@
    "like_count": 10,
    "comments_count": 3,
    "insights": {
-    "views": 1275,
-    "reach": 1036,
+    "views": 1276,
+    "reach": 1038,
     "likes": 10,
     "comments": 3,
     "shares": 10,
     "saved": 4,
     "total_interactions": 27,
-    "ig_reels_avg_watch_time": 45413,
-    "ig_reels_video_view_total_time": 49364820,
-    "reels_skip_rate": 32.8
+    "ig_reels_avg_watch_time": 45342,
+    "ig_reels_video_view_total_time": 49377924,
+    "reels_skip_rate": 32.9
    },
    "follows_est": 3.4
   },
@@ -293,18 +293,18 @@
    "like_count": 30,
    "comments_count": 0,
    "insights": {
-    "views": 2159,
-    "reach": 1612,
+    "views": 2173,
+    "reach": 1626,
     "likes": 30,
     "comments": 0,
     "shares": 6,
     "saved": 4,
     "total_interactions": 40,
-    "ig_reels_avg_watch_time": 38836,
-    "ig_reels_video_view_total_time": 62604978,
+    "ig_reels_avg_watch_time": 38886,
+    "ig_reels_video_view_total_time": 63152085,
     "reels_skip_rate": 22.8
    },
-   "follows_est": 3.8
+   "follows_est": 3.9
   },
   "18097852511682957": {
    "id": "18097852511682957",
@@ -316,16 +316,16 @@
    "like_count": 27,
    "comments_count": 2,
    "insights": {
-    "views": 1579,
-    "reach": 1198,
+    "views": 1582,
+    "reach": 1202,
     "likes": 27,
     "comments": 2,
     "shares": 35,
     "saved": 8,
     "total_interactions": 72,
-    "ig_reels_avg_watch_time": 28176,
-    "ig_reels_video_view_total_time": 34177844,
-    "reels_skip_rate": 26.8
+    "ig_reels_avg_watch_time": 28182,
+    "ig_reels_video_view_total_time": 34297719,
+    "reels_skip_rate": 26.9
    },
    "follows_est": 3.2
   },
@@ -362,15 +362,15 @@
    "like_count": 23,
    "comments_count": 0,
    "insights": {
-    "views": 1725,
+    "views": 1726,
     "reach": 1456,
     "likes": 23,
     "comments": 0,
     "shares": 20,
     "saved": 11,
     "total_interactions": 55,
-    "ig_reels_avg_watch_time": 41727,
-    "ig_reels_video_view_total_time": 60839192,
+    "ig_reels_avg_watch_time": 41704,
+    "ig_reels_video_view_total_time": 60846233,
     "reels_skip_rate": 32.2
    },
    "follows_est": 7.5
@@ -382,21 +382,21 @@
    "timestamp": "2026-11-10T09:30:00+0000",
    "trial": true,
    "caption": "Можно ли набрать мышечную массу на дефиците калорий?",
-   "like_count": 57,
+   "like_count": 58,
    "comments_count": 6,
    "insights": {
-    "views": 3138,
-    "reach": 2421,
-    "likes": 57,
+    "views": 3162,
+    "reach": 2434,
+    "likes": 58,
     "comments": 6,
     "shares": 10,
     "saved": 13,
-    "total_interactions": 87,
-    "ig_reels_avg_watch_time": 28093,
-    "ig_reels_video_view_total_time": 68350315,
-    "reels_skip_rate": 30
+    "total_interactions": 88,
+    "ig_reels_avg_watch_time": 28036,
+    "ig_reels_video_view_total_time": 68746496,
+    "reels_skip_rate": 30.2
    },
-   "follows_est": 7.6
+   "follows_est": 7.7
   },
   "18040820780650417": {
    "id": "18040820780650417",
@@ -431,15 +431,15 @@
    "like_count": 81,
    "comments_count": 0,
    "insights": {
-    "views": 4369,
-    "reach": 3510,
+    "views": 4379,
+    "reach": 3527,
     "likes": 81,
     "comments": 0,
     "shares": 63,
     "saved": 29,
     "total_interactions": 173,
-    "ig_reels_avg_watch_time": 26984,
-    "ig_reels_video_view_total_time": 93582260,
+    "ig_reels_avg_watch_time": 26941,
+    "ig_reels_video_view_total_time": 93701690,
     "reels_skip_rate": 30.3
    },
    "follows_est": 11.4
@@ -523,18 +523,18 @@
    "like_count": 46,
    "comments_count": 54,
    "insights": {
-    "views": 4184,
+    "views": 4190,
     "reach": 3314,
     "likes": 46,
     "comments": 54,
     "shares": 74,
     "saved": 25,
     "total_interactions": 200,
-    "ig_reels_avg_watch_time": 32429,
-    "ig_reels_video_view_total_time": 108445606,
+    "ig_reels_avg_watch_time": 32472,
+    "ig_reels_video_view_total_time": 108718499,
     "reels_skip_rate": 26.4
    },
-   "follows_est": 7.0
+   "follows_est": 7.1
   },
   "18029864024920055": {
    "id": "18029864024920055",
@@ -546,18 +546,18 @@
    "like_count": 107,
    "comments_count": 2,
    "insights": {
-    "views": 3498,
-    "reach": 2831,
+    "views": 3504,
+    "reach": 2835,
     "likes": 107,
     "comments": 2,
     "shares": 40,
     "saved": 35,
     "total_interactions": 188,
-    "ig_reels_avg_watch_time": 23328,
-    "ig_reels_video_view_total_time": 67303911,
-    "reels_skip_rate": 43.1
+    "ig_reels_avg_watch_time": 23312,
+    "ig_reels_video_view_total_time": 67372563,
+    "reels_skip_rate": 43
    },
-   "follows_est": 7.4
+   "follows_est": 7.5
   },
   "17944157247383084": {
    "id": "17944157247383084",
@@ -661,18 +661,18 @@
    "like_count": 1,
    "comments_count": 0,
    "insights": {
-    "views": 147,
-    "reach": 131,
+    "views": 149,
+    "reach": 132,
     "likes": 1,
     "comments": 0,
     "shares": 0,
     "saved": 1,
     "total_interactions": 2,
-    "ig_reels_avg_watch_time": 12829,
-    "ig_reels_video_view_total_time": 1719128,
-    "reels_skip_rate": 52.2
+    "ig_reels_avg_watch_time": 13280,
+    "ig_reels_video_view_total_time": 1792907,
+    "reels_skip_rate": 51.9
    },
-   "follows_est": 0.2
+   "follows_est": 0.3
   },
   "18109342820195856": {
    "id": "18109342820195856",
@@ -730,15 +730,15 @@
    "like_count": 14,
    "comments_count": 9,
    "insights": {
-    "views": 1852,
-    "reach": 1526,
+    "views": 1853,
+    "reach": 1527,
     "likes": 14,
     "comments": 9,
     "shares": 14,
     "saved": 6,
     "total_interactions": 44,
-    "ig_reels_avg_watch_time": 21858,
-    "ig_reels_video_view_total_time": 32875636,
+    "ig_reels_avg_watch_time": 21846,
+    "ig_reels_video_view_total_time": 32878737,
     "reels_skip_rate": 37.2
    },
    "follows_est": 3.6
@@ -776,16 +776,16 @@
    "like_count": 23,
    "comments_count": 0,
    "insights": {
-    "views": 1813,
-    "reach": 1440,
+    "views": 1814,
+    "reach": 1442,
     "likes": 23,
     "comments": 0,
     "shares": 18,
     "saved": 13,
     "total_interactions": 55,
-    "ig_reels_avg_watch_time": 23266,
-    "ig_reels_video_view_total_time": 34364631,
-    "reels_skip_rate": 37.4
+    "ig_reels_avg_watch_time": 23251,
+    "ig_reels_video_view_total_time": 34365346,
+    "reels_skip_rate": 37.5
    },
    "follows_est": 3.7
   },
@@ -845,16 +845,16 @@
    "like_count": 26,
    "comments_count": 0,
    "insights": {
-    "views": 1829,
-    "reach": 1543,
+    "views": 1830,
+    "reach": 1545,
     "likes": 26,
     "comments": 0,
     "shares": 16,
     "saved": 18,
     "total_interactions": 63,
-    "ig_reels_avg_watch_time": 43034,
-    "ig_reels_video_view_total_time": 65282634,
-    "reels_skip_rate": 25.9
+    "ig_reels_avg_watch_time": 42995,
+    "ig_reels_video_view_total_time": 65309913,
+    "reels_skip_rate": 25.8
    },
    "follows_est": 3.7
   },
@@ -960,18 +960,18 @@
    "like_count": 52,
    "comments_count": 4,
    "insights": {
-    "views": 3164,
-    "reach": 2573,
+    "views": 3179,
+    "reach": 2580,
     "likes": 52,
     "comments": 4,
-    "shares": 56,
+    "shares": 57,
     "saved": 27,
-    "total_interactions": 140,
-    "ig_reels_avg_watch_time": 53141,
-    "ig_reels_video_view_total_time": 136148622,
-    "reels_skip_rate": 23.4
+    "total_interactions": 141,
+    "ig_reels_avg_watch_time": 53179,
+    "ig_reels_video_view_total_time": 136776790,
+    "reels_skip_rate": 23.5
    },
-   "follows_est": 9.3
+   "follows_est": 9.4
   },
   "18100001522643847": {
    "id": "18100001522643847",
@@ -1006,18 +1006,18 @@
    "like_count": 161,
    "comments_count": 20,
    "insights": {
-    "views": 7734,
-    "reach": 5562,
+    "views": 7751,
+    "reach": 5579,
     "likes": 161,
     "comments": 20,
     "shares": 74,
     "saved": 38,
     "total_interactions": 296,
-    "ig_reels_avg_watch_time": 39918,
-    "ig_reels_video_view_total_time": 217398585,
+    "ig_reels_avg_watch_time": 39910,
+    "ig_reels_video_view_total_time": 218031214,
     "reels_skip_rate": 28
    },
-   "follows_est": 16.2
+   "follows_est": 16.3
   },
   "18104971559041163": {
    "id": "18104971559041163",
@@ -1029,16 +1029,16 @@
    "like_count": 47,
    "comments_count": 3,
    "insights": {
-    "views": 1941,
-    "reach": 1528,
+    "views": 1952,
+    "reach": 1533,
     "likes": 47,
     "comments": 3,
     "shares": 3,
     "saved": 5,
     "total_interactions": 59,
-    "ig_reels_avg_watch_time": 26412,
-    "ig_reels_video_view_total_time": 42074984,
-    "reels_skip_rate": 24.4
+    "ig_reels_avg_watch_time": 26357,
+    "ig_reels_video_view_total_time": 42171901,
+    "reels_skip_rate": 24.6
    },
    "follows_est": 5.2
   },
@@ -1052,15 +1052,15 @@
    "like_count": 67,
    "comments_count": 0,
    "insights": {
-    "views": 2602,
+    "views": 2603,
     "reach": 2172,
     "likes": 67,
     "comments": 0,
     "shares": 72,
     "saved": 40,
     "total_interactions": 182,
-    "ig_reels_avg_watch_time": 29778,
-    "ig_reels_video_view_total_time": 65333261,
+    "ig_reels_avg_watch_time": 29807,
+    "ig_reels_video_view_total_time": 65428085,
     "reels_skip_rate": 35.4
    },
    "follows_est": 5.7
@@ -1095,21 +1095,21 @@
    "timestamp": "2026-11-06T07:00:01+0000",
    "trial": true,
    "caption": "Изнашиваются ли суставы от нагрузки?",
-   "like_count": 851,
-   "comments_count": 35,
+   "like_count": 860,
+   "comments_count": 36,
    "insights": {
-    "views": 25243,
-    "reach": 20256,
-    "likes": 851,
-    "comments": 35,
-    "shares": 974,
-    "saved": 293,
-    "total_interactions": 2196,
-    "ig_reels_avg_watch_time": 34062,
-    "ig_reels_video_view_total_time": 688775817,
+    "views": 25438,
+    "reach": 20375,
+    "likes": 860,
+    "comments": 36,
+    "shares": 977,
+    "saved": 295,
+    "total_interactions": 2211,
+    "ig_reels_avg_watch_time": 34060,
+    "ig_reels_video_view_total_time": 693816210,
     "reels_skip_rate": 37
    },
-   "follows_est": 69.3
+   "follows_est": 70.4
   },
   "18104121743643382": {
    "id": "18104121743643382",
@@ -1144,15 +1144,15 @@
    "like_count": 74,
    "comments_count": 5,
    "insights": {
-    "views": 3930,
+    "views": 3933,
     "reach": 3324,
     "likes": 74,
     "comments": 5,
     "shares": 42,
     "saved": 29,
     "total_interactions": 152,
-    "ig_reels_avg_watch_time": 23073,
-    "ig_reels_video_view_total_time": 75772351,
+    "ig_reels_avg_watch_time": 23082,
+    "ig_reels_video_view_total_time": 75872570,
     "reels_skip_rate": 32.9
    },
    "follows_est": 11.1
@@ -1236,15 +1236,15 @@
    "like_count": 51,
    "comments_count": 0,
    "insights": {
-    "views": 1749,
-    "reach": 1438,
+    "views": 1751,
+    "reach": 1440,
     "likes": 51,
     "comments": 0,
     "shares": 22,
     "saved": 16,
     "total_interactions": 93,
-    "ig_reels_avg_watch_time": 55641,
-    "ig_reels_video_view_total_time": 78454748,
+    "ig_reels_avg_watch_time": 55568,
+    "ig_reels_video_view_total_time": 78462142,
     "reels_skip_rate": 31.5
    },
    "follows_est": 4.3
@@ -1305,16 +1305,16 @@
    "like_count": 113,
    "comments_count": 33,
    "insights": {
-    "views": 12939,
-    "reach": 10432,
+    "views": 12949,
+    "reach": 10445,
     "likes": 113,
     "comments": 33,
     "shares": 211,
     "saved": 50,
     "total_interactions": 408,
-    "ig_reels_avg_watch_time": 30063,
-    "ig_reels_video_view_total_time": 316623986,
-    "reels_skip_rate": 24.3
+    "ig_reels_avg_watch_time": 30078,
+    "ig_reels_video_view_total_time": 317000717,
+    "reels_skip_rate": 24.4
    },
    "follows_est": 32.7
   },
@@ -1351,15 +1351,15 @@
    "like_count": 134,
    "comments_count": 15,
    "insights": {
-    "views": 5916,
-    "reach": 4180,
+    "views": 5921,
+    "reach": 4188,
     "likes": 134,
     "comments": 15,
     "shares": 92,
     "saved": 92,
     "total_interactions": 339,
-    "ig_reels_avg_watch_time": 66543,
-    "ig_reels_video_view_total_time": 296251320,
+    "ig_reels_avg_watch_time": 66522,
+    "ig_reels_video_view_total_time": 296491558,
     "reels_skip_rate": 19.7
    },
    "follows_est": 12.6
@@ -1374,15 +1374,15 @@
    "like_count": 23,
    "comments_count": 0,
    "insights": {
-    "views": 2912,
-    "reach": 2325,
+    "views": 2913,
+    "reach": 2326,
     "likes": 23,
     "comments": 0,
     "shares": 13,
     "saved": 12,
     "total_interactions": 48,
-    "ig_reels_avg_watch_time": 37208,
-    "ig_reels_video_view_total_time": 85431526,
+    "ig_reels_avg_watch_time": 37194,
+    "ig_reels_video_view_total_time": 85436430,
     "reels_skip_rate": 23.1
    },
    "follows_est": 4.9
@@ -1397,15 +1397,15 @@
    "like_count": 116,
    "comments_count": 4,
    "insights": {
-    "views": 5520,
-    "reach": 4116,
+    "views": 5524,
+    "reach": 4120,
     "likes": 116,
     "comments": 4,
     "shares": 26,
     "saved": 23,
     "total_interactions": 174,
-    "ig_reels_avg_watch_time": 42960,
-    "ig_reels_video_view_total_time": 173388580,
+    "ig_reels_avg_watch_time": 42945,
+    "ig_reels_video_view_total_time": 173499387,
     "reels_skip_rate": 22.4
    },
    "follows_est": 11.3
@@ -1443,15 +1443,15 @@
    "like_count": 66,
    "comments_count": 1,
    "insights": {
-    "views": 2829,
-    "reach": 2019,
+    "views": 2830,
+    "reach": 2022,
     "likes": 66,
     "comments": 1,
     "shares": 11,
     "saved": 27,
     "total_interactions": 107,
-    "ig_reels_avg_watch_time": 28016,
-    "ig_reels_video_view_total_time": 59087695,
+    "ig_reels_avg_watch_time": 28041,
+    "ig_reels_video_view_total_time": 59168010,
     "reels_skip_rate": 32.3
    },
    "follows_est": 8.1
@@ -1570,15 +1570,15 @@
    "like_count": 359,
    "comments_count": 26,
    "insights": {
-    "views": 12328,
+    "views": 12336,
     "reach": 9343,
     "likes": 359,
     "comments": 26,
     "shares": 224,
     "saved": 169,
     "total_interactions": 788,
-    "ig_reels_avg_watch_time": 57625,
-    "ig_reels_video_view_total_time": 546869136,
+    "ig_reels_avg_watch_time": 57611,
+    "ig_reels_video_view_total_time": 547075426,
     "reels_skip_rate": 34.6
    },
    "follows_est": 47.4
@@ -1708,15 +1708,15 @@
    "like_count": 68,
    "comments_count": 6,
    "insights": {
-    "views": 2272,
-    "reach": 1825,
+    "views": 2273,
+    "reach": 1828,
     "likes": 68,
     "comments": 6,
     "shares": 30,
     "saved": 30,
     "total_interactions": 136,
-    "ig_reels_avg_watch_time": 51355,
-    "ig_reels_video_view_total_time": 94494246,
+    "ig_reels_avg_watch_time": 51338,
+    "ig_reels_video_view_total_time": 94514160,
     "reels_skip_rate": 27.6
    },
    "follows_est": 18.0
@@ -1751,18 +1751,18 @@
    "timestamp": "2026-10-30T12:10:09+0000",
    "trial": true,
    "caption": "Какой главный стимул для роста мышц?",
-   "like_count": 2564,
+   "like_count": 2568,
    "comments_count": 138,
    "insights": {
-    "views": 59774,
-    "reach": 42681,
-    "likes": 2564,
+    "views": 59833,
+    "reach": 42728,
+    "likes": 2568,
     "comments": 138,
-    "shares": 1626,
-    "saved": 1742,
-    "total_interactions": 6143,
-    "ig_reels_avg_watch_time": 67981,
-    "ig_reels_video_view_total_time": 2949774867,
+    "shares": 1627,
+    "saved": 1745,
+    "total_interactions": 6151,
+    "ig_reels_avg_watch_time": 67963,
+    "ig_reels_video_view_total_time": 2952412862,
     "reels_skip_rate": 23.9
    },
    "follows_est": 441.8
@@ -1774,19 +1774,19 @@
    "timestamp": "2026-10-30T12:10:00+0000",
    "trial": true,
    "caption": "Я провёл 50 собеседований с тренерами, и не все знают, от чего растут мышцы",
-   "like_count": 603,
+   "like_count": 609,
    "comments_count": 96,
    "insights": {
-    "views": 24192,
-    "reach": 17952,
-    "likes": 603,
+    "views": 24323,
+    "reach": 18145,
+    "likes": 609,
     "comments": 96,
-    "shares": 376,
-    "saved": 737,
-    "total_interactions": 1832,
-    "ig_reels_avg_watch_time": 51810,
-    "ig_reels_video_view_total_time": 931596959,
-    "reels_skip_rate": 26.2
+    "shares": 378,
+    "saved": 740,
+    "total_interactions": 1843,
+    "ig_reels_avg_watch_time": 51783,
+    "ig_reels_video_view_total_time": 936447192,
+    "reels_skip_rate": 26.3
    },
    "follows_est": 138.9
   },
@@ -1869,15 +1869,15 @@
    "like_count": 100,
    "comments_count": 7,
    "insights": {
-    "views": 4486,
+    "views": 4487,
     "reach": 3455,
     "likes": 100,
     "comments": 7,
     "shares": 13,
     "saved": 51,
     "total_interactions": 174,
-    "ig_reels_avg_watch_time": 24002,
-    "ig_reels_video_view_total_time": 85280477,
+    "ig_reels_avg_watch_time": 23995,
+    "ig_reels_video_view_total_time": 85281111,
     "reels_skip_rate": 33
    },
    "follows_est": 13.4
@@ -1915,15 +1915,15 @@
    "like_count": 199,
    "comments_count": 20,
    "insights": {
-    "views": 7656,
+    "views": 7657,
     "reach": 5908,
     "likes": 199,
     "comments": 20,
     "shares": 126,
     "saved": 11,
     "total_interactions": 357,
-    "ig_reels_avg_watch_time": 12003,
-    "ig_reels_video_view_total_time": 70688726,
+    "ig_reels_avg_watch_time": 12001,
+    "ig_reels_video_view_total_time": 70690648,
     "reels_skip_rate": 26.6
    },
    "follows_est": 8.6
@@ -1938,15 +1938,15 @@
    "like_count": 67,
    "comments_count": 4,
    "insights": {
-    "views": 6294,
+    "views": 6295,
     "reach": 4068,
     "likes": 67,
     "comments": 4,
     "shares": 5,
     "saved": 10,
     "total_interactions": 86,
-    "ig_reels_avg_watch_time": 23155,
-    "ig_reels_video_view_total_time": 100519559,
+    "ig_reels_avg_watch_time": 23156,
+    "ig_reels_video_view_total_time": 100544012,
     "reels_skip_rate": 23.7
    },
    "follows_est": 6.9
@@ -1961,15 +1961,15 @@
    "like_count": 149,
    "comments_count": 20,
    "insights": {
-    "views": 9763,
+    "views": 9766,
     "reach": 6807,
     "likes": 149,
     "comments": 20,
     "shares": 106,
     "saved": 32,
     "total_interactions": 310,
-    "ig_reels_avg_watch_time": 40918,
-    "ig_reels_video_view_total_time": 278983531,
+    "ig_reels_avg_watch_time": 40914,
+    "ig_reels_video_view_total_time": 278993831,
     "reels_skip_rate": 16.4
    },
    "follows_est": 15.4
@@ -2007,15 +2007,15 @@
    "like_count": 106,
    "comments_count": 7,
    "insights": {
-    "views": 3103,
+    "views": 3104,
     "reach": 2444,
     "likes": 106,
     "comments": 7,
     "shares": 21,
     "saved": 43,
     "total_interactions": 177,
-    "ig_reels_avg_watch_time": 39589,
-    "ig_reels_video_view_total_time": 98736061,
+    "ig_reels_avg_watch_time": 39599,
+    "ig_reels_video_view_total_time": 98800301,
     "reels_skip_rate": 25.4
    },
    "follows_est": 11.6
@@ -2263,15 +2263,15 @@
    "like_count": 155,
    "comments_count": 21,
    "insights": {
-    "views": 6392,
+    "views": 6395,
     "reach": 4913,
     "likes": 155,
     "comments": 21,
     "shares": 183,
     "saved": 53,
     "total_interactions": 415,
-    "ig_reels_avg_watch_time": 30043,
-    "ig_reels_video_view_total_time": 150157941,
+    "ig_reels_avg_watch_time": 30056,
+    "ig_reels_video_view_total_time": 150250705,
     "reels_skip_rate": 27.3
    },
    "follows_est": 5.2
@@ -2378,7 +2378,7 @@
    "like_count": 21,
    "comments_count": 0,
    "insights": {
-    "views": 2457,
+    "views": 2458,
     "reach": 2033,
     "likes": 21,
     "comments": 0,
