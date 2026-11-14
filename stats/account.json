@@ -450,16 +450,29 @@
    "profile_views": 36
   },
   "2026-11-13": {
-   "views": 9490,
-   "reach": 7157,
-   "accounts_engaged": 262,
-   "total_interactions": 440,
-   "likes": 153,
-   "comments": 19,
-   "shares": 98,
-   "saves": 70,
+   "views": 11462,
+   "reach": 8338,
+   "accounts_engaged": 317,
+   "total_interactions": 525,
+   "likes": 179,
+   "comments": 24,
+   "shares": 115,
+   "saves": 90,
    "profile_links_taps": 0,
-   "profile_views": 42
+   "profile_views": 53
+  },
+  "2026-11-14": {
+   "views": 1182,
+   "reach": 931,
+   "accounts_engaged": 48,
+   "total_interactions": 66,
+   "likes": 23,
+   "comments": 2,
+   "shares": 12,
+   "saves": 17,
+   "profile_links_taps": 0,
+   "profile_views": 9,
+   "partial": true
   }
  },
  "online": {
@@ -808,8 +821,8 @@
   "2026-11-11": 3068,
   "2026-11-12": 3110,
   "2026-11-13": 3140,
-  "2026-11-14": 3156
+  "2026-11-14": 3162
  },
- "updated": "2026-11-14T01:41:12+00:00",
+ "updated": "2026-11-14T10:50:51+00:00",
  "schema": 2
 }
