@@ -1,0 +1,33 @@
+name: Assemble topics 01-03A HQ
+on:
+  push:
+    branches: [media/topics-01-03a-1511]
+    paths: ['parts/**']
+permissions:
+  contents: write
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: media/topics-01-03a-1511
+      - name: Assemble and verify originals
+        run: |
+          set -euo pipefail
+          cat parts/01a/part-* > topic_01a_hq.mp4
+          echo 'da13e389267ca70d7e5fad0d6c830a94b984892e5821b382da8fbb2395bb6e7a  topic_01a_hq.mp4' | sha256sum -c -
+          test "$(stat -c %s topic_01a_hq.mp4)" = '46741944'
+          cat parts/02a/part-* > topic_02a_hq.mp4
+          echo '9683909c83a10a1a7b7ce3e6cd7a43adaecdfda16e2ad711ed80bc7ead93aede  topic_02a_hq.mp4' | sha256sum -c -
+          test "$(stat -c %s topic_02a_hq.mp4)" = '58250269'
+          cat parts/03a/part-* > topic_03a_hq.mp4
+          echo '2181244e6354344b602b4595e8c55968185a8374e0d721567864630eff9fbfaa  topic_03a_hq.mp4' | sha256sum -c -
+          test "$(stat -c %s topic_03a_hq.mp4)" = '51071482'
+      - name: Store original media
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add topic_*_hq.mp4
+          git commit -m 'Assemble original topics 01A 02A 03A HQ' || exit 0
+          git push origin HEAD:media/topics-01-03a-1511
