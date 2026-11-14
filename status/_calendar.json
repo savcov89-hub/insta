@@ -2147,6 +2147,30 @@
    "st": {}
   },
   {
+   "id": "topic-05a-1411",
+   "q": {
+    "publish_at": "2026-11-14T17:50:00+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "video_url": "https://raw.githubusercontent.com/savcov89-hub/insta/8a02be7e55e648ceadfa58d0a281bee0eed05058/topic_05a_hq.mp4",
+    "media_branch": "media/topic-05a-1411",
+    "caption": "Частичные повторения: когда укороченная амплитуда может быть полезна и почему важна длина мышцы."
+   },
+   "st": {}
+  },
+  {
+   "id": "topic-06a-1411",
+   "q": {
+    "publish_at": "2026-11-14T18:00:00+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "video_url": "https://raw.githubusercontent.com/savcov89-hub/insta/202b5f8162e11cfc71f6b5945748de311e72e252/topic_06a_corrected_hq.mp4",
+    "media_branch": "media/topic-06a-corrected-1411",
+    "caption": "Разгибания вниз и над головой: как положение плеча меняет работу трицепса."
+   },
+   "st": {}
+  },
+  {
    "id": "topic-09a-1511",
    "q": {
     "publish_at": "2026-11-15T14:00:00+07:00",
