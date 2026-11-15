@@ -1,0 +1,81 @@
+name: import-signed-media
+on:
+  push:
+    branches: [main]
+    paths: ['media-imports/*.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: import-signed-media
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Download signed URL, verify SHA-256, and store in media branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "reels-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import pathlib
+          import re
+          import subprocess
+          import urllib.parse
+          import urllib.request
+
+          for path in sorted(pathlib.Path("media-imports").glob("*.json")):
+              r = json.loads(path.read_text())
+              item_id = r["id"]
+              name = r["filename"]
+              size = int(r["size"])
+              sha256 = r["sha256"]
+              url = r["download_url"]
+              if not re.fullmatch(r"[a-z0-9][a-z0-9-]{1,60}", item_id):
+                  raise ValueError("Invalid ID")
+              if not re.fullmatch(r"[A-Za-z0-9_][A-Za-z0-9_.-]{1,100}\.mp4", name):
+                  raise ValueError("Invalid filename")
+              if not (0 < size < 100_000_000) or not re.fullmatch(r"[a-f0-9]{64}", sha256):
+                  raise ValueError("Invalid size or SHA256")
+              parsed = urllib.parse.urlsplit(url)
+              if parsed.scheme != "https" or parsed.hostname != "sdmntprcentralus.oaiusercontent.com":
+                  raise ValueError("Download host not allowed")
+              branch = f"media/{item_id}"
+              already = subprocess.run(["git", "ls-remote", "--exit-code", "origin", f"refs/heads/{branch}"], capture_output=True)
+              if already.returncode == 0:
+                  print("Already imported:", item_id, flush=True)
+                  continue
+              dest = pathlib.Path(name)
+              digest = hashlib.sha256()
+              n = 0
+              request = urllib.request.Request(url, headers={"User-Agent": "reels-bot/1.0"})
+              with urllib.request.urlopen(request, timeout=120) as response, dest.open("wb") as out:
+                  while True:
+                      chunk = response.read(1024 * 1024)
+                      if not chunk:
+                          break
+                      n += len(chunk)
+                      if n >= 100_000_000:
+                          raise ValueError("File too large")
+                      digest.update(chunk)
+                      out.write(chunk)
+              if n != size or digest.hexdigest() != sha256:
+                  raise ValueError("File checksum/size mismatch: " + item_id)
+              def git(*args, inp=None):
+                  return subprocess.check_output(["git", *args], input=inp).decode().strip()
+              blob = git("hash-object", "-w", name)
+              tree = git("mktree", inp=f"100644 blob {blob}\t{name}\n".encode())
+              commit = git("commit-tree", tree, "-m", f"media: {item_id}")
+              subprocess.run(["git", "push", "origin", f"{commit}:refs/heads/{branch}"], check=True)
+              print(f"IMPORTED {item_id}: {commit}, {n} bytes, SHA256={sha256}", flush=True)
+              dest.unlink()
+          PY
