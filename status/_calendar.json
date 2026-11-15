@@ -2144,12 +2144,16 @@
     "caption": "Импульс и читинг: когда движение корпуса помогает поднять вес, но меняет нагрузку."
    },
    "st": {
-    "state": "uploading",
+    "state": "published",
     "container_id": "18657027283015498",
-    "updated": "2026-11-15T07:30:20+00:00",
+    "updated": "2026-11-15T08:00:06+00:00",
     "history": [
-     "15.11 14:30:20 видео отдано в Instagram"
-    ]
+     "15.11 14:30:20 видео отдано в Instagram",
+     "15.11 15:00:06 опубликован https://www.instagram.com/reel/DfwP5tuDI1I/"
+    ],
+    "media_id": "18162039475509391",
+    "permalink": "https://www.instagram.com/reel/DfwP5tuDI1I/",
+    "published_at": "2026-11-15T08:00:06+00:00"
    }
   },
   {
