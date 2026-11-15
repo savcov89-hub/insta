@@ -1,0 +1,52 @@
+name: assemble-reels-media
+on:
+  push:
+    branches:
+      - 'media/*'
+    paths:
+      - '_upload/manifest.json'
+permissions:
+  contents: write
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: true
+      - name: Verify and assemble media
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64, hashlib, json, pathlib, re
+          manifest = json.loads(pathlib.Path('_upload/manifest.json').read_text())
+          name = manifest['file']
+          if not re.fullmatch(r'[a-z0-9][a-z0-9_.-]{1,100}\.mp4', name):
+              raise ValueError('unsafe video filename')
+          parts = manifest['parts']
+          if not parts or len(parts) > 200:
+              raise ValueError('invalid part count')
+          digest = hashlib.sha256()
+          with open(name, 'wb') as out:
+              for i in range(len(parts)):
+                  part = f'_upload/part-{i:03d}.b64'
+                  if parts[i] != part:
+                      raise ValueError('unexpected chunk name')
+                  data = base64.b64decode(pathlib.Path(part).read_text(), validate=True)
+                  out.write(data)
+                  digest.update(data)
+          if digest.hexdigest() != manifest['sha256']:
+              raise ValueError('video checksum mismatch')
+          print('Validated video bytes:', pathlib.Path(name).stat().st_size)
+          PY
+          FILE=$(python3 -c "import json; print(json.load(open('_upload/manifest.json'))['file'])")
+          git config user.name "reels-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BLOB=$(git hash-object -w "$FILE")
+          TREE=$(printf '100644 blob %s\t%s\n' "$BLOB" "$FILE" | git mktree)
+          COMMIT=$(printf 'media: assembled %s\n' "$FILE" | git commit-tree "$TREE")
+          git push --force origin "$COMMIT:refs/heads/$GITHUB_REF_NAME"
+          echo "Media commit: $COMMIT"
