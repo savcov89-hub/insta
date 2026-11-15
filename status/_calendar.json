@@ -2167,12 +2167,16 @@
     "caption": "Трос натянут, а нагрузка меняется. Как линия тяги и плечо силы влияют на упражнение."
    },
    "st": {
-    "state": "uploading",
+    "state": "published",
     "container_id": "18657034165015498",
-    "updated": "2026-11-15T08:00:16+00:00",
+    "updated": "2026-11-15T08:30:07+00:00",
     "history": [
-     "15.11 15:00:16 видео отдано в Instagram"
-    ]
+     "15.11 15:00:16 видео отдано в Instagram",
+     "15.11 15:30:07 опубликован https://www.instagram.com/reel/DfwTVAIksyJ/"
+    ],
+    "media_id": "18026704274712440",
+    "permalink": "https://www.instagram.com/reel/DfwTVAIksyJ/",
+    "published_at": "2026-11-15T08:30:07+00:00"
    }
   },
   {
