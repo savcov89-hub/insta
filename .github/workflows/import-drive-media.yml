@@ -1,0 +1,83 @@
+name: import-drive-media
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'drive-imports/*.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: import-drive-media
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+      - name: Download Drive videos and push verified media branches
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install -q 'gdown>=5,<6'
+          git config user.name "reels-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import pathlib
+          import re
+          import subprocess
+
+          def git(*args, input=None):
+              return subprocess.check_output(['git', *args], input=input).decode().strip()
+
+          requests = sorted(pathlib.Path('drive-imports').glob('*.json'))
+          if not requests:
+              raise SystemExit('No Drive import requests found')
+          for request_path in requests:
+              r = json.loads(request_path.read_text())
+              item_id = r['id']
+              drive_id = r['drive_file_id']
+              name = r['filename']
+              if not re.fullmatch(r'[a-z0-9][a-z0-9-]{1,60}', item_id):
+                  raise ValueError('Invalid item ID')
+              if not re.fullmatch(r'[a-z0-9][a-z0-9_.-]{1,100}\.mp4', name):
+                  raise ValueError('Invalid filename')
+              if not re.fullmatch(r'[A-Za-z0-9_-]{15,100}', drive_id):
+                  raise ValueError('Invalid Drive ID')
+              if not re.fullmatch(r'[a-f0-9]{64}', r['sha256']):
+                  raise ValueError('Invalid SHA256')
+              if pathlib.Path(f'queue/{item_id}.json').exists():
+                  print('Already scheduled:', item_id, flush=True)
+                  continue
+              branch = f'media/{item_id}'
+              already = subprocess.run(['git','ls-remote','--exit-code','origin',f'refs/heads/{branch}'],
+                                       capture_output=True)
+              if already.returncode == 0:
+                  print('Media branch already exists:', branch, flush=True)
+                  continue
+              print('Downloading:', item_id, flush=True)
+              subprocess.run(['gdown','--id',drive_id,'--output',name,'--quiet'],check=True)
+              path=pathlib.Path(name)
+              n=path.stat().st_size
+              if n != int(r['size']) or n >= 100_000_000:
+                  raise ValueError(f'Unexpected file size: {n}')
+              digest=hashlib.sha256()
+              with path.open('rb') as stream:
+                  for chunk in iter(lambda: stream.read(1024*1024), b''):
+                      digest.update(chunk)
+              if digest.hexdigest() != r['sha256']:
+                  raise ValueError('SHA256 mismatch for downloaded MP4')
+              blob=git('hash-object','-w',name)
+              tree=git('mktree',input=f'100644 blob {blob}\t{name}\n'.encode())
+              commit=git('commit-tree',tree,'-m',f'media: {item_id}')
+              subprocess.run(['git','push','origin',f'{commit}:refs/heads/{branch}'],check=True)
+              print(f'IMPORTED {item_id}: {commit} {n} bytes SHA256={digest.hexdigest()}',flush=True)
+              path.unlink()
+          PY
