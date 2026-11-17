@@ -1827,7 +1827,7 @@
   {
    "id": "quadriceps-a-speed112-1911",
    "q": {
-    "publish_at": "2026-11-19T14:00:00+07:00",
+    "publish_at": "2026-11-18T14:00:00+07:00",
     "trial": true,
     "graduation": "MANUAL",
     "cover_ms": 1500,
@@ -1840,7 +1840,7 @@
   {
    "id": "quadriceps-b-speed112-1911",
    "q": {
-    "publish_at": "2026-11-19T14:00:00+07:00",
+    "publish_at": "2026-11-18T14:00:00+07:00",
     "trial": true,
     "graduation": "MANUAL",
     "cover_ms": 1500,
@@ -1853,7 +1853,7 @@
   {
    "id": "quadriceps-full-speed112-1911",
    "q": {
-    "publish_at": "2026-11-19T14:00:00+07:00",
+    "publish_at": "2026-11-18T14:00:00+07:00",
     "trial": true,
     "graduation": "MANUAL",
     "cover_ms": 1500,
