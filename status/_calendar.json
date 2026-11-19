@@ -47,6 +47,45 @@
    }
   },
   {
+   "id": "axial-r3-a-2011",
+   "q": {
+    "publish_at": "2026-11-20T15:00:00+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "cover_ms": 1400,
+    "video_url": "https://raw.githubusercontent.com/savcov89-hub/insta/5adf721a4fcd2139f3b9eb0b5d08a2e6d659db8d/axial_load_v3_a_r3_hq.mp4",
+    "media_branch": "media/axial-r3-a-2011",
+    "caption": "Где больше нагрузка на позвоночник: в приседании или подъёме на бицепс? Разбираем на примерах и данных исследований.\n\n#позвоночник #силовыетренировки #биомеханика"
+   },
+   "st": {}
+  },
+  {
+   "id": "axial-r3-b-2011",
+   "q": {
+    "publish_at": "2026-11-20T15:00:00+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "cover_ms": 1600,
+    "video_url": "https://raw.githubusercontent.com/savcov89-hub/insta/2e691a9a86c1d2a3be477ecfe317bbf4ad5d6cc0/axial_load_v3_b_r3_hq.mp4",
+    "media_branch": "media/axial-r3-b-2011",
+    "caption": "Осевая нагрузка на позвоночник: от чего она зависит и что означают цифры исследований? Разбираем на примерах.\n\n#позвоночник #силовыетренировки #биомеханика"
+   },
+   "st": {}
+  },
+  {
+   "id": "axial-r3-c-2011",
+   "q": {
+    "publish_at": "2026-11-20T15:00:00+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "cover_ms": 1500,
+    "video_url": "https://raw.githubusercontent.com/savcov89-hub/insta/69247de9cd7f9277ca511335a51e31b7292db53c/axial_load_v3_c_r3_hq.mp4",
+    "media_branch": "media/axial-r3-c-2011",
+    "caption": "Что важно знать о нагрузке на позвоночник в тренировках? Разбор на примерах и данных исследований.\n\n#позвоночник #силовыетренировки #биомеханика"
+   },
+   "st": {}
+  },
+  {
    "id": "bazovye-v1r-2010",
    "q": {
     "publish_at": "2026-10-20T22:30:00+07:00",
