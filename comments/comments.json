@@ -1,6 +1,6 @@
 {
  "schema": 3,
- "updated": "2026-11-18T14:31:50+00:00",
+ "updated": "2026-11-19T10:04:20+00:00",
  "username": "fitness_savtsov",
  "waiting": 263,
  "empty_reels": 0,
@@ -25,7 +25,7 @@
   "17998294266044444": 6,
   "18119738714102770": 16,
   "17915943825520164": 140,
-  "18400429009161282": 104,
+  "18400429009161282": 105,
   "18092217167692834": 5,
   "17993113905113970": 5,
   "18096204581667872": 7,
@@ -86,9 +86,64 @@
   "18130154563894944": 2,
   "18197867230402563": 1,
   "18058925891805829": 2,
-  "18099731225441133": 1
+  "18099731225441133": 1,
+  "18111012959349698": 1
  },
  "comments": {
+  "17910867798667379": {
+   "id": "17910867798667379",
+   "username": "reanormax",
+   "text": "От анаболиков же",
+   "timestamp": "2026-11-19T08:24:57+0000",
+   "like_count": 1,
+   "hidden": false,
+   "replies": [
+    {
+     "id": "18123289576993328",
+     "username": "fitness_savtsov",
+     "text": "@reanormax 100%",
+     "timestamp": "2026-11-19T08:54:30+0000",
+     "like_count": 0,
+     "mine": true
+    }
+   ],
+   "need_reply": false,
+   "last_id": "18123289576993328",
+   "last_from": "fitness_savtsov",
+   "media_id": "18400429009161282",
+   "permalink": "https://www.instagram.com/reel/DfHhiSJAD25/",
+   "caption": "Я провёл 50 собеседований с тренерами, и не все знают, от чего растут мышцы",
+   "queue_id": "myshcy-v1-3010",
+   "reel_time": "2026-10-30T12:10:00+0000",
+   "first_seen": "2026-11-19T10:04:20+00:00"
+  },
+  "17992151603871955": {
+   "id": "17992151603871955",
+   "username": "coach_me.pro",
+   "text": "Лучше приседать и выполнить разгибания в норма положении . Эффективно не только для мышц ног.",
+   "timestamp": "2026-11-18T22:59:35+0000",
+   "like_count": 1,
+   "hidden": false,
+   "replies": [
+    {
+     "id": "17969171235231044",
+     "username": "fitness_savtsov",
+     "text": "@coach_me.pro чем лучше?",
+     "timestamp": "2026-11-19T08:54:15+0000",
+     "like_count": 0,
+     "mine": true
+    }
+   ],
+   "need_reply": false,
+   "last_id": "17969171235231044",
+   "last_from": "fitness_savtsov",
+   "media_id": "18111012959349698",
+   "permalink": "https://www.instagram.com/reel/Df32SrLj048/",
+   "caption": "Зачем отклонять спинку в разгибании ног?",
+   "queue_id": "quadriceps-full-speed112-1911",
+   "reel_time": "2026-11-18T07:00:33+0000",
+   "first_seen": "2026-11-19T10:04:20+00:00"
+  },
   "18362641072247103": {
    "id": "18362641072247103",
    "username": "ctdthby_icon",
@@ -570,7 +625,7 @@
    "username": "sportt_panda",
    "text": "А почему сам не начался если такой умный🤭",
    "timestamp": "2026-11-13T10:43:30+0000",
-   "like_count": 1,
+   "like_count": 2,
    "hidden": false,
    "replies": [
     {
@@ -834,10 +889,26 @@
      "timestamp": "2026-11-12T03:51:01+0000",
      "like_count": 0,
      "mine": true
+    },
+    {
+     "id": "17891349888479195",
+     "username": "mama_gde_papa_",
+     "text": "@fitness_savtsov нагрузка грамотная, сон приятный, еда вкусная",
+     "timestamp": "2026-11-19T00:18:50+0000",
+     "like_count": 0,
+     "mine": false
+    },
+    {
+     "id": "18338765509276202",
+     "username": "fitness_savtsov",
+     "text": "@mama_gde_papa_ грамотная нагрузка - это которая умеет читать?🙂",
+     "timestamp": "2026-11-19T08:55:11+0000",
+     "like_count": 0,
+     "mine": true
     }
    ],
    "need_reply": false,
-   "last_id": "17982158967067292",
+   "last_id": "18338765509276202",
    "last_from": "fitness_savtsov",
    "media_id": "18400429009161282",
    "permalink": "https://www.instagram.com/reel/DfHhiSJAD25/",
@@ -3978,7 +4049,7 @@
    "username": "ellie_sagittarius",
    "text": "Очень конечно интересно как взяли парней и все узнали ... А можно про женщин что то?",
    "timestamp": "2026-11-04T15:21:11+0000",
-   "like_count": 0,
+   "like_count": 1,
    "hidden": false,
    "replies": [
     {
