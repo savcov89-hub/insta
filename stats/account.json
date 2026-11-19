@@ -512,16 +512,16 @@
    "profile_views": 41
   },
   "2026-11-18": {
-   "views": 5457,
-   "reach": 4578,
-   "accounts_engaged": 134,
-   "total_interactions": 223,
-   "likes": 83,
-   "comments": 1,
-   "shares": 42,
-   "saves": 54,
+   "views": 6626,
+   "reach": 5489,
+   "accounts_engaged": 171,
+   "total_interactions": 278,
+   "likes": 104,
+   "comments": 3,
+   "shares": 52,
+   "saves": 66,
    "profile_links_taps": 0,
-   "profile_views": 17
+   "profile_views": 23
   }
  },
  "online": {
@@ -875,8 +875,8 @@
   "2026-11-16": 3201,
   "2026-11-17": 3215,
   "2026-11-18": 3234,
-  "2026-11-19": 3240
+  "2026-11-19": 3242
  },
- "updated": "2026-11-18T20:50:55+00:00",
+ "updated": "2026-11-19T02:45:42+00:00",
  "schema": 2
 }
