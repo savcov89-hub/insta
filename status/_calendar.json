@@ -1953,7 +1953,14 @@
     "video_url": "https://drive.usercontent.google.com/download?id=1uzCRCK1i-FlpRJ8ixGNAyADPoE0YElAR&export=download&confirm=t",
     "caption": "Вчера пицца, сегодня +1 кг на весах. Это не значит, что прибавился килограмм жира: вес меняется из-за воды и еды, которая ещё переваривается. Взвешивайся в одинаковых условиях и сравнивай средний вес за неделю."
    },
-   "st": {}
+   "st": {
+    "state": "uploading",
+    "container_id": "18659671960015498",
+    "updated": "2026-11-23T15:05:06+00:00",
+    "history": [
+     "23.11 22:05:06 видео отдано в Instagram"
+    ]
+   }
   },
   {
    "id": "protein-v1-0911",
