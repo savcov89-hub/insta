@@ -1944,6 +1944,18 @@
    }
   },
   {
+   "id": "pizza-plus-2311",
+   "q": {
+    "publish_at": "2026-11-23T22:04:10+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "cover_ms": 1650,
+    "video_url": "https://drive.usercontent.google.com/download?id=1uzCRCK1i-FlpRJ8ixGNAyADPoE0YElAR&export=download&confirm=t",
+    "caption": "Вчера пицца, сегодня +1 кг на весах. Это не значит, что прибавился килограмм жира: вес меняется из-за воды и еды, которая ещё переваривается. Взвешивайся в одинаковых условиях и сравнивай средний вес за неделю."
+   },
+   "st": {}
+  },
+  {
    "id": "protein-v1-0911",
    "q": {
     "publish_at": "2026-11-09T14:00:00+07:00",
@@ -2202,6 +2214,18 @@
     "permalink": "https://www.instagram.com/reel/DgCE9_hGQVU/",
     "published_at": "2026-11-22T05:41:47+00:00"
    }
+  },
+  {
+   "id": "shagi-6800-2311",
+   "q": {
+    "publish_at": "2026-11-23T22:04:10+07:00",
+    "trial": true,
+    "graduation": "MANUAL",
+    "cover_ms": 1750,
+    "video_url": "https://drive.usercontent.google.com/download?id=1TVv4m6VdLvyo0h_JSlttxrBTtwGOPtvP&export=download&confirm=t",
+    "caption": "6 800 шагов тоже считаются. 10 000 — удобная цель, а не магическая граница. Если обычно ходишь мало, попробуй добавить 10 минут пешком после обеда. Исследование: Ding и соавт., 2025, PMID 40713949."
+   },
+   "st": {}
   },
   {
    "id": "sila-v1-0511",
