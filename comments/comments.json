@@ -1,8 +1,8 @@
 {
  "schema": 3,
- "updated": "2026-11-23T10:32:35+00:00",
+ "updated": "2026-11-24T12:15:09+00:00",
  "username": "fitness_savtsov",
- "waiting": 269,
+ "waiting": 272,
  "empty_reels": 0,
  "seen": {
   "18085714175706744": 5,
@@ -90,6 +90,42 @@
   "18111012959349698": 2
  },
  "comments": {
+  "17920566657468850": {
+   "id": "17920566657468850",
+   "username": "ottomustafa14",
+   "text": "Только лайт физкультура! Остальное разрушает ваше здоровье.",
+   "timestamp": "2026-11-24T08:07:30+0000",
+   "like_count": 0,
+   "hidden": false,
+   "replies": [],
+   "need_reply": true,
+   "last_id": "17920566657468850",
+   "last_from": "ottomustafa14",
+   "media_id": "18083228342708707",
+   "permalink": "https://www.instagram.com/reel/DfY8vpBlG10/",
+   "caption": "Изнашиваются ли суставы от нагрузки?",
+   "queue_id": "kosti-v1-0511",
+   "reel_time": "2026-11-06T07:00:01+0000",
+   "first_seen": "2026-11-24T12:15:09+00:00"
+  },
+  "18005009529032974": {
+   "id": "18005009529032974",
+   "username": "komissarova_maniac",
+   "text": "90’",
+   "timestamp": "2026-11-24T07:57:42+0000",
+   "like_count": 1,
+   "hidden": false,
+   "replies": [],
+   "need_reply": true,
+   "last_id": "18005009529032974",
+   "last_from": "komissarova_maniac",
+   "media_id": "18181866604450574",
+   "permalink": "https://www.instagram.com/reel/DftjGsXj68k/",
+   "caption": "Куда ставить стопы в ягодичном мосте — ближе или дальше?",
+   "queue_id": "hip-thrust-recut-1411",
+   "reel_time": "2026-11-14T07:00:01+0000",
+   "first_seen": "2026-11-24T12:15:09+00:00"
+  },
   "18119403812615213": {
    "id": "18119403812615213",
    "username": "fitness.nadi",
@@ -1692,7 +1728,7 @@
   },
   "17913960315481865": {
    "id": "17913960315481865",
-   "username": "murkotilka19821604",
+   "username": "natasha19821604",
    "text": "У меня первые два дня никаких трень, я умираю🥶",
    "timestamp": "2026-11-09T13:04:46+0000",
    "like_count": 1,
@@ -5816,7 +5852,7 @@
    "username": "medvedev_trainer",
    "text": "Аплодирую стоя, шикарное видео",
    "timestamp": "2026-11-01T00:07:08+0000",
-   "like_count": 5,
+   "like_count": 6,
    "hidden": false,
    "replies": [
     {
@@ -7405,11 +7441,19 @@
      "timestamp": "2026-10-31T08:09:03+0000",
      "like_count": 0,
      "mine": true
+    },
+    {
+     "id": "18111150563194255",
+     "username": "vlad_bodymec",
+     "text": "@petr.eger ну железнобетонный аргумент. Х=й передвигаешь 😂",
+     "timestamp": "2026-11-24T09:56:55+0000",
+     "like_count": 0,
+     "mine": false
     }
    ],
-   "need_reply": false,
-   "last_id": "18106809101002295",
-   "last_from": "fitness_savtsov",
+   "need_reply": true,
+   "last_id": "18111150563194255",
+   "last_from": "vlad_bodymec",
    "media_id": "18400429009161282",
    "permalink": "https://www.instagram.com/reel/DfHhiSJAD25/",
    "caption": "Я провёл 50 собеседований с тренерами, и не все знают, от чего растут мышцы",
