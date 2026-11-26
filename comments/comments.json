@@ -1,8 +1,8 @@
 {
  "schema": 3,
- "updated": "2026-11-25T11:02:10+00:00",
+ "updated": "2026-11-26T10:40:26+00:00",
  "username": "fitness_savtsov",
- "waiting": 276,
+ "waiting": 280,
  "empty_reels": 0,
  "seen": {
   "18085714175706744": 5,
@@ -88,9 +88,108 @@
   "18058925891805829": 2,
   "18099731225441133": 1,
   "18111012959349698": 2,
-  "18124030310083477": 8
+  "18124030310083477": 12
  },
  "comments": {
+  "18417730114093515": {
+   "id": "18417730114093515",
+   "username": "irknik",
+   "text": "А вы мастер спорта по .....?",
+   "timestamp": "2026-11-26T07:37:21+0000",
+   "like_count": 0,
+   "hidden": false,
+   "replies": [],
+   "need_reply": true,
+   "last_id": "18417730114093515",
+   "last_from": "irknik",
+   "media_id": "18124030310083477",
+   "permalink": "https://www.instagram.com/reel/DgH2lLmGY0t/",
+   "caption": "Мышцы растут от полповтора? В одном исследовании нижняя половина подъёма на носки дала больший прирост толщины медиальной головки икроножной",
+   "queue_id": "rastyazh-povtor-a-2411",
+   "reel_time": "2026-11-24T11:35:01+0000",
+   "first_seen": "2026-11-26T10:40:26+00:00"
+  },
+  "17921743311523808": {
+   "id": "17921743311523808",
+   "username": "vlado_guru",
+   "text": "🔥🔥🔥",
+   "timestamp": "2026-11-26T05:52:05+0000",
+   "like_count": 0,
+   "hidden": false,
+   "replies": [],
+   "need_reply": false,
+   "last_id": "17921743311523808",
+   "last_from": "vlado_guru",
+   "media_id": "18130154563894944",
+   "permalink": "https://www.instagram.com/reel/DfyzmvTCCD-/",
+   "caption": "Варикоз и тренировки.",
+   "queue_id": "varikoz-1611",
+   "reel_time": "2026-11-16T08:00:09+0000",
+   "first_seen": "2026-11-26T10:40:26+00:00"
+  },
+  "18121395196811766": {
+   "id": "18121395196811766",
+   "username": "alexander_v1ch",
+   "text": "Полная амплитуда выигрышнее, кроме икры, получается",
+   "timestamp": "2026-11-26T00:44:03+0000",
+   "like_count": 0,
+   "hidden": false,
+   "replies": [],
+   "need_reply": true,
+   "last_id": "18121395196811766",
+   "last_from": "alexander_v1ch",
+   "media_id": "18124030310083477",
+   "permalink": "https://www.instagram.com/reel/DgH2lLmGY0t/",
+   "caption": "Мышцы растут от полповтора? В одном исследовании нижняя половина подъёма на носки дала больший прирост толщины медиальной головки икроножной",
+   "queue_id": "rastyazh-povtor-a-2411",
+   "reel_time": "2026-11-24T11:35:01+0000",
+   "first_seen": "2026-11-26T10:40:26+00:00"
+  },
+  "18119151062011210": {
+   "id": "18119151062011210",
+   "username": "aleksand888777",
+   "text": "Сумбурно объяснено",
+   "timestamp": "2026-11-25T15:06:46+0000",
+   "like_count": 3,
+   "hidden": false,
+   "replies": [
+    {
+     "id": "18155361346559028",
+     "username": "iron_asylum_2.0",
+     "text": "@aleksand888777 это всё фигня, можно не вникать :)",
+     "timestamp": "2026-11-26T02:25:30+0000",
+     "like_count": 0,
+     "mine": false
+    }
+   ],
+   "need_reply": true,
+   "last_id": "18155361346559028",
+   "last_from": "iron_asylum_2.0",
+   "media_id": "18124030310083477",
+   "permalink": "https://www.instagram.com/reel/DgH2lLmGY0t/",
+   "caption": "Мышцы растут от полповтора? В одном исследовании нижняя половина подъёма на носки дала больший прирост толщины медиальной головки икроножной",
+   "queue_id": "rastyazh-povtor-a-2411",
+   "reel_time": "2026-11-24T11:35:01+0000",
+   "first_seen": "2026-11-26T10:40:26+00:00"
+  },
+  "18127635820906350": {
+   "id": "18127635820906350",
+   "username": "fitm1ke",
+   "text": "Если не учить физику то кажется необычно",
+   "timestamp": "2026-11-25T12:10:13+0000",
+   "like_count": 1,
+   "hidden": false,
+   "replies": [],
+   "need_reply": true,
+   "last_id": "18127635820906350",
+   "last_from": "fitm1ke",
+   "media_id": "18124030310083477",
+   "permalink": "https://www.instagram.com/reel/DgH2lLmGY0t/",
+   "caption": "Мышцы растут от полповтора? В одном исследовании нижняя половина подъёма на носки дала больший прирост толщины медиальной головки икроножной",
+   "queue_id": "rastyazh-povtor-a-2411",
+   "reel_time": "2026-11-24T11:35:01+0000",
+   "first_seen": "2026-11-26T10:40:26+00:00"
+  },
   "17973515322193189": {
    "id": "17973515322193189",
    "username": "ian_johnson_jr",
@@ -116,9 +215,42 @@
    "timestamp": "2026-11-25T06:16:35+0000",
    "like_count": 0,
    "hidden": false,
-   "replies": [],
+   "replies": [
+    {
+     "id": "18196595347397807",
+     "username": "coach_hanna",
+     "text": "@afanasov_gym2.0 наибольшее напряжение у мышц возникает в эксцентрической фазе-тем больше амплитуда,тем выше стимул для роста..то что прирост в определенных частях выше-так организм снижает риск травмотизации-это контроль перезагибания в суставах",
+     "timestamp": "2026-11-26T07:26:03+0000",
+     "like_count": 0,
+     "mine": false
+    },
+    {
+     "id": "18152526214487990",
+     "username": "afanasov_gym2.0",
+     "text": "@coach_hanna пупупу, делаем из максимально растянутого положения",
+     "timestamp": "2026-11-26T07:56:09+0000",
+     "like_count": 0,
+     "mine": false
+    },
+    {
+     "id": "18103130507431340",
+     "username": "coach_hanna",
+     "text": "@afanasov_gym2.0 с прогрессией тока-а то мало ли;)",
+     "timestamp": "2026-11-26T08:30:32+0000",
+     "like_count": 0,
+     "mine": false
+    },
+    {
+     "id": "18116404175141637",
+     "username": "afanasov_gym2.0",
+     "text": "@coach_hanna ахахах да ок, с прогрессий ))",
+     "timestamp": "2026-11-26T09:35:36+0000",
+     "like_count": 0,
+     "mine": false
+    }
+   ],
    "need_reply": true,
-   "last_id": "18144441964628355",
+   "last_id": "18116404175141637",
    "last_from": "afanasov_gym2.0",
    "media_id": "18124030310083477",
    "permalink": "https://www.instagram.com/reel/DgH2lLmGY0t/",
@@ -150,7 +282,7 @@
    "username": "trener_voroh",
    "text": "На ком проводилось исследование ? Новички ?",
    "timestamp": "2026-11-24T12:54:38+0000",
-   "like_count": 1,
+   "like_count": 2,
    "hidden": false,
    "replies": [
     {
@@ -193,7 +325,7 @@
    "username": "inew888",
    "text": "Для икроножной у вас нижняя амплитуда не верно изображена, должна быть растяжка вниз.",
    "timestamp": "2026-11-24T12:16:16+0000",
-   "like_count": 1,
+   "like_count": 3,
    "hidden": false,
    "replies": [
     {
@@ -4317,7 +4449,7 @@
    "username": "ellie_sagittarius",
    "text": "Очень конечно интересно как взяли парней и все узнали ... А можно про женщин что то?",
    "timestamp": "2026-11-04T15:21:11+0000",
-   "like_count": 1,
+   "like_count": 2,
    "hidden": false,
    "replies": [
     {
@@ -5278,7 +5410,7 @@
    "username": "amadzing.fitness",
    "text": "Офигенное видео и всё по факту, очень доходчиво и наглядно 🔥👏",
    "timestamp": "2026-11-03T05:46:06+0000",
-   "like_count": 11,
+   "like_count": 12,
    "hidden": false,
    "replies": [
     {
@@ -5323,7 +5455,7 @@
    "username": "arseniy_volodzko",
    "text": "Чел выдал современную базу, но прибежала сотня экспертов со своим мнением",
    "timestamp": "2026-11-02T20:57:47+0000",
-   "like_count": 0,
+   "like_count": 1,
    "hidden": false,
    "replies": [
     {
@@ -5723,7 +5855,7 @@
    "username": "artemmalikhin",
    "text": "Мужик в кроссовере пытается сразу 2 плеча вывихнуть ?",
    "timestamp": "2026-11-01T13:56:01+0000",
-   "like_count": 10,
+   "like_count": 11,
    "hidden": false,
    "replies": [
     {
